@@ -1,0 +1,38 @@
+# ::::::::::::::::::::::::::::::: APPLICATIONS ::::::::::::::::::::::::::::::::::: 
+
+# Terminal
+alt + Return
+ alacritty
+
+# :::::::::::::::::::::::::::::::: WINDOW MGMT :::::::::::::::::::::::::::::::::::
+
+# Close or kill window
+alt + {_, shift +}y
+ bspc node -{c,k}
+
+# Cycle through layouts
+alt + BackSpace
+ bspc desktop -l next
+
+# Move and focus windows
+alt + {_,shift + }{j,k,h,l}
+ bspc node -{f,s} {south,north,west,east}
+
+# Cycle around windows
+alt + space
+ bspc node -f next.local.window
+
+# Switch workspaces
+alt + {_,shift + }{1-9,0}
+ bspc {desktop -f,node -d} '^{1-9,10}'
+
+# Toggle fullscreen, float or tiled
+alt + {f,e,t}
+ bspc node -t {\~fullscreen, \~floating, \~tiled}
+
+# :::::::::::::::::::::::::::::: BSPWM SPECIFIC :::::::::::::::::::::::::::::::::: 
+
+# Reload configs of sxhkd or logoff
+alt + ctrl + shift + {r,e}
+ {pkill -USR1 -x sxhkd,bspc quit}
+

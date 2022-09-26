@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+pushd $HOME/.dotfiles
+if [ "$1" == "switch" ]; then
+  echo "SWITCHING TO NEW GENERATION"
+  # sudo nixos-rebuild switch -I nixos-config=./system/configuration.nix
+  sudo nixos-rebuild switch --flake .#
+else
+  echo "BUILDING NEW GENERATION"
+  # sudo nixos-rebuild build -I nixos-config=./system/configuration.nix
+  sudo nixos-rebuild build --flake .#
+fi
+popd
