@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: code
+# key: cvr
+# --
+
+<div class="cv-row">
+    <div class="cv-column cv-label">
+        $1
+    </div>
+    <div class="cv-column cv-content">
+        $0
+    </div>
+</div>

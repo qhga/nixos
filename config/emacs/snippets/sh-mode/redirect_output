@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: redirect output
+# key: 2>
+# --
+
+1>/dev/null 2>&1

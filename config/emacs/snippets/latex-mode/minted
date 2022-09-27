@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: mint
+# key: mint
+# --
+\begin{listing}[H]
+\caption{$2}
+\label{lst:$3}
+\begin{minted}[linenos]{$1}
+$0
+\end{minted}
+\end{listing}

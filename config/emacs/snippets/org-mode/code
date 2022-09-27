@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: code
+# key: <s
+# --
+
+#+begin_src $1 :results output scalar
+$0
+#+end_src

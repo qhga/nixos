@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: figure
+# key: fig
+# --
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{images/$2}
+  \caption{$0}
+  \label{fig:$1}
+\end{figure}

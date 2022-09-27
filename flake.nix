@@ -8,20 +8,30 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      dotfiles = builtins.toString ./.;
-      nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./system/configuration.nix
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.phga = ./users/phga/home.nix;
-          }
-        ];
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
+    let
+      user = "phga";
+      dotf = "/home/${user}/.dotfiles";
+    in {
+      nixosConfigurations = {
+        dotfiles = builtins.toString ./.;
+        hisoka = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./system/configuration.nix
+            home-manager.nixosModules.home-manager {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.phga = ./users/phga/home.nix;
+                extraSpecialArgs = { inherit user dotf; };
+              };
+            }
+          ];
+	        specialArgs = {
+       	    inherit user dotf;
+          };
+        };
       };
     };
-  };
 }

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: code-sql
+# key: <sql
+# --
+
+#+begin_src sql :dbconnection 'naz :engine mysql
+$0
+#+end_src

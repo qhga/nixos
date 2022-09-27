@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: drill
+# key: <d
+# --
+*** $1 :drill:
+$2
+**** Answer

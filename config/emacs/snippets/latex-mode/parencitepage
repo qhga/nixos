@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: parencitepage
+# key: pcp
+# --
+\parencite[$2]{$1} $0

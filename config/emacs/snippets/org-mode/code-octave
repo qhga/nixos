@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: octave-graph
+# key: <so
+# required:
+# filename: pf.m
+# function ret = pf(name)
+#     picname = ['ORGPICS/' name '.png'];
+#     set(gcf,'PaperUnits','inches','PaperSize',[6,4],'PaperPosition',[0 0 6 4])
+#     print('-dpng', picname, '-r100', '-noui');
+#     ret = picname;
+#     close all;
+# end
+# --
+
+#+begin_src octave :results file
+$0
+pf('$1:graph1337');
+#+end_src

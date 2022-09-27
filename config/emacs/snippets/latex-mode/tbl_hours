@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: tabel_hours
+# key: thrs
+# --
+\begin{table}
+\centering
+\begin{tabular}{l|p{6cm}|l|l|l}
+Datum & Tätigkeit & Von & Bis & Stunden  \\
+\hline
+& & & &  \\
+\end{tabular}
+\end{table}

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: argument_parser
+# key: args
+# --
+
+parser = ArgumentParser()
+parser.add_argument("fun", choices=("a", "b"), help="The function to run")
+parser.add_argument("-f", "--fun", dest="fun", choices=("a", "b"), required=False,
+                    type=int, help="The function to run")
+parser.add_argument("-d", "--diff", dest="diff", action="store_true",
+                    help="Only show diff", )
+try: args = parser.parse_args()
+except: exit(1)

@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: args
+# key: args
+# --
+
+while getopts "d:h" opt;
+do case $opt in
+       h) echo "$help_msg" && exit ;;
+       d) deps=${OPTARG} ;; # required dependencies
+       \?) echo "$help_msg" && exit ;;
+   esac
+done
+
+shift $((OPTIND-1))
+
+[ -z $1 ] && echo "$help_msg" && exit

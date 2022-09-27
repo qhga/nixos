@@ -2,22 +2,22 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, user, dotf, ... }:
 
 {
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  # Define Hostname
+  networking.hostName = "hisoka";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -40,7 +40,7 @@
   # Enable the X11 windowing system.
   services = {
     picom.enable = true;
-   # redshift.enable = true;
+    # redshift.enable = true;
     xserver = {
       enable = true;
       displayManager = {
@@ -52,9 +52,23 @@
       windowManager.bspwm.enable = true;
       windowManager.bspwm.configFile = ../config/bspwm/bspwmrc;
       windowManager.bspwm.sxhkd.configFile = ../config/sxhkd/sxhkdrc;
-    };			
+    };
+    syncthing = {
+      enable = true;
+      inherit user;
+      dataDir = "/home/${user}";
+      configDir = "/home/${user}/.config/syncthing";
+    };
+    pipewire = {
+      enable = true;
+      wireplumber.enable = true;
+      pulse.enable = true;
+      jack.enable = true;
+      alsa.enable = true;
+    };
   };
 
+  virtualisation.docker.enable = true;
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -75,18 +89,14 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.phga = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    # packages = with pkgs; [
-    #	qutebrowser
-    #	emacs
-    # ];
+    isNormalUser = true;
+    extraGroups = [ "wheel" "docker" ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim git curl
+    vim git curl pass
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -106,7 +116,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -122,4 +132,3 @@
   system.stateVersion = "22.11"; # Did you read the comment?
 
 }
-

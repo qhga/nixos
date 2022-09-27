@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: clocktable
+# key: <ct
+# --
+
+#+BEGIN: clocktable :scope file :compact t :emphasize t :lang de :link t :block week$0
+#+END

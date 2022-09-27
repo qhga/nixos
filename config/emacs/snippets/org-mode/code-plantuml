@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: uml diagram
+# key: <uml
+# --
+#+begin_src plantuml :file ./ORGPICS/uml_`(format-time-string "%Y-%m-%dT%H:%M:%S")`.png :exports results `(unless (file-exists-p "./ORGPICS") (make-directory "./ORGPICS"))`
+'https://plantuml.com/class-diagram
+skinparam linetype ortho
+left to right direction
+$0
+#+end_src
