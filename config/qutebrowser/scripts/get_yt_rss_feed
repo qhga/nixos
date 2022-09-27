@@ -1,0 +1,32 @@
+#!/bin/python3
+# author: phga
+# date: 2021-02-18
+# desc: script to extract the rss feed url of youtube channels
+import os
+import re
+from subprocess import call, Popen, PIPE
+
+if 'QUTE_FIFO' not in os.environ:
+    print('No QUTE_FIFO')
+    sys.exit(100)
+
+def qute(cmd):
+    with open(os.environ['QUTE_FIFO'], 'w') as fifo:
+        fifo.write(f'{cmd}\n')
+        fifo.flush()
+
+url = os.environ['QUTE_URL']
+res = re.search(r'^.*/(user|channel)/(.*)$', url)
+
+if res:
+    rss_type = res.group(1) # channel | user
+    rss_id = res.group(2) # channel_id | user_name
+    if rss_type == 'channel':
+        res = f'https://www.youtube.com/feeds/videos.xml?channel_id={rss_id}'
+    else:
+        res = f'https://www.youtube.com/feeds/videos.xml?user={rss_id}'
+
+    with Popen(['xclip', '-selection', 'c'], stdin=PIPE) as p:
+        p.communicate(input=bytes(res, 'utf-8'))
+
+    qute(f'message-info "Copied {res} to Clipboard - Type: {rss_type} ID: {rss_id}"')
