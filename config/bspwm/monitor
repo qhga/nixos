@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+
+case $HOSTNAME in
+    "480")
+        outp1="eDP1"
+        outp2="HDMI2"
+        ;;
+    "hisoka")
+        case $driver in
+            "nouveau")
+                outp1="DP-1"
+                outp2="DP-2"
+                ;;
+            *)
+                outp1="DP-4"
+                outp2="DP-2"
+                ;;
+        esac
+        ;;
+esac
+
+normal() {
+    case $HOSTNAME in
+        "480")
+            xrandr --output $outp1 --primary --auto --dpi 96 --rotate normal \
+                   --output DP-2 --off --output $outp2 --off --output DP-3 --off \
+                   --output DP-1-1 --off --output DP-1-3 --off
+            bspc monitor $outp1 -d I II III IV V VI VII VIII IX X
+            bspc config -m $outp1 top_padding 30
+            ;;
+        "hisoka")
+            # nouveau
+            driver=$(lspci -vnnn | rg -A10 'GTX 980' | rg -i -o -e 'Kernel driver in use: (.*)' -r '$1')
+            case $driver in
+                "nouveau")
+                    outp="DP-1"
+                    outp2="DP-2"
+                    xrandr --dpi 96 --output $outp1 --primary --mode 1920x1080 --rate 143.85
+                    xrandr --dpi 96 --output $outp2 --mode 1920x1080 --rate 144.00
+                    ;;
+                *)
+                    outp="DP-4"
+                    outp2="DP-2"
+                    # Rest ist in nvidia-config
+                    # xrandr --dpi 96
+                    xrandr --dpi 96 --output $outp1 --primary
+                    ;;
+            esac
+
+            bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
+            bspc config -m $outp1 top_padding 30
+            bspc config -m $outp2 top_padding 0
+
+            # Disable monitor power saving
+            xset -dpms # Disables Energy Star features
+            xset s off # Disables screen saver
+            ;;
+    esac
+}
+
+dock() {
+    dp1="DP-1-1"
+    dp2="DP-1-3"
+    xrandr --output $dp1 --primary --auto --output $dp2 --auto --right-of $dp1 --output $outp1 --off
+    bspc monitor $dp1 -d I II III IV V VI VII VIII IX
+    bspc monitor $dp2 -d X
+    bspc config -m $dp1 top_padding 30
+    bspc config -m $dp2 top_padding 0
+}
+
+wacom() {
+    wac="HDMI-0"
+    xrandr --output $outp1 --primary --auto --output $outp2 --auto --output $wac --auto --same-as $outp
+    # Remove the monitor from bspc so we don't get weird nonexisting workspaces
+    bspc monitor $wac -r
+    $HOME/.dotfiles/wacom/set_buttons.sh HEAD-0
+}
+
+lwacom() {
+    xrandr --output $outp2 --primary --auto --rotate inverted --output DP-1 --auto --below $outp2 --output $outp1 --off
+    bspc monitor $outp2 -d I II III IV V VI VII VIII IX && bspc monitor DP-1 -d X
+    $HOME/.dotfiles/wacom/set_buttons.sh "DP-1"
+}
+
+lwacomOnTour() {
+    xrandr --output $outp2 --auto --output $outp1 --primary --auto --left-of $outp2
+    bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
+    $HOME/.dotfiles/wacom/set_buttons.sh "$outp2"
+}
+
+lwacomOnTourRotated() {
+    xrandr --output $outp2 --auto --rotate right --output $outp1 --primary --auto --left-of $outp2
+    bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
+    $HOME/.dotfiles/wacom/set_buttons.sh "$outp2"
+}
+
+calibrate() {
+    xrandr --output $outp1 --off --output DP-3 --auto --primary
+    bspc monitor DP-3 -d I II III IV V VI VII VIII IX X
+    $HOME/.dotfiles/wacom/set_buttons.sh
+}
+
+extend() {
+    xrandr --output $outp1 --primary --mode 1920x1080 --output $outp2 --auto --right-of $outp1
+    bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
+    bspc config -m $outp2 top_padding 0
+}
+
+praesi() {
+    # xrandr --output $outp1 --auto --output $outp2 --mode 1920x1080 --primary --auto --same-as $outp1
+    xrandr --output $outp1 --auto --output $outp2 --mode 1920x1080i --primary --auto --same-as $outp1
+    # xrandr --output $outp1 --auto --primary --output $outp2 --mode 1920x1080 --auto --same-as $outp1
+    # xrandr --output $outp1 --auto --output $outp2 --primary --auto --same-as $outp1
+    bspc monitor $outp2 -r
+    bspc monitor $outp1 -d I II III IV V VI VII VIII IX X
+}
+
+while getopts "lwnsbedphcaoO" opt;
+do case $opt in
+       w) wacom ;;
+       l) lwacom ;;
+       o) lwacomOnTour ;;
+       O) lwacomOnTourRotated ;;
+       c) calibrate ;;
+       p) praesi ;;
+       d) dock ;;
+       n) normal ;;
+       e) extend ;;
+       h) echo -e "-n: normal mode\n-s: sitting at iMac\n-m: mirror mode\n-d: dock, laptop at home\n-p: PRAESI\n-w wacom citniq" && exit ;;
+       \?) echo "-$OPTARG is not valid -h to get help" >&2 && exit ;;
+   esac
+done
+
+# sleep 1
+# MAIN_RES=$main_res $HOME/.dotfiles/lemonbar/start.sh &

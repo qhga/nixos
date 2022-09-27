@@ -8,11 +8,19 @@
 
   # NixPkgs that should be installed to the user profile
   home.packages = with pkgs; [
+    # Dependencies for scripts
+    xtitle pciutils
     # Essentials
-    btop emacs qutebrowser alacritty rofi
+    btop emacs qutebrowser alacritty rofi ripgrep
     # Audio
     mumble lxqt.pavucontrol-qt qpwgraph
   ];
+
+
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+  };
 
   home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/emacs";
   xdg.configFile."qutebrowser".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser";

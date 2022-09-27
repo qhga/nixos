@@ -1,0 +1,57 @@
+#!/bin/sh
+
+wid=$1
+class=$2
+instance=$3
+consequences=$4
+
+# DONT FORGET TO ADD & AT THE END OF COMMANDS OTHERWISE WM WILL HANG
+# get all the properties with xwininfo
+
+title=$(xtitle "$wid")
+case "$title" in
+    "Binding of Isaac"*)
+        sleep 10s # otherwise it resizes it self somehow
+        echo "state=floating rectangle=1560x1020+168-14"
+        # bspc rule -a \* -o desktop=^10 & # oneshot to desktop 0
+        # qutebrowser "https://platinumgod.co.uk/afterbirth-plus" &
+        ;;
+    *"]@$HOSTNAME")
+        echo "state=floating";;
+    *QjackCtl*)
+        echo "state=floating";;
+    Cadence|Catia)
+        echo "state=floating";;
+    "Volume Control")
+        echo "state=floating rectangle=890x600+2513+199";;
+    cg|"Volume Control")
+        echo "state=floating";;
+    Steam)
+        echo "desktop=II";;
+    "Install -"*)
+        echo "state=floating";;
+    *"Friends List"*)
+        echo "desktop=X";;
+    *Rocket*)
+        echo "desktop=I state=fullscreen";;
+    *Vampire*)
+        echo "desktop=I state=fullscreen";;
+    *Skyrim*)
+        echo "desktop=I state=fullscreen";;
+    *Signal*)
+        echo "desktop=IX";;
+    *Spotify*)
+        echo "desktop=IX";;
+        # "KeePassXC")
+        #     echo "desktop=IX"
+        #     ;;
+    *SFML*)
+        echo "state=floating";;
+esac
+
+# case "$class" in
+# 	Lutris|Liferea)
+# 		eval "$consequences"
+# 		[ "$state" ] || echo "state=pseudo_tiled"
+# 		;;
+# esac

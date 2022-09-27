@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+scriptdir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+if [ "$(ps -x | grep -c 'scratchpad')" == "1" ]; then
+    (alacritty --class scratchpad -e "$scriptdir/scratch" &)
+else
+    id=$(cat $HOME/.scratchid)
+    bspc node $id --flag hidden
+    bspc node -f $id
+fi

@@ -7,6 +7,9 @@ alt + Return
 alt + d
  rofi -show
 
+alt + s
+ $HOME/.dotfiles/config/bspwm/toggle_sp
+
 # :::::::::::::::::::::::::::::::: WINDOW MGMT :::::::::::::::::::::::::::::::::::
 
 # Close or kill window
