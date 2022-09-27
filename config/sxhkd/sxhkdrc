@@ -1,8 +1,11 @@
-# ::::::::::::::::::::::::::::::: APPLICATIONS ::::::::::::::::::::::::::::::::::: 
+# ::::::::::::::::::::::::::::::: APPLICATIONS :::::::::::::::::::::::::::::::::::
 
 # Terminal
 alt + Return
  alacritty
+
+alt + d
+ rofi -show
 
 # :::::::::::::::::::::::::::::::: WINDOW MGMT :::::::::::::::::::::::::::::::::::
 
@@ -30,9 +33,8 @@ alt + {_,shift + }{1-9,0}
 alt + {f,e,t}
  bspc node -t {\~fullscreen, \~floating, \~tiled}
 
-# :::::::::::::::::::::::::::::: BSPWM SPECIFIC :::::::::::::::::::::::::::::::::: 
+# :::::::::::::::::::::::::::::: BSPWM SPECIFIC ::::::::::::::::::::::::::::::::::
 
 # Reload configs of sxhkd or logoff
 alt + ctrl + shift + {r,e}
  {pkill -USR1 -x sxhkd,bspc quit}
-

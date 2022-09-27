@@ -8,11 +8,17 @@
 
   # NixPkgs that should be installed to the user profile
   home.packages = with pkgs; [
-    btop emacs qutebrowser alacritty mumble rofi
+    # Essentials
+    btop emacs qutebrowser alacritty rofi
+    # Audio
+    mumble lxqt.pavucontrol-qt qpwgraph
   ];
-  
+
   home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/emacs";
   xdg.configFile."qutebrowser".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser";
+  xdg.configFile."rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/rofi";
+  xdg.configFile."bspwm".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bspwm";
+  xdg.configFile."sxhkd".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/sxhkd";
 
   # I added this by hand, because I never installed standalone home-manager
   home.stateVersion = "22.11";

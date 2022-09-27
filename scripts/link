@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+ln -sf $HOME/sync/pw $HOME/.password-store
+ln -sf $HOME/sync/ssh $HOME/.ssh
