@@ -1,27 +1,10 @@
 #!/usr/bin/env bash
 
-case $HOSTNAME in
-    "480")
-        outp1="eDP1"
-        outp2="HDMI2"
-        ;;
-    "hisoka")
-        case $driver in
-            "nouveau")
-                outp1="DP-1"
-                outp2="DP-2"
-                ;;
-            *)
-                outp1="DP-4"
-                outp2="DP-2"
-                ;;
-        esac
-        ;;
-esac
-
 normal() {
     case $HOSTNAME in
         "480")
+            outp1="eDP1"
+            outp2="HDMI2"
             xrandr --output $outp1 --primary --auto --dpi 96 --rotate normal \
                    --output DP-2 --off --output $outp2 --off --output DP-3 --off \
                    --output DP-1-1 --off --output DP-1-3 --off
@@ -33,13 +16,13 @@ normal() {
             driver=$(lspci -vnnn | rg -A10 'GTX 980' | rg -i -o -e 'Kernel driver in use: (.*)' -r '$1')
             case $driver in
                 "nouveau")
-                    outp="DP-1"
+                    outp1="DP-1"
                     outp2="DP-2"
                     xrandr --dpi 96 --output $outp1 --primary --mode 1920x1080 --rate 143.85
                     xrandr --dpi 96 --output $outp2 --mode 1920x1080 --rate 144.00
                     ;;
                 *)
-                    outp="DP-4"
+                    outp1="DP-4"
                     outp2="DP-2"
                     # Rest ist in nvidia-config
                     # xrandr --dpi 96
@@ -131,5 +114,4 @@ do case $opt in
    esac
 done
 
-# sleep 1
-# MAIN_RES=$main_res $HOME/.dotfiles/lemonbar/start.sh &
+$HOME/.dotfiles/config/lemonbar/start.sh &

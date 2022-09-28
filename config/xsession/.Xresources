@@ -1,0 +1,30 @@
+! Term settings
+*.font:       -UNKN-Ttyp0-normal-normal-normal-*-17-*-*-*-m-*-iso10646-1
+*.termname:   xterm-256color
+! Colors
+! Normal colors
+*.black:      #000306
+*.red:        #ed474a
+*.green:      #a5cc69
+*.yellow:     #fdaa3a
+*.blue:       #64bfd6
+*.magenta:    #b95f8a
+*.cyan:       #a2dfed
+*.white:      #c3c9e9
+! Bold colors
+*.b_black:    #2F414F
+*.b_red:      #ed474a
+*.b_green:    #a5cc69
+*.b_yellow:   #fdaa3a
+*.b_blue:     #64bfd6
+*.b_magenta:  #b95f8a
+*.b_cyan:     #a2dfed
+*.b_white:    #c3c9e9
+! Special colors
+*.error:      #FFC0CB
+*.warning:    #FF8C00
+*.success:    #00FF00
+*.info:       #fdaa3a
+*.background: #0d1f2d
+*.bg_alt:     #2F414F
+*.foreground: #c3c9e9

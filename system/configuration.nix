@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, user, dotf, ... }:
+{ config, lib, pkgs, user, dotf, ... }:
 
 {
   # Enable Flakes
@@ -78,6 +78,23 @@
     };
     xserver = {
       enable = true;
+      config = lib.mkAfter ''
+Section "Screen"
+    Identifier     "Screen0"
+    Device         "Device0"
+    Monitor        "Monitor0"
+    DefaultDepth    24
+    Option         "Stereo" "0"
+    Option         "nvidiaXineramaInfoOrder" "DFP-6"
+    Option         "metamodes" "DP-2: 1920x1080_100 +1920+0, DP-4: 1920x1080_144 +0+0"
+    Option         "SLI" "Off"
+    Option         "MultiGPU" "Off"
+    Option         "BaseMosaic" "off"
+    SubSection     "Display"
+        Depth       24
+    EndSubSection
+EndSection
+      '';
       layout = "us";
       xkbVariant = "altgr-intl";
       xkbOptions = "caps:escape";

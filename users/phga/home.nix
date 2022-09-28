@@ -9,13 +9,14 @@
   # NixPkgs that should be installed to the user profile
   home.packages = with pkgs; [
     # Dependencies for scripts
-    xtitle pciutils
+    xtitle pciutils xdo acpi libnotify dunst
     # Essentials
-    btop emacs qutebrowser alacritty rofi ripgrep
+    btop emacs qutebrowser alacritty rofi ripgrep lemonbar-xft trayer
     # Audio
     mumble lxqt.pavucontrol-qt qpwgraph
   ];
 
+  qt.style.name = "cleanlooks";
 
   services.emacs = {
     enable = true;
