@@ -1,30 +1,37 @@
 { config, pkgs, user, dotf, ... }:
 
 {
+
+  imports = [
+    ../../modules/editors/emacs
+  ];
+
   home = {
     username = "phga";
     homeDirectory = "/home/phga";
+    pointerCursor = {
+      x11.enable = true;
+      name = "Bibata-Original-Amber";
+      package = pkgs.bibata-cursors;
+      size = 16;
+    };
   };
+
+  qt.style.name = "cleanlooks";
 
   # NixPkgs that should be installed to the user profile
   home.packages = with pkgs; [
     # Dependencies for scripts
     xtitle pciutils xdo acpi libnotify dunst tree
     # Essentials
-    btop emacs qutebrowser alacritty rofi ripgrep lemonbar-xft trayer pinentry-qt
+    btop qutebrowser alacritty rofi ripgrep lemonbar-xft trayer pinentry-qt
     # Audio
     mumble lxqt.pavucontrol-qt qpwgraph
     # Social
     signal-desktop
   ];
 
-  qt.style.name = "cleanlooks";
-
   services = {
-    emacs = {
-      enable = true;
-      defaultEditor = true;
-    };
     spotifyd = {
       enable = true;
       settings = {
@@ -41,8 +48,7 @@
   # This is evil
   home.file.".bashrc".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bash/bashrc";
   home.file.".bash_aliases".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bash/bash_aliases";
-  home.file.".emacs.d".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/emacs";
-  home.file.".Xresources".source = ../../config/xsession/.Xresources;
+  # home.file.".Xresources".source = ../../config/xsession/.Xresources;
 
   xdg.configFile."qutebrowser".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser";
   xdg.configFile."rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/rofi";

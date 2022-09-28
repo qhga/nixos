@@ -21,6 +21,7 @@
 
   imports = [
     ./hardware-configuration.nix
+    # ../modules/editors/emacs
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -91,23 +92,6 @@
     };
     xserver = {
       enable = true;
-      config = lib.mkAfter ''
-Section "Screen"
-    Identifier     "Screen0"
-    Device         "Device0"
-    Monitor        "Monitor0"
-    DefaultDepth    24
-    Option         "Stereo" "0"
-    Option         "nvidiaXineramaInfoOrder" "DFP-6"
-    Option         "metamodes" "DP-2: 1920x1080_100 +1920+0, DP-4: 1920x1080_144 +0+0"
-    Option         "SLI" "Off"
-    Option         "MultiGPU" "Off"
-    Option         "BaseMosaic" "off"
-    SubSection     "Display"
-        Depth       24
-    EndSubSection
-EndSection
-      '';
       layout = "us";
       xkbVariant = "altgr-intl";
       xkbOptions = "caps:escape";
@@ -115,8 +99,15 @@ EndSection
       displayManager = {
         defaultSession = "none+bspwm";
         lightdm.enable = true;
-        lightdm.greeters.mini.enable = true;
-        lightdm.greeters.mini.user = "phga";
+        lightdm.greeters = {
+          mini.enable = true;
+          mini.user = "phga";
+          gtk.cursorTheme = {
+            name = "Bibata-Original-Amber";
+            package = pkgs.bibata-cursors;
+            size = 16;
+          };
+        };
       };
       windowManager.bspwm.enable = true;
     };

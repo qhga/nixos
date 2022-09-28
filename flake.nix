@@ -14,7 +14,6 @@
       dotf = "/home/${user}/.dotfiles";
     in {
       nixosConfigurations = {
-        dotfiles = builtins.toString ./.;
         hisoka = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
