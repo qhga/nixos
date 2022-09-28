@@ -17,3 +17,5 @@ bspc rule -a "Emacs" state=tiled follow=on
 bspc rule -a "GNU Octave" state=floating
 # Scratchpad (For st change to "scratchpad:*:*")
 bspc rule -a "*:scratchpad" sticky=on state=floating hidden=off rectangle=1912x440+4+4
+
+bspc config external_rules_command "$scriptdir/external_rules"

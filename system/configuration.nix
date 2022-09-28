@@ -144,6 +144,7 @@ EndSection
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryFlavor = "qt";
   };
 
   # List services that you want to enable:

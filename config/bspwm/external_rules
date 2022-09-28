@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 wid=$1
 class=$2
@@ -16,7 +16,7 @@ case "$title" in
         # bspc rule -a \* -o desktop=^10 & # oneshot to desktop 0
         # qutebrowser "https://platinumgod.co.uk/afterbirth-plus" &
         ;;
-    *"]@$HOSTNAME")
+    *"]@$HOSTNAME"*)
         echo "state=floating";;
     *QjackCtl*)
         echo "state=floating";;
@@ -24,8 +24,6 @@ case "$title" in
         echo "state=floating";;
     "Volume Control")
         echo "state=floating rectangle=890x600+2513+199";;
-    cg|"Volume Control")
-        echo "state=floating";;
     Steam)
         echo "desktop=II";;
     "Install -"*)
@@ -42,16 +40,6 @@ case "$title" in
         echo "desktop=IX";;
     *Spotify*)
         echo "desktop=IX";;
-        # "KeePassXC")
-        #     echo "desktop=IX"
-        #     ;;
     *SFML*)
         echo "state=floating";;
 esac
-
-# case "$class" in
-# 	Lutris|Liferea)
-# 		eval "$consequences"
-# 		[ "$state" ] || echo "state=pseudo_tiled"
-# 		;;
-# esac

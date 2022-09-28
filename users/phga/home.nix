@@ -11,7 +11,7 @@
     # Dependencies for scripts
     xtitle pciutils xdo acpi libnotify dunst
     # Essentials
-    btop emacs qutebrowser alacritty rofi ripgrep lemonbar-xft trayer
+    btop emacs qutebrowser alacritty rofi ripgrep lemonbar-xft trayer pinentry-qt
     # Audio
     mumble lxqt.pavucontrol-qt qpwgraph
   ];
