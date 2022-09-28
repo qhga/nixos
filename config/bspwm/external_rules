@@ -26,11 +26,11 @@ case "$title" in
         echo "state=floating rectangle=890x600+2513+199";;
     Steam)
         echo "desktop=II";;
-    "Install -"*)
+    "Install - "*|"Updating "*|"Ready - "*|*" - Steam"|"Properties - "*)
         echo "state=floating";;
     *"Friends List"*)
         echo "desktop=X";;
-    *Rocket*)
+    "Rocket League "*)
         echo "desktop=I state=fullscreen";;
     *Vampire*)
         echo "desktop=I state=fullscreen";;

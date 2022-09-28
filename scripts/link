@@ -3,10 +3,3 @@
 # Required for basic functionality
 ln -sf $HOME/sync/pw $HOME/.password-store
 ln -sf $HOME/sync/ssh $HOME/.ssh
-
-# Required for eye candy
-# User fonts
-[ ! -d $HOME/.local/share/fonts ] && mkdir -p $HOME/.local/share/fonts
-ln -sfn $HOME/.dotfiles/config/fonts/otb $HOME/.local/share/fonts/
-# Xresources
-ln -sf $HOME/.dotfiles/config/xsession/.Xresources $HOME/

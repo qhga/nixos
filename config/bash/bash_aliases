@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+dots="$HOME/.dotfiles/config"
+dotscr="$HOME/.dotfiles/scripts"
+alias bye='shutdown now'
+alias ls='ls --color=auto --group-directories-first'
+alias lb='lsblk -o "name,fstype,label,fssize,fsavail,fsuse%,mountpoint"'
+alias grep='grep --color=auto'
+alias ll='ls -alSFhv'
+alias la='ls -AG'
+alias l='ls -CF'
+alias rm='rm -I --preserve-root'
+alias monitor='$dots/bspwm/monitor'
+alias switch-yubi='gpg-connect-agent "scd serialno" "learn --force" /bye'
+alias lp='lp -h 10.10.10.3:631 -d HLL2350DW'
+alias copy='rsync -avhW --no-compress --progress --ignore-errors'
+alias java_new_project='$dotscr/java/create_project'
+alias docker_stop_all='docker stop $(docker ps -q)'
+alias youtube-dl='yt-dlp'
+alias pnt='$dotscr/pnt'

@@ -1,0 +1,311 @@
+#!/usr/bin/env bash
+# Author: phga <phga@posteo.de>
+# Date: 2021-12-22
+scriptdir=$( cd "$( dirname "$0" )" && pwd )
+scriptname=$(basename "$0")
+G='\033[0;32m'
+R='\033[0;31m'
+N='\033[0m' # Normal
+help_msg="
+Usage: $scriptname [OPTION]... ARTIFACT_ID
+
+Where ARTIFACT_ID is the name of the project, e.g. my-wildfly-process
+
+Options:
+  -g Group ID (Organization) : default=de.phga
+  -a Archtype : default=maven-archetype-quickstart others: camunda-archetype-servlet-war
+  -v Archtype Version : default=1.4
+  -G Archtype Group ID: default=org.apache.maven.archetypes
+  -d dep1,dep2,... : e.g. activemq-all
+  -p plugin1,plugin2,... : default=maven-war-plugin
+  -t Project type : default=simple others: camel, camunda
+
+  If TYPE is set, the other values are set to defaults that are necessary
+  to start a project with that archtype
+
+  -D show available dependencies
+  -P show availabel plugins
+"
+
+declare -A plugin_def=(
+    [sample-plugin]='\
+      <plugin>\
+        <groupId>org.apache.maven.plugins</groupId>\
+        <artifactId>maven-war-plugin</artifactId>\
+        <version>3.3.1</version>\
+      </plugin>\
+'
+    [maven-assembly-plugin]='\
+                <plugin>\
+                    <artifactId>maven-assembly-plugin</artifactId>\
+                    <configuration>\
+                        <archive>\
+                            <manifest>\
+                                <mainClass>MAINCLASS_PLACEHOLDER</mainClass>\
+                            </manifest>\
+                        </archive>\
+                        <descriptorRefs>\
+                            <descriptorRef>jar-with-dependencies</descriptorRef>\
+                        </descriptorRefs>\
+                    </configuration>\
+                </plugin>\
+'
+)
+
+declare -A dep_def=(
+    [sample-dep]="\n <dependency>\n <groupId>org.apache.activemq</groupId>\n <artifactId>activemq-all</artifactId>\n <version>5.16.3</version>\n </dependency>\n "
+)
+
+show_plugins() {
+    echo ""
+    for plugin in "${!plugin_def[@]}"; do
+        echo "$plugin"
+    done
+    echo ""
+    exit
+}
+
+show_deps() {
+    echo ""
+    for dep in "${!dep_def[@]}"; do
+        echo "$dep"
+    done
+    echo ""
+    exit
+}
+
+while getopts "g:a:v:p:d:t:hPD" opt;
+do case $opt in
+       h) echo "$help_msg" && exit ;;
+       g) group_id=${OPTARG} ;; # organization
+       a) archtype=${OPTARG} ;; # archtype (project template for folder & pom)
+       G) archtype_group_id=${OPTARG} ;;
+       v) archtype_version=${OPTARG} ;; # version for archtype
+       p) plugins=${OPTARG} ;; # required plugins
+       d) deps=${OPTARG} ;; # required dependencies
+       t) ptype=${OPTARG} ;;
+       P) show_plugins ;;
+       D) show_deps ;;
+       \?) echo "$help_msg" && exit ;;
+   esac
+done
+
+shift $((OPTIND-1))
+
+[ -z $1 ] && echo "$help_msg" && exit
+
+check_plugins() {
+    plugin_str=$1
+
+    [ -z $plugin_str ] && return
+
+    readarray -d ',' -t _plugins <<< "$plugin_str"
+    for plugin in "${_plugins[@]}"; do
+        plugin=$(echo $plugin | tr -d '\n')
+        if [ ! -v plugin_def["$plugin"] ]; then
+            echo -e "${R}Plugin '$plugin' not found...${N} Available plugins are:"
+            show_plugins
+            exit
+        fi
+    done
+}
+
+check_deps() {
+    dep_str=$1
+
+    [ -z $dep_str ] && return
+
+    readarray -d ',' -t _deps <<< "$dep_str"
+    for dep in "${_deps[@]}"; do
+        dep=$(echo $dep | tr -d '\n')
+        if [ ! -v dep_def["$dep"] ]; then
+            echo -e "${R}Dependency '$dep' not found...${N} Available dependencies are:"
+            show_deps
+            exit
+        fi
+    done
+}
+
+add_plugins() {
+    plugin_str=$1
+    pomfile=$2
+    m_plugins=''
+
+    readarray -d ',' -t _plugins <<< "$plugin_str"
+    for plugin in "${_plugins[@]}"; do
+        plugin=$(echo $plugin | tr -d '\n')
+        m_plugins=$m_plugins"${plugin_def[$plugin]}"
+    done
+
+    missing_plugins='<!-- BEGIN: Added by script -->\
+                    '"$m_plugins"'\
+                     <!-- END: Added by script -->\
+'
+
+    sed -i "/<plugins>/a $missing_plugins" $pomfile
+}
+
+add_dependencies() {
+    dep_str=$1
+    pomfile=$2
+    m_deps=''
+
+    readarray -d ',' -t _deps <<< "$dep_str"
+    for dep in "${_deps[@]}"; do
+        dep=$(echo $dep | tr -d '\n')
+        m_deps=$m_deps"${dep_def[$dep]}"
+    done
+
+    missing_deps="\n<\!-- BEGIN: Added by script -->\n$m_deps\n<\!-- END: Added by script -->\n"
+
+
+    # echo "$missing_deps"
+    # Insert after the second (2) occurrence of dependencies
+    # The & also appends the otherwise replaced <dependencies>
+    # Changed / to | to avoid problems with closing tags
+    sed -i -z "s|<dependencies>|&\n$missing_deps|2 " $pomfile
+}
+
+add_property() {
+    property=$1
+    pomfile=$2
+    # Insert after the second (2) occurrence of dependencies
+    # The & also appends the otherwise replaced <dependencies>
+    sed -i "/<\/properties>/i $property" $pomfile
+}
+
+artifact_id=$1
+ptype=${ptype:=simple}
+
+group_id=${group_id:=de.phga} # organization
+package_artifact_id=$(echo $artifact_id | tr - _)
+package_name=$group_id.$package_artifact_id
+
+case "$ptype" in
+    "simple")
+        archtype_group_id=${archtype_group_id:=org.apache.maven.archetypes}
+        archtype=${archtype:=maven-archetype-quickstart} # archtype
+        archtype_version=${archtype_version:=1.4}
+        if [ -z $plugins ]; then
+            plugins="maven-assembly-plugin"
+        else
+            plugins="$plugins,maven-assembly-plugin"
+        fi
+        ;;
+    "camunda")
+        archtype_group_id=${archtype_group_id:=org.camunda.bpm.archetype}
+        archtype=${archtype:=camunda-archetype-servlet-war} # archtype
+        archtype_version=${archtype_version:=7.16.0}
+        if [ -z $plugins ]; then
+            plugins="maven-war-plugin"
+        else
+            plugins="$plugins,maven-war-plugin"
+        fi
+        if [ -z $deps ]; then
+            deps="activemq-all"
+        else
+            deps="$deps,activemq-all"
+        fi
+        ;;
+    "camel")
+        archtype_group_id=${archtype_group_id:=org.apache.camel.archetypes}
+        archtype=${archtype:=camel-archetype-java} # archtype
+        archtype_version=${archtype_version:=3.14.0}
+        plugins=${plugins:=""}
+        if [ -z $deps ]; then
+            deps="camel-jms,camel-activemq,camel-jsonpath,camel-jackson,camel-xstream"
+            # deps="camel-jms"
+        else
+            deps="$deps,camel-jms,camel-activemq,camel-jsonpath,camel-jackson,camel-xstream"
+        fi
+        ;;
+esac
+
+deps="$deps"
+pomfile="$artifact_id/pom.xml"
+
+check_plugins "$plugins"
+check_deps "$deps"
+
+info_msg="
+Generating the following config:
+
+Archtype Group ID: $archtype_group_id
+Archtype:          $archtype
+Archtype Version:  $archtype_version
+Artifact ID:       $artifact_id
+Group ID:          $group_id
+Package:           $package_name
+Plugins:           $plugins
+Dependencies:      $deps
+"
+
+echo "$info_msg"
+
+mvn archetype:generate \
+    -DinteractiveMode=false \
+    -DarchetypeGroupId=$archtype_group_id \
+    -DarchetypeArtifactId=$archtype \
+    -DarchetypeVersion=$archtype_version \
+    -DgroupId=$group_id \
+    -DartifactId=$artifact_id \
+    -Dversion=0.0.1-SNAPSHOT \
+    -Dpackage=$package_name
+
+[ $? != 0 ] && echo "Error while creating maven project" && exit
+
+echo "Adjusting pom.xml..."
+
+[ ! -z $plugins ] && add_plugins $plugins $pomfile
+[ ! -z $deps ] && add_dependencies $deps $pomfile
+
+case "$ptype" in
+    "simple")
+        main_class='\
+        <configuration>\
+            <archive>\
+                <manifest>\
+                    <mainClass>'"$package_name"'.App</mainClass>\
+                </manifest>\
+            </archive>\
+        </configuration>\
+        '
+        sed -i "/<artifactId>maven-jar-plugin<\/artifactId>/a $main_class" $pomfile
+
+        sed -i 's/MAINCLASS_PLACEHOLDER/'"$package_name"'.App/' $pomfile
+
+        sed -i 's/<maven.compiler.source>1.7<\/maven.compiler.source>/<maven.compiler.source>17<\/maven.compiler.source>/' $pomfile
+        sed -i 's/<maven.compiler.target>1.7<\/maven.compiler.target>/<maven.compiler.target>17<\/maven.compiler.target>/' $pomfile
+        ;;
+    "camunda")
+        add_property "<skipTests>true</skipTests>" $pomfile
+        ;;
+    "camel")
+        add_property "<skipTests>true</skipTests>" $pomfile
+        add_property "<camel-version>$archtype_version</camel-version>" $pomfile
+        ;;
+esac
+
+
+echo "Creating .dir-locals.el (for emacs users)"
+
+case "$ptype" in
+    "simple")
+        echo '((nil . ((projectile-project-install-cmd . "mvn -B clean compile assembly:single && java -jar target/*.jar"))))' > "$artifact_id/.dir-locals.el"
+    ;;
+    "camunda")
+        echo '((nil . ((projectile-project-install-cmd . "mvn -B clean install && cp target/*.war /srv/camunda/deployments/"))))' > "$artifact_id/.dir-locals.el"
+
+        echo -e "
+${R}Do not forget to edit $artifact_id/src/main/resources/process.bpmn${N}
+"
+        ;;
+    *)
+        echo '((nil . ((projectile-project-install-cmd . "mvn -B clean install"))))' > "$artifact_id/.dir-locals.el"
+
+        ;;
+esac
+
+echo -e "
+${G}Project created successfully!!!${N}
+"

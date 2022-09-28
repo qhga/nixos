@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Some steps have to be done manually after a fresh installation
+# This script is meant to guide me through all of these steps so I do not forget anything
+
+# Add sync folder to syncthing (mayb automate this via nix)
+[ -d $HOME/Sync ] && rm -r $HOME/Sync
+qutebrowser http://10.10.10.3:9004/
+qutebrowser http://127.0.0.1:8384/

@@ -5,8 +5,19 @@
 { config, lib, pkgs, user, dotf, ... }:
 
 {
-  # Enable Flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Enable flakes & auto gc after 15 days
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+    };
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 15d";
+    };
+  };
+
 
   imports = [
     ./hardware-configuration.nix
@@ -59,6 +70,8 @@
   nixpkgs.config.allowUnfree = true;
   hardware.opengl.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+  fonts.fonts = with pkgs; [ hack-font unifont unifont_upper freefont_ttf font-awesome ];
 
   location = {
     provider = "manual";
@@ -135,18 +148,20 @@ EndSection
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    vim git curl pass
+    vim git curl pass papirus-icon-theme
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryFlavor = "qt";
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "qt";
+    };
+    steam.enable = true;
   };
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.

@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=pw
+Exec=/home/phga/.dotfiles/scripts/rofi_pass/pw.sh
+Icon=pw
