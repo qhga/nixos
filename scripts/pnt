@@ -6,6 +6,8 @@ if [ "$1" == "switch" ]; then
   time sudo nixos-rebuild switch --flake .#
 elif [ "$1" == "update" ]; then
   sudo nix flake update .#
+elif [ "$1" == "list" ]; then
+  sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 else
   echo "BUILDING NEW GENERATION"
   # sudo nixos-rebuild build -I nixos-config=./system/configuration.nix
