@@ -2,37 +2,39 @@
 scriptdir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 scripts="$scriptdir/scripts"
 ## Colors
-black=$(xrdb -query | rg -e "\.black:" | cut -f 2)
-red=$(xrdb -query | rg -e "\.red:" | cut -f 2)
-green=$(xrdb -query | rg -e "\.green:" | cut -f 2)
-yellow=$(xrdb -query | rg -e "\.yellow:" | cut -f 2)
-blue=$(xrdb -query | rg -e "\.blue:" | cut -f 2)
-magenta=$(xrdb -query | rg -e "\.magenta:" | cut -f 2)
-cyan=$(xrdb -query | rg -e "\.cyan:" | cut -f 2)
-white=$(xrdb -query | rg -e "\.white:" | cut -f 2)
-# bright
-b_black=$(xrdb -query | rg -e "\.b_black:" | cut -f 2)
-b_red=$(xrdb -query | rg -e "\.b_red:" | cut -f 2)
-b_green=$(xrdb -query | rg -e "\.b_green:" | cut -f 2)
-b_yellow=$(xrdb -query | rg -e "\.b_yellow:" | cut -f 2)
-b_blue=$(xrdb -query | rg -e "\.b_blue:" | cut -f 2)
-b_magenta=$(xrdb -query | rg -e "\.b_magenta:" | cut -f 2)
-b_cyan=$(xrdb -query | rg -e "\.b_cyan:" | cut -f 2)
-b_white=$(xrdb -query | rg -e "\.b_white:" | cut -f 2)
+# black=$(xrdb -query | rg -e "\.black:" | cut -f 2)
+# red=$(xrdb -query | rg -e "\.red:" | cut -f 2)
+# green=$(xrdb -query | rg -e "\.green:" | cut -f 2)
+# yellow=$(xrdb -query | rg -e "\.yellow:" | cut -f 2)
+# blue=$(xrdb -query | rg -e "\.blue:" | cut -f 2)
+# magenta=$(xrdb -query | rg -e "\.magenta:" | cut -f 2)
+# cyan=$(xrdb -query | rg -e "\.cyan:" | cut -f 2)
+# white=$(xrdb -query | rg -e "\.white:" | cut -f 2)
+# # bright
+# b_black=$(xrdb -query | rg -e "\.b_black:" | cut -f 2)
+# b_red=$(xrdb -query | rg -e "\.b_red:" | cut -f 2)
+# b_green=$(xrdb -query | rg -e "\.b_green:" | cut -f 2)
+# b_yellow=$(xrdb -query | rg -e "\.b_yellow:" | cut -f 2)
+# b_blue=$(xrdb -query | rg -e "\.b_blue:" | cut -f 2)
+# b_magenta=$(xrdb -query | rg -e "\.b_magenta:" | cut -f 2)
+# b_cyan=$(xrdb -query | rg -e "\.b_cyan:" | cut -f 2)
+# b_white=$(xrdb -query | rg -e "\.b_white:" | cut -f 2)
 
+one_color="#ffffff"
 aa=ff # opacity ff = not transparent
-bg=$(xrdb -query | rg "background" | cut -f 2)
-bg_alt=$(xrdb -query | rg "bg_alt" | cut -f 2)
-fg=$(xrdb -query | rg "foreground" | cut -f 2)
-fg_alt=$b_white
+bg="#000000$aa"
+bg_alt=$one_color
+fg=$one_color
+fg_alt=$one_color
 
-fg_occupied=$cyan
-fg_urgent=$blue
-fg_good=$green
-fg_info=$magenta
-fg_warning=$yellow
-fg_error=$red
-fg_last_focused=$green
+yellow=$one_color
+fg_occupied=$one_color
+fg_urgent=$one_color
+fg_good=$one_color
+fg_info=$one_color
+fg_warning=$one_color
+fg_error=$one_color
+fg_last_focused=$one_color
 
 gap=4
 x_width=$(xrandr -q | rg -A8 "primary" | rg -o -e "(\d+)x.*\*" -r '$1' || echo 1920)
@@ -296,23 +298,12 @@ _panel() {
 		    _panel_layout() {
             local left middle right LSPC RSPC
 
-            # LSPC="%{F$bg}%{T3}%{T-}%{F-}"
-            # RSPC="%{F$bg}%{T3}%{T-}%{F-}"
-            # MRSP="%{F$bg}%{T3}%{T-}%{F-}"
-            # MLSP="%{F$bg}%{T3}%{T-}%{F-}"
-
-            # LSPC="%{F$bg}%{T3}%{T-}%{F-}"
-            # RSPC="%{F$bg}%{T3}%{T-}%{F-}"
-            # MRSP="%{F$bg}%{T3}%{T-}%{F-}"
-            # MLSP="%{F$bg}%{T3}%{T-}%{F-}"
-
             # left="%{B$bg} $wm%{B-}$RSPC"
             left="%{B$bg} $wm $(_window_title) %{B-}$RSPC"
             # middle="$MLSP%{B$bg} $(_window_title) %{B-}$MRSP"
             right="$LSPC%{B$bg}$(_rescue_term) $bat $net $therm $date$tr%{B-}"
 
 			      echo "%{l} $left%{c}$middle%{r}$right  "
-            #            
 		    }
 		    printf "%s\n" "%{Sf}$(_panel_layout)"
 	  done
@@ -325,28 +316,13 @@ _panel < "$in_fifo" | lemonbar -u 1 -p -g "${width}x${height}+$gap+$gap" -F "$fg
 
 sh < "$out_fifo" &
 
+# The -l Flag is important so it is below other windows
+trayer --edge top --align center --widthtype request --height 16 --alpha 255 --transparent true --expand false --margin 4 --padding 0 --SetPartialStrut true --SetDockType true --distance 9 -l &
+
 # https://github.com/baskerville/bspwm/issues/484
 until bar_id=$(xdo id -a 'lemon'); do
 	  sleep 1s
 done
 
-xdo below -t $(xdo id -n root) $bar_id &
-
-# START trayer: can be transparent when alpha is set to 255 (did not work with this setup because it starts faster then lemonbar)
-trayer --edge top --align center --widthtype request --height 16 --tint 0x$aa${bg:1} --transparent true --expand false --SetDockType true --alpha 0 --margin 4 --padding 0 --SetPartialStrut false --distance 9 &
-
-# My beautiful hack to get trayer and lemonbar aligned
-# _tray() {
-#     local tray_w tray_spacer
-#     tray_w=$(xprop -name panel -f WM_SIZE_HINTS 32i ' $5\n' | rg -e ".*WM_SIZE_HINTS.* (\d+)" -r '$1')
-#     tray_spacer=$(head -c $tray_w < /dev/zero | tr '\0' '\170')
-#     echo "%{F$bg}%{T3}$tray_spacer%{T-}%{F-}"
-# }
-
-
-# # mpd control
-# prev="%{A:$scripts/mpc.sh p:}玲%{A}"
-# start="%{A:$scripts/mpc.sh s:}契%{A}"
-# stop="%{A:$scripts/mpc.sh S:}%{A}"
-# next="%{A:$scripts/mpc.sh n:}怜%{A}"
-# music_control=" %{T2}$prev $stop $start $next%{T-}"
+xdo below -t $(xdo id -n root) $bar_id &  # Move below bspwm
+xdo below -t $(xdo id -n panel) $bar_id & # Move below trayer

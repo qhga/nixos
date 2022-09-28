@@ -15,10 +15,10 @@
   (interactive)
   (dired "/sudo:nsv1:/"))
 
-(defun phga/connect-to-nsv2()
+(defun phga/connect-to-helium()
   "Connect to our server"
   (interactive)
-  (dired "/sudo:nsv2:/"))
+  (dired "/sudo:helium:/"))
 
 (defun phga/connect-to-naz()
   "Connect to our server"

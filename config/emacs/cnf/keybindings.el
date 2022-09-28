@@ -110,7 +110,7 @@
   ;; remote tramp
   "e r" '(:ignore t :which-key "Edit Remote Files")
   "e r 1" '(phga/connect-to-nsv1 :which-key "edit files on nsv1")
-  "e r 2" '(phga/connect-to-nsv2 :which-key "edit files on nsv2")
+  "e r h" '(phga/connect-to-helium :which-key "edit files on helium")
   "e r g" '(phga/connect-to-glou :which-key "edit files on glou")
   "e r p" '(phga/connect-to-pihole :which-key "edit files on pihole")
   "e r n" '(phga/connect-to-naz :which-key "edit files on naz")
