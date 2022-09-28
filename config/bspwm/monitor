@@ -16,17 +16,16 @@ normal() {
             driver=$(lspci -vnnn | rg -A10 'GTX 980' | rg -i -o -e 'Kernel driver in use: (.*)' -r '$1')
             case $driver in
                 "nouveau")
-                    outp1="DP-1"
-                    outp2="DP-2"
-                    xrandr --dpi 96 --output $outp1 --primary --mode 1920x1080 --rate 143.85
-                    xrandr --dpi 96 --output $outp2 --mode 1920x1080 --rate 144.00
+                    outp1="DP-2"
+                    outp2="DP-1"
+                    xrandr --dpi 96 --output $outp1 --primary --mode 1920x1080 --rate 144.0 --output $outp2 --right-of $outp1 --mode 1920x1080 --rate 119.98
                     ;;
                 *)
                     outp1="DP-4"
                     outp2="DP-2"
-                    # Rest ist in nvidia-config
-                    # xrandr --dpi 96
-                    xrandr --dpi 96 --output $outp1 --primary
+                    # Rest was in  nvidia-config but I ditched it for this
+                    xrandr --dpi 96 --output $outp1 --primary --mode 1920x1080 --rate 144.0 --output $outp2 --right-of $outp1 --mode 1920x1080 --rate 119.98
+                    # xrandr --dpi 96 --output $outp1 --primary
                     ;;
             esac
 

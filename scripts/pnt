@@ -4,6 +4,8 @@ if [ "$1" == "switch" ]; then
   echo "SWITCHING TO NEW GENERATION"
   # sudo nixos-rebuild switch -I nixos-config=./system/configuration.nix
   time sudo nixos-rebuild switch --flake .#
+elif [ "$1" == "update" ]; then
+  sudo nix flake update .#
 else
   echo "BUILDING NEW GENERATION"
   # sudo nixos-rebuild build -I nixos-config=./system/configuration.nix
