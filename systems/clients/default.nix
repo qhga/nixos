@@ -75,13 +75,21 @@
 
   # PAM configuration for yubikey
   # TODO: Automate the process of writing the hmac secret to /etc/yubikeys
-  security.pam = {
-    yubico = {
-      enable = true;
-      mode = "challenge-response";
-      control = "sufficient";
+  security = {
+    pam = {
+      yubico = {
+        enable = true;
+        mode = "challenge-response";
+        control = "sufficient";
+      };
+    };
+    sudo = {
+      extraConfig = "Defaults:${user} timestamp_timeout=30\n";
     };
   };
+
+  # Sudo timeout
+
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [

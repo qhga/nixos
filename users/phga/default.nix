@@ -5,6 +5,7 @@
   imports = [
     ../../modules/editors/emacs
     ../../modules/desktop/dunst
+    ../../modules/desktop/alacritty
   ];
 
   home = {
@@ -32,8 +33,6 @@
     qutebrowser
     firefox
     chromium
-    # Terminal emulator
-    alacritty
     # Essentials
     pass # Password manager
     ripgrep # Grep alternative
@@ -45,6 +44,8 @@
     lxqt.pavucontrol-qt qpwgraph
     # Social
     signal-desktop
+    # Niche programs
+    gbdfed # Bitmap font editor
   ];
 
   services = {
