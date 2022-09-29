@@ -17,12 +17,14 @@
         hisoka = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./system/configuration.nix
+            ./systems
+            ./systems/clients
+            ./systems/clients/hisoka
             home-manager.nixosModules.home-manager {
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.phga = ./users/phga/home.nix;
+                users.phga = ./users/phga;
                 extraSpecialArgs = { inherit user dotf; };
               };
             }

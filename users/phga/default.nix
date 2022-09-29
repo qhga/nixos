@@ -22,16 +22,33 @@
   # NixPkgs that should be installed to the user profile
   home.packages = with pkgs; [
     # Dependencies for scripts
-    xtitle pciutils xdo acpi libnotify dunst tree
+    xtitle pciutils xdo acpi tree
+    # Desktop environment
+    papirus-icon-theme
+    lemonbar-xft trayer
+    libnotify dunst
+    rofi
+    # Browser
+    qutebrowser
+    firefox
+    chromium
+    # Terminal emulator
+    alacritty
     # Essentials
-    btop qutebrowser alacritty rofi ripgrep lemonbar-xft trayer pinentry-qt
+    pass # Password manager
+    ripgrep # Grep alternative
+    pinentry-qt
+    btop # Process explorer
+    maim # Screenhots
     # Audio
-    mumble lxqt.pavucontrol-qt qpwgraph
+    mumble
+    lxqt.pavucontrol-qt qpwgraph
     # Social
     signal-desktop
   ];
 
   services = {
+    # TODO: wait for gnupg agent or use keyring
     spotifyd = {
       enable = true;
       settings = {
@@ -39,7 +56,7 @@
           username = "nördpol";
           password_cmd = "${pkgs.pass}/bin/pass apps/spotifyd | ${pkgs.coreutils}/bin/head -1";
           use_keyring = false;
-          initial_volume = "30";
+          initial_volume = "40";
         };
       };
     };

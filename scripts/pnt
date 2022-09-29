@@ -1,16 +1,18 @@
 #!/usr/bin/env sh
 pushd $HOME/.dotfiles
 if [ "$1" == "switch" ]; then
-  echo "SWITCHING TO NEW GENERATION"
-  # sudo nixos-rebuild switch -I nixos-config=./system/configuration.nix
-  time sudo nixos-rebuild switch --flake .#
+    echo "HAVE YOU STAGED NEW FILES/FOLDERS?"
+    echo "SWITCHING to new generation"
+    # sudo nixos-rebuild switch -I nixos-config=./system/configuration.nix
+    time sudo nixos-rebuild switch --flake .#
 elif [ "$1" == "update" ]; then
-  sudo nix flake update .#
+    sudo nix flake update .#
 elif [ "$1" == "list" ]; then
-  sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+    sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 else
-  echo "BUILDING NEW GENERATION"
-  # sudo nixos-rebuild build -I nixos-config=./system/configuration.nix
-  time sudo nixos-rebuild build --flake .#
+    echo "HAVE YOU STAGED NEW FILES/FOLDERS?"
+    echo "BUILDING new generation"
+    # sudo nixos-rebuild build -I nixos-config=./system/configuration.nix
+    time sudo nixos-rebuild build --flake .#
 fi
 popd

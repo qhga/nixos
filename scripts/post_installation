@@ -6,3 +6,6 @@
 [ -d $HOME/Sync ] && rm -r $HOME/Sync
 qutebrowser http://10.10.10.3:9004/
 qutebrowser http://127.0.0.1:8384/
+
+# Generate Yubikey first challenge filse in ~/.yubico/challenge-selial
+nix-shell -p yubico-pam --command 'ykpamcfg -2'
