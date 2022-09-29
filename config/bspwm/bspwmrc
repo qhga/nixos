@@ -20,3 +20,5 @@ bspc rule -a "GNU Octave" state=floating
 bspc rule -a "*:scratchpad" sticky=on state=floating hidden=off rectangle=1908x440+4+4
 
 bspc config external_rules_command "$scriptdir/external_rules"
+# Set the default X-shaped cursor to normal left click cursor
+xsetroot -cursor_name left_ptr

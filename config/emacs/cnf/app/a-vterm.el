@@ -18,6 +18,7 @@
     (vterm vterm-name)))
 
 ;; Otherwise vterm instantly exits
+(setq vterm-tramp-shells '())
 (add-to-list 'vterm-tramp-shells '("ssh" "/bin/bash"))
 (add-to-list 'vterm-tramp-shells '("sudo" "/bin/bash"))
 
