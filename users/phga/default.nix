@@ -4,6 +4,7 @@
 
   imports = [
     ../../modules/editors/emacs
+    ../../modules/desktop/dunst
   ];
 
   home = {
@@ -26,7 +27,6 @@
     # Desktop environment
     papirus-icon-theme
     lemonbar-xft trayer
-    libnotify dunst
     rofi
     # Browser
     qutebrowser

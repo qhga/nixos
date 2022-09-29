@@ -10,6 +10,12 @@ alt + d
 alt + s
  $HOME/.dotfiles/config/bspwm/toggle_sp
 
+alt + F1
+ maim -s | tee >(cat > ~/sync/screenshots/tmp/$(date +%Y-%m-%d_%H-%M-%S).png) | xclip -selection clipboard -t image/png; notify-send "*** KLICK KLICK ***"
+
+alt + F2
+ maim -s |  xclip -selection clipboard -t image/png; notify-send "*** KLICK CLIPBOARD ***"
+
 # :::::::::::::::::::::::::::::::: WINDOW MGMT :::::::::::::::::::::::::::::::::::
 
 # Close or kill window
