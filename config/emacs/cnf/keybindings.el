@@ -139,6 +139,7 @@
           :which-key "Search for files in current folder")
   "t t" '(phga/run-terminal-here :which-key "ST in current dir")
   "t s" 'phga/new-shell
+  "t v" 'phga/new-vterm
   "t u" 'undo-tree-visualize
   "t c" 'org-capture
   "t i" '(:ignore t :which-key "Insert")

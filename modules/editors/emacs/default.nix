@@ -1,8 +1,13 @@
 { config, pkgs, user, dotf, ... }:
 
 {
+
+  programs.emacs = {
+    enable = true;
+    extraPackages = epkgs: [ epkgs.vterm ];
+  };
+
   home.packages = with pkgs; [
-    emacs
     # Dependencies
     ripgrep nodePackages.pyright python311
   ];

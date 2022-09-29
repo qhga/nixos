@@ -8,6 +8,8 @@
 (require 'a-gnus)
 ;; SHELL
 (require 'a-shell)
+;; VTERM
+(require 'a-vterm)
 ;; PDF-TOOLS
 (require 'a-pdf)
 ;; RIPGREP: rg layer to edit occurences in place

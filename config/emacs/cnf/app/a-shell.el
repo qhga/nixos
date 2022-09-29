@@ -50,7 +50,6 @@
     (set-window-buffer curr-window shell-name)
     (shell shell-name)))
 
-
 ;; NEW BASH COMPLETION
 ;; Make sure to add:
 ;; export HISTCONTROL=ignoreboth
