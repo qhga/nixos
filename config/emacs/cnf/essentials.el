@@ -63,7 +63,7 @@
 (setq evil-collection-setup-minibuffer t
       evil-collection-mode-list
       '(ibuffer help calc nov man calendar ivy minibuffer dired debug
-        doc-view arc-mode magit))
+        doc-view arc-mode magit vterm))
 ;; start mode
 (evil-collection-init)
 

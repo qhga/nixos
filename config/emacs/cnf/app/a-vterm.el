@@ -18,8 +18,17 @@
     (vterm vterm-name)))
 
 ;; Otherwise vterm instantly exits
-(setq vterm-tramp-shells '())
+(setq vterm-tramp-shells '()
+      vterm-environment '("TERM_FROM_EMACS=true"))
 (add-to-list 'vterm-tramp-shells '("ssh" "/bin/bash"))
 (add-to-list 'vterm-tramp-shells '("sudo" "/bin/bash"))
+
+
+(general-def
+  :states '(normal insert visual)
+  :keymaps 'vterm-mode-map
+  "M-p" 'vterm-send-up
+  "M-n" 'vterm-send-down
+)
 
 (provide 'a-vterm)

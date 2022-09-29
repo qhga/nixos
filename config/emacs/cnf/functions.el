@@ -156,7 +156,7 @@ and adjusts colors in configs for: Rofi, Dunst, Qutebrowser"
 
 (defun phga/run-terminal-here ()
   (interactive "@")
-  (shell-command (concat "TERM_FROM_EMACS=true st -e bash -c 'cd " default-directory "; bash' > /dev/null 2>&1 & disown ") nil nil))
+  (shell-command (concat "TERM_FROM_EMACS=true alacritty -e bash -c 'cd " default-directory "; bash' > /dev/null 2>&1 & disown ") nil nil))
 
 ;;; https://gist.github.com/mads-hartmann/3402786
 (defun toggle-maximize-buffer ()

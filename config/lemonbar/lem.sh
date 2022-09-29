@@ -21,6 +21,7 @@ scripts="$scriptdir/scripts"
 # b_white=$(xrdb -query | rg -e "\.b_white:" | cut -f 2)
 
 one_color="#ffffff"
+one_color_accent="#000000"
 aa=ff # opacity ff = not transparent
 bg="#000000$aa"
 bg_alt=$one_color
@@ -28,6 +29,7 @@ fg=$one_color
 fg_alt=$one_color
 
 yellow=$one_color
+fg_active_desktop=$one_color_accent
 fg_occupied=$one_color
 fg_urgent=$one_color
 fg_good=$one_color
@@ -39,7 +41,7 @@ fg_last_focused=$one_color
 gap=4
 x_width=$(xrandr -q | rg -A8 "primary" | rg -o -e "(\d+)x.*\*" -r '$1' || echo 1920)
 width=$(($x_width-$gap*2))
-height=26
+height=18
 
 fontmain="Ttyp0:pixelsize=15"
 fontglyph="Ttyp0:pixelsize=17"
@@ -258,7 +260,7 @@ _panel() {
 								                [FOU]*)
 									                  if [ -n "$on_focused_monitor" ]; then
 									                      name=" "
-										                    FG="$yellow"
+										                    FG="$fg_active_desktop"
 									                  else
 									                      name=" "
 										                    FG="$fg_last_focused"
@@ -312,12 +314,12 @@ _panel() {
 # Launch the panel with the given parameters
 # ------------------------------------------
 
-_panel < "$in_fifo" | lemonbar -u 1 -p -g "${width}x${height}+$gap+$gap" -F "$fg" -B "#$aa${bg:1}" -o 0 -f "$fontmain" -o -0 -f "$fontglyph" -o 0 -f "$fontspace" -n "lemon" >$out_fifo &
+_panel < "$in_fifo" | lemonbar -u 1 -p -g "${width}x${height}+$gap+$gap" -F "$fg" -B "${bg}" -o 0 -f "$fontmain" -o -0 -f "$fontglyph" -o 0 -f "$fontspace" -n "lemon" >$out_fifo &
 
 sh < "$out_fifo" &
 
 # The -l Flag is important so it is below other windows
-trayer --edge top --align center --widthtype request --height 16 --alpha 255 --transparent true --expand false --margin 4 --padding 0 --SetPartialStrut true --SetDockType true --distance 9 -l &
+trayer --edge top --align center --widthtype request --height 16 --alpha 255 --transparent true --expand false --margin 4 --padding 0 --SetPartialStrut true --SetDockType true --distance 5 -l &
 
 # https://github.com/baskerville/bspwm/issues/484
 until bar_id=$(xdo id -a 'lemon'); do

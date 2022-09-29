@@ -30,7 +30,7 @@ normal() {
             esac
 
             bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
-            bspc config -m $outp1 top_padding 30
+            bspc config -m $outp1 top_padding 20
             bspc config -m $outp2 top_padding 0
 
             # Disable monitor power saving

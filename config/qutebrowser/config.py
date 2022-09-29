@@ -23,7 +23,9 @@ c.url.searchengines = {
     'aw': 'https://wiki.archlinux.org/index.php/{}',
     'aur': 'https://aur.archlinux.org/packages/?K={}',
     'doi': 'https://doi2bib.org/bib/{}',
-    'te': 'https://www.thesaurus.com/browse/{}'
+    'te': 'https://www.thesaurus.com/browse/{}',
+    'np': 'https://search.nixos.org/packages?channel=unstable&query={}',
+    'nw': 'https://nixos.wiki/index.php?search={}&go=Go'
 }
 
 # Bindings
@@ -47,14 +49,14 @@ config.bind('gG', 'tab-give')
 c.content.blocking.method = 'both'
 
 # toggle stylesheet
-# c.content.user_stylesheets = ["~/.config/qutebrowser/styles/floppy.css"]
-c.content.user_stylesheets = []
+c.content.user_stylesheets = ["~/.config/qutebrowser/styles/floppy.css"]
+# c.content.user_stylesheets = []
 # config.bind(leader+'td', 'set content.user_stylesheets ~/.config/qutebrowser/styles/dark.css')
 # config.bind(leader+'td', 'set content.user_stylesheets ~/.config/qutebrowser/styles/floppy.css')
 # config.bind(leader+'ta', 'set content.user_stylesheets "[~/.config/qutebrowser/styles/solarized.css, ~/.config/qutebrowser/styles/floppy.css]"')
 
 # editor
-c.editor.command = ["emacs", "{}", "{file}", "{}"]
+c.editor.command = ["emacsclient", "{}", "{file}", "{}"]
 
 # downloads
 c.downloads.remove_finished = 5000
