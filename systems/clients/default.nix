@@ -13,6 +13,26 @@
 
   fonts.fonts = with pkgs; [ hack-font unifont unifont_upper freefont_ttf font-awesome ];
 
+  # List packages installed in system profile. To search, run:
+  environment.systemPackages = with pkgs; [
+    vim git
+    # Utils
+    curl inetutils
+    # Filesystem
+    ntfs3g exfat
+  ];
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "qt";
+    };
+  };
+
+
   location = {
     provider = "manual";
     latitude = 48.7;
@@ -21,7 +41,8 @@
 
   # Enable the X11 windowing system.
   services = {
-    picom.enable = true;
+    picom.enable = true; # Default settings are sensible
+    blueman.enable = true;
     redshift = {
       enable = true;
       temperature = {
@@ -49,6 +70,7 @@
         };
       };
       windowManager.bspwm.enable = true;
+      wacom.enable = true;
     };
     syncthing = {
       enable = true;
@@ -73,9 +95,9 @@
     extraGroups = [ "wheel" "docker" ];
   };
 
-  # PAM configuration for yubikey
-  # TODO: Automate the process of writing the hmac secret to /etc/yubikeys
   security = {
+    # PAM configuration for yubikey
+    # Run scripts/post-install to generate hmac secrets in ~/.yubico/
     pam = {
       yubico = {
         enable = true;
@@ -83,26 +105,9 @@
         control = "sufficient";
       };
     };
+    # Sudo timeout
     sudo = {
       extraConfig = "Defaults:${user} timestamp_timeout=30\n";
-    };
-  };
-
-  # Sudo timeout
-
-
-  # List packages installed in system profile. To search, run:
-  environment.systemPackages = with pkgs; [
-    vim git curl
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryFlavor = "qt";
     };
   };
 

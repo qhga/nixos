@@ -6,6 +6,7 @@
     ../../modules/editors/emacs
     ../../modules/desktop/dunst
     ../../modules/desktop/alacritty
+    ../../modules/browser/qutebrowser
   ];
 
   home = {
@@ -24,28 +25,44 @@
   # NixPkgs that should be installed to the user profile
   home.packages = with pkgs; [
     # Dependencies for scripts
-    xtitle pciutils xdo acpi tree
-    # Desktop environment
-    papirus-icon-theme
-    lemonbar-xft trayer
-    rofi
-    # Browser
-    qutebrowser
-    firefox
-    chromium
+    xtitle pciutils xdo acpi tree xclip
     # Essentials
     pass # Password manager
     ripgrep # Grep alternative
     pinentry-qt
     btop # Process explorer
     maim # Screenhots
+    p7zip # All in one compression program
+    fzf
+    # Desktop environment
+    papirus-icon-theme
+    lemonbar-xft trayer
+    rofi
+    xfce.thunar
+    gnome.file-roller
+    # Browser
+    firefox
+    chromium
+    # PDF & Writing
+    xournalpp
     # Audio
-    mumble
+    mumble # Voice chat
     lxqt.pavucontrol-qt qpwgraph
+    # Image/Video
+    nomacs # Image viewer
+    xcolor # Color picker
+    obs-studio # Screenrecording
+    yt-dlp # Youtube DL (To stream via mpv)
+    mpv # Video player
+    inkscape # Vector graphics
+    krita # Digital art
+    darktable # Photo editor
     # Social
     signal-desktop
     # Niche programs
     gbdfed # Bitmap font editor
+    # Network tools
+    nmap whois
   ];
 
   services = {
@@ -66,9 +83,7 @@
   # This is evil
   home.file.".bashrc".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bash/bashrc";
   home.file.".bash_aliases".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bash/bash_aliases";
-  # home.file.".Xresources".source = ../../config/xsession/.Xresources;
 
-  xdg.configFile."qutebrowser".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser";
   xdg.configFile."rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/rofi";
   xdg.configFile."bspwm".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bspwm";
   xdg.configFile."sxhkd".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/sxhkd";

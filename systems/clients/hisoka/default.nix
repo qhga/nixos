@@ -34,14 +34,21 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  hardware.opengl.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware = {
+    opengl.enable = true;
+    nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+    cpu.intel.updateMicrocode = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
     steam.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    legendary-gl
+  ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

@@ -1,6 +1,7 @@
 { config, pkgs, user, dotf, ... }:
-
-{
+let
+  t = (import ../../themes).shanty;
+in {
   services = {
     dunst = {
       enable = true;
@@ -27,18 +28,21 @@
           mouse_right_click = "close_all";
         };
         urgency_low = {
-          background = "#1D2F3D";
-          foreground = "#c3c9e9";
+          background = t.background_alt;
+          foreground = t.foreground;
+          frame_color = t.foreground;
           timeout = 5;
         };
         urgency_normal = {
-          background = "#1D2F3D";
-          foreground = "#c3c9e9";
+          background = t.background_alt;
+          foreground = t.foreground;
+          frame_color = t.foreground;
           timeout = 10;
         };
         urgency_critical = {
-          background = "#1d2f3d";
-          foreground = "#ffc0cb";
+          background = t.background_alt;
+          foreground = t.error;
+          frame_color = t.error;
           timeout = 15;
         };
       };

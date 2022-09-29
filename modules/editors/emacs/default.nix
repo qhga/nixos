@@ -9,7 +9,23 @@
 
   home.packages = with pkgs; [
     # Dependencies
-    ripgrep nodePackages.pyright python311
+    ripgrep
+    # Latex
+    pandoc auctex texlive.combined.scheme-full # includes biber
+    python310Packages.pygments
+    # Diagrams
+    plantuml graphviz
+    # Dictionaries
+    aspell aspellDicts.en aspellDicts.de
+
+    # :::::::::::::: CODING ::::::::::::::
+    # Python
+     python311 nodePackages.pyright
+    # C/C++
+    clang ccls
+    llvm libllvm
+    # Microcontroller
+    platformio avrdude
   ];
 
   services.emacs = {
