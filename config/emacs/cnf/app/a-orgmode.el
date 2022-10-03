@@ -139,12 +139,9 @@ START and END are not used by this advice"
          "* TODO %?\n %T\n")
         ("r" "Read later"
          entry (file+headline ,(concat org-directory "/20220202-000000 prv.org") "Read later")
-         "* %?\n %T\n")
-        ("b" "Black Friday"
-         entry (file+headline ,(concat org-directory "20220202-000000 /prv.org") "Black Friday")
          "* %?\n %T\n"))
 
-      org-default-notes-file (concat org-directory "20220203-000000 /refile.org")
+      org-default-notes-file (concat org-directory "/20220203-000000 refile.org")
       org-duration-format 'h:mm
 
       ;; Latex
