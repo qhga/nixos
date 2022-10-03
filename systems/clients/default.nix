@@ -5,6 +5,13 @@
 { config, lib, pkgs, user, dotf, ... }:
 
 {
+  # Extra options
+  nix.settings = {
+    # Used for https://github.com/nix-community/nix-direnv
+    keep-outputs = true;
+    keep-derivations = true;
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -75,13 +75,13 @@
 
 ;; If we want to use the prettier in node modules (pkg: add-node-modules-path)
 ;; --no-semi, --use-tabs, --no-bracket-spacing: Not required bc default
-(setq prettier-js-args
-      '("--print-width=90"
-        "--tab-width=2"
-        "--single-quote"
-        "--trailing-comma=es5"
-        "--parser=babel" ;; used to be babylon (should be the standard anyway)
-        "--jsx-single-quote"
-        ))
+;; (setq prettier-js-args
+;;       '("--print-width=90"
+;;         "--tab-width=2"
+;;         "--single-quote"
+;;         "--trailing-comma=es5"
+;;         "--parser=babel" ;; used to be babylon (should be the standard anyway)
+;;         "--jsx-single-quote"
+;;         ))
 
 (provide 'l-typescript)

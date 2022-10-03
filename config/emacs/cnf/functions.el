@@ -1,3 +1,11 @@
+(defun phga/advice-load-config-for-org-src-block-language (lang start end)
+  "Look in `load-path' for a file that provides the feature l-LANG.
+LANG is the language used by `org-src-font-lock-fontify-block'.
+START and END are not used by this advice"
+  (message (concat "Loading config for language: " lang))
+  (require (intern (concat "l-" lang))))
+
+
 (defun phga/aetts--get-color (face attr)
   (when (facep face)
     (let ((color (face-attribute face attr)))
@@ -156,7 +164,9 @@ and adjusts colors in configs for: Rofi, Dunst, Qutebrowser"
 
 (defun phga/run-terminal-here ()
   (interactive "@")
-  (shell-command (concat "TERM_FROM_EMACS=true alacritty -e bash -c 'cd " default-directory "; bash' > /dev/null 2>&1 & disown ") nil nil))
+  (shell-command (concat "TERM_FROM_EMACS=true alacritty -e sh -c 'cd " default-directory
+                         "; /run/current-system/sw/bin/bash' > /dev/null 2>&1 & disown ")
+                 nil nil))
 
 ;;; https://gist.github.com/mads-hartmann/3402786
 (defun toggle-maximize-buffer ()

@@ -42,13 +42,7 @@ export EDITOR="emacsclient"
 export FZF_DEFAULT_OPTS="--color 16"
 # Required for MATLAB to work while using bspwm
 export _JAVA_AWT_WM_NONREPARENTING=1
-# Go
-export GOROOT="/usr/lib/go"
-export GOPATH="/home/phga/git/code/go" # :morepaths
-export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
-# Alva
-export PATH="$PATH:/opt/Alva"
 # Java
 export JAVA_HOME="/usr/lib/jvm/default"
-# Rust
-export PATH="$PATH:$HOME/.cargo/bin"
+
+eval "$(direnv hook bash)"

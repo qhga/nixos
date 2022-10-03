@@ -137,7 +137,7 @@
   "t R" '((lambda (regex) (interactive "MFile Search: ")
             (shell-command (format "find * -type f -name '%s'" regex)))
           :which-key "Search for files in current folder")
-  "t t" '(phga/run-terminal-here :which-key "ST in current dir")
+  "t t" '(phga/run-terminal-here :which-key "Alacritty in current dir")
   "t s" 'phga/new-shell
   "t v" 'phga/new-vterm
   "t u" 'undo-tree-visualize

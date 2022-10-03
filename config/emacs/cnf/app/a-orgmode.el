@@ -104,8 +104,19 @@
 ;; OX-KOMA-LETTER: org export koma latex
 ;; (straight-use-package 'org)
 ;; (add-to-list 'load-path "/home/phga/.dotfiles/emacs/straight/repos/org/contrib/lisp/")
-(add-to-list 'load-path "/home/phga/.dotfiles/emacs/local-pkgs")
-(with-eval-after-load 'ox '(require 'ox-koma-letter))
+(add-to-list 'load-path "/home/phga/.dotfiles/config/emacs/local-pkgs")
+(with-eval-after-load 'ox (require 'ox-koma-letter))
+
+;; ORG-SRC: Load language specific configs when fontifying src blocks for languages which
+;; configs are dynamically loaded and not present at the time of the fontification process
+(defun phga/advice-load-config-for-org-src-block-language (lang start end)
+  "Look in `load-path' for a file that provides the feature l-LANG.
+LANG is the language used by `org-src-font-lock-fontify-block'.
+START and END are not used by this advice"
+  (ignore-errors (require (intern (concat "l-" lang)))))
+
+(advice-add 'org-src-font-lock-fontify-block
+            :before #'phga/advice-load-config-for-org-src-block-language)
 
 (evil-set-initial-state 'org-agenda-mode 'normal)
 (add-to-list 'org-export-backends 'md)
