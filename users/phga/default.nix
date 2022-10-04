@@ -60,6 +60,7 @@
     darktable # Photo editor
     # Social
     signal-desktop
+    teams
     # Niche programs
     gbdfed # Bitmap font editor
     # Network tools
