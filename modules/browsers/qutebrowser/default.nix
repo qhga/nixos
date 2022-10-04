@@ -166,6 +166,7 @@ in
       te      = "https://www.thesaurus.com/browse/{}";
       np      = "https://search.nixos.org/packages?channel=unstable&query={}";
       nw      = "https://nixos.wiki/index.php?search={}&go=Go";
+      hm      = "https://github.com/nix-community/home-manager/search?q={}";
     };
     keyBindings = let leader = "<Space>"; in {
       normal = {

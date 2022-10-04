@@ -1,5 +1,6 @@
 {
   shanty = {
+    font           = "Ttyp0";
     red            = "#ed474a";
     orange         = "#ff7f11";
     green          = "#a5cc69";
@@ -8,6 +9,7 @@
     magenta        = "#b95f8a";
     cyan           = "#a2dfed";
     white          = "#fefefe";
+    black          = "#0d1f2d";
     background     = "#0d1f2d";
     background_alt = "#2f414f";
     foreground     = "#c3c9e9";

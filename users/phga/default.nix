@@ -3,10 +3,11 @@
 {
 
   imports = [
+    ../../modules/shells/bash
     ../../modules/editors/emacs
-    ../../modules/desktop/dunst
-    ../../modules/desktop/alacritty
-    ../../modules/browser/qutebrowser
+    ../../modules/desktops/own/dunst
+    ../../modules/desktops/own/alacritty
+    ../../modules/browsers/qutebrowser
   ];
 
   home = {
@@ -81,9 +82,6 @@
   };
 
   # This is evil
-  home.file.".bashrc".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bash/bashrc";
-  home.file.".bash_aliases".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bash/bash_aliases";
-
   xdg.configFile."rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/rofi";
   xdg.configFile."bspwm".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bspwm";
   xdg.configFile."sxhkd".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/sxhkd";

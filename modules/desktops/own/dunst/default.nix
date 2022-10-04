@@ -1,6 +1,6 @@
 { config, pkgs, user, dotf, ... }:
 let
-  t = (import ../../themes).shanty;
+  t = (import ../../../themes).shanty;
 in {
   services = {
     dunst = {
