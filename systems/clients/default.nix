@@ -12,6 +12,13 @@
     keep-derivations = true;
   };
 
+  # NFS shares
+  fileSystems."/home/${user}/shares/naz" = {
+    device = "10.10.10.3:/";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=3600" ];
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
