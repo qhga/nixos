@@ -67,15 +67,15 @@
   ];
 
   services = {
-    # TODO: wait for gnupg agent or use keyring
     spotifyd = {
       enable = true;
       settings = {
         global = {
           username = "nördpol";
-          password_cmd = "${pkgs.pass}/bin/pass apps/spotifyd | ${pkgs.coreutils}/bin/head -1";
+          password_cmd = "pw=$(${pkgs.pass}/bin/pass apps/spotifyd) && ${pkgs.coreutils}/bin/echo \"$pw\" | ${pkgs.coreutils}/bin/head -1 || (${pkgs.coreutils}/bin/sleep 5s && ${pkgs.systemd}/bin/systemctl --user restart spotifyd)";
           use_keyring = false;
           initial_volume = "40";
+          backend = "pulseaudio"; # Otherwise my volume control via mobile phone didn't work
         };
       };
     };
