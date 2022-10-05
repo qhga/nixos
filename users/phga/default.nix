@@ -65,6 +65,8 @@
     gbdfed # Bitmap font editor
     # Network tools
     nmap whois
+    # 3D Modelling & Printing
+    blender prusa-slicer
   ];
 
   services = {

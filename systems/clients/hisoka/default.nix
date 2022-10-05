@@ -40,6 +40,14 @@
     cpu.intel.updateMicrocode = true;
   };
 
+  # Cuda support !THIS RECOMPILES ANYTHING WITH CUDA SUPPORT!
+  # nixpkgs.config = {
+  #   cudaSupport = true;
+  # };
+
+  # nixpkgs.overlays = [ blender-bin.overlay ];
+
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {

@@ -33,9 +33,9 @@ in
         # };
       };
       # statusbar = {
-        # padding = {
-        #   top = 0; bottom = 0; left = 5; right = 5;
-        # };
+      # padding = {
+      #   top = 0; bottom = 0; left = 5; right = 5;
+      # };
       # };
       downloads.remove_finished = 5000;
       content = {
@@ -184,9 +184,16 @@ in
     # Access Netflix, Spotify, etc.
     vivaldi-widevine
   ];
-  xdg.configFile."qutebrowser/styles".source = ../../../config/qutebrowser/styles;
-  xdg.configFile."qutebrowser/scripts".source = ../../../config/qutebrowser/scripts;
-  xdg.configFile."qutebrowser/bookmarks".source = ../../../config/qutebrowser/bookmarks;
-  xdg.configFile."qutebrowser/quickmarks".source = ../../../config/qutebrowser/quickmarks;
-  xdg.configFile."qutebrowser/greasemonkey".source = ../../../config/qutebrowser/greasemonkey;
+
+  # Otherwise those are not writable
+  xdg.configFile."qutebrowser/styles".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser/styles";
+  xdg.configFile."qutebrowser/scripts".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser/scripts";
+  xdg.configFile."qutebrowser/bookmarks".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser/bookmarks";
+  xdg.configFile."qutebrowser/quickmarks".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser/quickmarks";
+  xdg.configFile."qutebrowser/greasemonkey".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotf}/config/qutebrowser/greasemonkey";
 }

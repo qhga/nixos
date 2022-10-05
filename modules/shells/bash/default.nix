@@ -18,6 +18,7 @@ in {
         [ -z $TERM_FROM_EMACS ] && [ ! -z $EMACS_SHELL ] && RS="\033[0;10m"
         PS1=" $C1\w$RS\n $C2$RS "
         eval "$(direnv hook bash)"
+        . ${config.programs.fzf.package}/share/fzf/key-bindings.bash
       '';
       # Any Shell (even non interactive)
       # bashrcExtra = ''
