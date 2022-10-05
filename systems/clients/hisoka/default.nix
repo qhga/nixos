@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, dotf, ... }:
+{ config, lib, pkgs, user, dotf, blender-bin, ... }:
 
 {
 
@@ -45,8 +45,8 @@
   #   cudaSupport = true;
   # };
 
-  # nixpkgs.overlays = [ blender-bin.overlay ];
-
+  # Cuda support for blender
+  nixpkgs.overlays = [ blender-bin.overlays.default ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -56,6 +56,10 @@
 
   environment.systemPackages = with pkgs; [
     legendary-gl
+    # Blender with overlay for cuda support
+    # It is important to look up which versions are provided in the flake.nix file
+    # If we just write "blender" the overlay is not applied!
+    blender_3_3
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system

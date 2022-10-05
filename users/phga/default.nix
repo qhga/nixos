@@ -66,7 +66,7 @@
     # Network tools
     nmap whois
     # 3D Modelling & Printing
-    blender prusa-slicer
+    prusa-slicer
   ];
 
   services = {
