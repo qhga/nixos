@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-pushd $HOME/.dotfiles
+pushd $HOME/.dotfiles > /dev/null
 if [ "$1" == "switch" ]; then
     echo "HAVE YOU STAGED NEW FILES/FOLDERS?"
     echo "SWITCHING to new generation"
@@ -9,10 +9,20 @@ elif [ "$1" == "update" ]; then
     sudo nix flake update .#
 elif [ "$1" == "list" ]; then
     sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+elif [ "$1" == "ref" ]; then
+    [ -z "$2" ] && echo "Missing 2nd argument pnt ref {binary} [-v]" && exit
+    echo "REFERENCES:"
+    nix-store -q --references `which $2`
+    echo "REFERRER:"
+    nix-store -q --referrers `which $2`
+    echo "RECURSIVE DEPENDENCIES"
+    if [ "$3" == "-v" ]; then
+        nix-store -q --tree `which $2`
+    fi
 else
     echo "HAVE YOU STAGED NEW FILES/FOLDERS?"
     echo "BUILDING new generation"
     # sudo nixos-rebuild build -I nixos-config=./system/configuration.nix
     time sudo nixos-rebuild build --flake .#
 fi
-popd
+popd > /dev/null
