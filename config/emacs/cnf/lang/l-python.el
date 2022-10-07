@@ -19,4 +19,8 @@
 (straight-use-package 'lsp-pyright)
 (add-hook 'python-mode-hook (lambda () (require 'lsp-pyright) (lsp)))
 
+(add-hook 'inferior-python-mode-hook
+          (lambda ()
+            (setq comint-move-point-for-output t)))
+
 (provide 'l-python)

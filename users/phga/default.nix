@@ -26,7 +26,7 @@
   # NixPkgs that should be installed to the user profile
   home.packages = with pkgs; [
     # Dependencies for scripts
-    xtitle pciutils xdo acpi tree xclip
+    xtitle pciutils xdo acpi tree xclip usbutils
     # Essentials
     pass # Password manager
     ripgrep # Grep alternative
@@ -46,8 +46,10 @@
     chromium
     # PDF & Writing
     xournalpp
+    onlyoffice-bin
     # Audio
     mumble # Voice chat
+    discord
     lxqt.pavucontrol-qt qpwgraph
     # Image/Video
     nomacs # Image viewer

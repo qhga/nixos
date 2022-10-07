@@ -242,7 +242,8 @@
 
   "^" 'gnus-group-enter-server-mode
 
-  "/" 'gnus-group-make-nnir-group
+  ;; "/" 'gnus-group-make-nnir-group
+  "/" 'gnus-group-read-ephemeral-search-group
 
   ;; unbind
   "<tab>" (lambda () (interactive) (message "HELO"))

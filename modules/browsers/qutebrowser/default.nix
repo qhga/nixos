@@ -40,6 +40,23 @@ in
       downloads.remove_finished = 5000;
       content = {
         blocking.method = "both";
+        blocking.adblock.lists = [
+          "https://easylist.to/easylist/easylist.txt"
+          "https://easylist.to/easylist/easyprivacy.txt"
+          "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt"
+          "https://easylist.to/easylist/fanboy-annoyance.txt"
+          "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
+          "https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances.txt"
+          "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt"
+          "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2020.txt"
+          "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2021.txt"
+          "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters-2022.txt"
+          "https://github.com/uBlockOrigin/uAssets/raw/master/filters/unbreak.txt"
+          "https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt"
+          "https://github.com/uBlockOrigin/uAssets/raw/master/filters/privacy.txt"
+        ];
+        blocking.hosts.lists = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
+        blocking.whitelist = ["piwik.org" "*.reddit.com" "*.redditinc.com" "*.redditstatic.com"];
         user_stylesheets = [ "~/.config/qutebrowser/styles/floppy.css" ];
         desktop_capture = "ask"; #"ask";
         javascript.alert = false;
@@ -54,8 +71,6 @@ in
         # headers.user_agent = "Windows-Media-Player/11.0.5721.5145";
         # headers.user_agent = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:77.0) Gecko/20100101 Firefox/77.0";
         # headers.user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36";
-        blocking.hosts.lists = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
-        blocking.whitelist = ["piwik.org" "*.reddit.com" "*.redditinc.com" "*.redditstatic.com"];
       };
       colors = let
         bgc = t.background;
