@@ -45,8 +45,16 @@
   #   cudaSupport = true;
   # };
 
-  # Cuda support for blender
-  nixpkgs.overlays = [ blender-bin.overlays.default ];
+  # OVERLAYS
+  nixpkgs.overlays = [
+    # Used to enable cuda support for Blender
+    # There is also the binary version overlay "blender-bin"
+    # but that did not ship with libstdc++ and I do not understand how
+    # to make that work with overlays or anything else (yet: 2022-10-08T20:33)
+    (self: super: {
+      blender_cuda = super.blender.override { cudaSupport = true; };
+    })
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -56,10 +64,7 @@
 
   environment.systemPackages = with pkgs; [
     legendary-gl
-    # Blender with overlay for cuda support
-    # It is important to look up which versions are provided in the flake.nix file
-    # If we just write "blender" the overlay is not applied!
-    blender_3_3
+    blender_cuda cudatoolkit
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system

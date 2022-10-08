@@ -138,7 +138,7 @@ and adjusts colors in configs for: Rofi, Dunst, Qutebrowser"
   ;; ?LETTER is used to compare char with smth else
   (let* ((cset (if (and (char-after) (= (char-after) ?n))
                    (progn (delete-char 1)
-                          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+                          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!_?!_?!_?!_?!_")
                  "abcdefghijklmnopqrstuvwxyzäöüABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ0123456789€ß!@#$%^&*()[]{}/|;.><:; -_"))
          (n 20)
          (len (length cset)))
