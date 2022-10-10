@@ -1,49 +1,49 @@
 # ::::::::::::::::::::::::::::::: APPLICATIONS :::::::::::::::::::::::::::::::::::
 
 # Terminal
-alt + Return
+super + Return
  alacritty
 
-alt + d
+super + d
  rofi -show
 
-alt + s
+super + s
  $HOME/.dotfiles/config/bspwm/toggle_sp
 
-alt + F1
+super + F1
  maim -s | tee >(cat > ~/sync/screenshots/tmp/$(date +%Y-%m-%d_%H-%M-%S).png) | xclip -selection clipboard -t image/png; notify-send "*** KLICK KLICK ***"
 
-alt + F2
+super + F2
  maim -s |  xclip -selection clipboard -t image/png; notify-send "*** KLICK CLIPBOARD ***"
 
 # :::::::::::::::::::::::::::::::: WINDOW MGMT :::::::::::::::::::::::::::::::::::
 
 # Close or kill window
-alt + {_, shift +}y
+super + {_, shift +}y
  bspc node -{c,k}
 
 # Cycle through layouts
-alt + BackSpace
+super + BackSpace
  bspc desktop -l next
 
 # Move and focus windows
-alt + {_,shift + }{j,k,h,l}
+super + {_,shift + }{j,k,h,l}
  bspc node -{f,s} {south,north,west,east}
 
 # Cycle around windows
-alt + space
+super + space
  bspc node -f next.local.window
 
 # Switch workspaces
-alt + {_,shift + }{1-9,0}
+super + {_,shift + }{1-9,0}
  bspc {desktop -f,node -d} '^{1-9,10}'
 
 # Toggle fullscreen, float or tiled
-alt + {f,e,t}
+super + {f,e,t}
  bspc node -t {\~fullscreen, \~floating, \~tiled}
 
 # :::::::::::::::::::::::::::::: BSPWM SPECIFIC ::::::::::::::::::::::::::::::::::
 
 # Reload configs of sxhkd or logoff
-alt + ctrl + shift + {r,e}
+super + ctrl + shift + {r,e}
  {pkill -USR1 -x sxhkd,bspc quit}

@@ -6,10 +6,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    blender-bin.url = "github:edolstra/nix-warez?dir=blender";
+    pianoteq.url = "github:qhga/nix-pianoteq7";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, blender-bin, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, pianoteq, ... }:
     let
       user = "phga";
       dotf = "/home/${user}/.dotfiles";
@@ -31,7 +31,7 @@
             }
           ];
 	        specialArgs = {
-       	    inherit user dotf blender-bin;
+       	    inherit user dotf pianoteq;
           };
         };
       };

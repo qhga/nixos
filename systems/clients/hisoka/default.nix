@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, dotf, blender-bin, ... }:
+{ config, lib, pkgs, user, dotf, pianoteq, ... }:
 
 {
 
@@ -65,6 +65,7 @@
   environment.systemPackages = with pkgs; [
     legendary-gl
     blender_cuda cudatoolkit
+    pianoteq.packages.x86_64-linux.default
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
