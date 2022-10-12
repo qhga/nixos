@@ -58,11 +58,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1665443837,
+        "lastModified": 1665446511,
         "narHash": "sha256-tbEbH3z44978xd7i+7vXV/vy+N4bhVVP99j/VAz8D/k=",
         "owner": "qhga",
         "repo": "nix-pianoteq7",
-        "rev": "de0d74ef81ad83a7002d44cfa91cd2a213d61c3e",
+        "rev": "ec6013cd52b73a80fcc67535b95d39e44a348e64",
         "type": "github"
       },
       "original": {
