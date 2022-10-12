@@ -65,6 +65,7 @@
   environment.systemPackages = with pkgs; [
     legendary-gl
     blender_cuda cudatoolkit
+    freecad
     pianoteq.packages.x86_64-linux.default
   ];
 

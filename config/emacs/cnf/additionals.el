@@ -38,8 +38,6 @@
 
 ;; MAGIT: nice git ui
 (straight-use-package 'magit)
-;; (straight-use-package 'evil-magit)
-;; (add-hook 'magit-mode-hook 'evil-magit-init)
 
 ;; DICTCC: query dict.cc without leaving emacs
 (straight-use-package 'dictcc)

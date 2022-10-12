@@ -189,6 +189,9 @@ in
         "gP" = "tab-give --private";
         "gG" = "tab-give";
       };
+      prompt = {
+        "<Ctrl+h>" = "rl-filename-rubout";
+      };
     };
   };
 

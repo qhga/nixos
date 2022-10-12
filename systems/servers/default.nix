@@ -28,7 +28,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   # To use the latest kernel
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # To pin the kernel to a specific version
   # The kernel packages are here: https://cdn.kernel.org/pub/linux/kernel
@@ -37,19 +37,19 @@
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/fetchurl/mirrors.nix#L132
   # This could take some time since it seems like we compile the kernel ourself
   # Approximately 40 minutes on my current workstation
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_19.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-        url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-        sha256 = "616308795a952a6a39b4c74807c33916850eb7166d8ed7c9a87a1ba55d7487ce";
-      };
-      version = "5.19.8";
-      modDirVersion = "5.19.8";
-    };
-  });
+  # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_19.override {
+  #   argsOverride = rec {
+  #     src = pkgs.fetchurl {
+  #       url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
+  #       sha256 = "616308795a952a6a39b4c74807c33916850eb7166d8ed7c9a87a1ba55d7487ce";
+  #     };
+  #     version = "5.19.8";
+  #     modDirVersion = "5.19.8";
+  #   };
+  # });
 
   # Define Hostname
-  networking.hostName = "hisoka";
+  # networking.hostName = "hisoka";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -69,67 +69,11 @@
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
   nixpkgs.config.allowUnfree = true;
-  hardware.opengl.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-  fonts.fonts = with pkgs; [ hack-font unifont unifont_upper freefont_ttf font-awesome ];
-
-  location = {
-    provider = "manual";
-    latitude = 48.7;
-    longitude = 11.6;
-  };
-
-  # Enable the X11 windowing system.
   services = {
-    picom.enable = true;
-    redshift = {
-      enable = true;
-      temperature = {
-        day = 5700;
-        night = 3450;
-      };
-    };
-    xserver = {
-      enable = true;
-      layout = "us";
-      xkbVariant = "altgr-intl";
-      xkbOptions = "caps:escape";
-      videoDrivers = [ "nvidia" ];
-      displayManager = {
-        defaultSession = "none+bspwm";
-        lightdm.enable = true;
-        lightdm.greeters = {
-          mini.enable = true;
-          mini.user = "phga";
-          gtk.cursorTheme = {
-            name = "Bibata-Original-Amber";
-            package = pkgs.bibata-cursors;
-            size = 16;
-          };
-        };
-      };
-      windowManager.bspwm.enable = true;
-    };
-    syncthing = {
-      enable = true;
-      inherit user;
-      dataDir = "/home/${user}";
-      configDir = "/home/${user}/.config/syncthing";
-    };
-    pipewire = {
-      enable = true;
-      wireplumber.enable = true;
-      pulse.enable = true;
-      jack.enable = true;
-      alsa.enable = true;
-    };
   };
 
   virtualisation.docker.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.phga = {
@@ -139,20 +83,9 @@
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    vim git curl pass papirus-icon-theme
+    vim git curl pass
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryFlavor = "qt";
-    };
-    steam.enable = true;
-  };
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -163,7 +96,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-  networking.nameservers = [ "1.1.1.1" "10.10.10.2" ];
+  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

@@ -31,7 +31,7 @@
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    vim git
+    vim
     # Utils
     curl inetutils
     # Filesystem
@@ -45,6 +45,20 @@
       enable = true;
       enableSSHSupport = true;
       pinentryFlavor = "qt";
+    };
+    git = {
+      enable = true;
+      config = {
+        init = {
+          defaultBranch = "main";
+        };
+        user = {
+          name = "phga";
+          email = "phga@posteo.de";
+          signingKey = "5249548AA705F019";
+        };
+        commit.gpgsign = true;
+      };
     };
   };
 

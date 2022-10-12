@@ -42,4 +42,6 @@ case "$title" in
         echo "desktop=IX";;
     *SFML*)
         echo "state=floating";;
+    *Pianoteq*)
+        echo "state=floating";;
 esac
