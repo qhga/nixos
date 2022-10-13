@@ -85,7 +85,6 @@
       layout = "us";
       xkbVariant = "altgr-intl";
       xkbOptions = "caps:escape";
-      videoDrivers = [ "nvidia" ];
       displayManager = {
         defaultSession = "none+bspwm";
         lightdm.enable = true;
