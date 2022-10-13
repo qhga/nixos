@@ -1,0 +1,7 @@
+* My NixOS Configuration
+** Installation
+
+#+begin_src sh :results output scalar
+sudo -i
+bash <(curl https://g.phga.de/phga/nixos/raw/branch/main/bootstrap.sh)
+#+end_src

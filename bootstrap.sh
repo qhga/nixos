@@ -125,21 +125,23 @@ HWC_PATH="/mnt/etc/nixos/hardware-configuration.nix"
 GIT_PATH="/root/nixos"
 GIT_HWC_PATH="$GIT_PATH/systems/$SYSTEM_FOLDER/$HNAME/hardware-configuration.nix"
 
-sed -i "s/swapDevices.*$/swapDevices = \[\{device = \"\/.swapfile\"; size = 1000;\}\];/" $HWC_PATH
+# Create an entry for the swapfile in hardware-configuration.nix
+sed -i "s/swapDevices.*$/swapDevices = \[\{device = \"\/swapfile\"; size = 1000;\}\];/" $HWC_PATH
 
-nix-shell -p git --command "git clone https://g.phga.de/phga/nixos.git $GIT_PATH"
+nix-shell -p git ripgrep
+git config --global user.email "phga@posteo.de"
+git config --global user.name "phga"
+git clone https://g.phga.de/phga/nixos.git $GIT_PATH
 # Copy the hardware-configuration.nix into the repo if it not exists
 [ ! -f $GIT_HWC_PATH ] &&
     cp $HWC_PATH $GIT_HWC_PATH &&
-    nix-shell -p git --command "cd $GIT_PATH && git add $GIT_HWC_PATH && git commit -m 'Added new system $HNAME'"
+    cd $GIT_PATH && git add $GIT_HWC_PATH && git commit -m "Added new system $HNAME"
 
+# Install git?
 nixos-install --flake "$GIT_PATH#$HNAME"
 
-# Set password for each user found in config
 # The ROOT password is set by the nix-install command (Last step)
-# This might break if I change the users definition in my configs...
-users=$(nix-shell -p ripgrep --command "rg --no-filename --no-line-number -o -r '\$1' -e 'users\.users\.(\w+)' $GIT_PATH/systems/$SYSTEM_FOLDER/ | sort -u")
 
-for u in $users; do
-    passwd $u
-done
+echo "BEFORE REBOOTING: If you want push the changes to the git repository!"
+echo "Otherwise, the hardware-configuration.nix file needs to added manually later on!"
+echo "This can be done like this: cp /etc/nixos/hardware-configuration.nix ~/.dotfiles/...."
