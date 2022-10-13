@@ -128,17 +128,16 @@ GIT_HWC_PATH="$GIT_PATH/systems/$SYSTEM_FOLDER/$HNAME/hardware-configuration.nix
 # Create an entry for the swapfile in hardware-configuration.nix
 sed -i "s/swapDevices.*$/swapDevices = \[\{device = \"\/swapfile\"; size = 1000;\}\];/" $HWC_PATH
 
-nix-shell -p git ripgrep
-git config --global user.email "phga@posteo.de"
-git config --global user.name "phga"
-git clone https://g.phga.de/phga/nixos.git $GIT_PATH
+nix-shell -p git --command "git config --global user.email phga@posteo.de"
+nix-shell -p git --command "git config --global user.name phga"
+nix-shell -p git --command "git clone https://g.phga.de/phga/nixos.git $GIT_PATH"
 # Copy the hardware-configuration.nix into the repo if it not exists
 [ ! -f $GIT_HWC_PATH ] &&
     cp $HWC_PATH $GIT_HWC_PATH &&
-    cd $GIT_PATH && git add $GIT_HWC_PATH && git commit -m "Added new system $HNAME"
+    nix-shell -p git --command "cd $GIT_PATH && git add $GIT_HWC_PATH && git commit -m 'Added new system $HNAME'"
 
 # Install git?
-nixos-install --flake "$GIT_PATH#$HNAME"
+nix-shell -p git --command "nixos-install --flake '$GIT_PATH#$HNAME'"
 
 # The ROOT password is set by the nix-install command (Last step)
 
