@@ -125,7 +125,7 @@ HWC_PATH="/mnt/etc/nixos/hardware-configuration.nix"
 GIT_PATH="/root/nixos"
 GIT_HWC_PATH="$GIT_PATH/systems/$SYSTEM_FOLDER/$HNAME/hardware-configuration.nix"
 
-sed -i "s/swapDevices.*$/swapDevices = [{device = \"/.swapfile\"; size = $SWAP_SIZE;}];" $HWC_PATH
+sed -i "s/swapDevices.*$/swapDevices = \[\{device = \"\/.swapfile\"; size = 1000;\}\];/" $HWC_PATH
 
 nix-shell -p git --command "git clone https://g.phga.de/phga/nixos.git $GIT_PATH"
 # Copy the hardware-configuration.nix into the repo if it not exists
