@@ -48,6 +48,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    sof-firmware pamixer
     wirelesstools
   ];
 

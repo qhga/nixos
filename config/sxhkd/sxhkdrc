@@ -47,3 +47,27 @@ super + {f,e,t}
 # Reload configs of sxhkd or logoff
 super + ctrl + shift + {r,e}
  {pkill -USR1 -x sxhkd,bspc quit}
+
+# :::::::::::::::::::::::::::::: VOLUME CONTROL ::::::::::::::::::::::::::::::::::
+
+# Increase sound volume
+XF86AudioRaiseVolume
+ pamixer -i 5
+
+# Decrease sound volume
+XF86AudioLowerVolume
+ pamixer -d 5
+
+# Mute sound
+XF86AudioMute
+ pamixer -t
+
+# :::::::::::::::::::::::::::::: BRIGTH CONTROL ::::::::::::::::::::::::::::::::::
+
+XF86MonBrightnessUp
+ xbacklight -inc 5
+XF86MonBrightnessDown
+ xbacklight -dec 5
+
+XF86Favorites
+ [ "$(xbacklight -ctrl tpacpi::kbd_backlight -get)" == "0" ] && xbacklight -ctrl tpacpi::kbd_backlight -set 50 || xbacklight -ctrl tpacpi::kbd_backlight -set 0
