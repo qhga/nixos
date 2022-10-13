@@ -15,6 +15,7 @@
       dotf = "/home/${user}/.dotfiles";
     in {
       nixosConfigurations = {
+        # MAIN COMPUTER
         hisoka = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
@@ -32,6 +33,26 @@
           ];
 	        specialArgs = {
        	    inherit user dotf pianoteq;
+          };
+        };
+        # TESTING VM
+        netero = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./systems
+            ./systems/testing
+            ./systems/testing/netero
+            home-manager.nixosModules.home-manager {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.phga = ./users/phga/minimal.nix;
+                extraSpecialArgs = { inherit user dotf; };
+              };
+            }
+          ];
+	        specialArgs = {
+       	    inherit user dotf;
           };
         };
       };

@@ -125,12 +125,15 @@
     "x-scheme-handler/unknown" = "org.qutebrowser.qutebrowser.desktop";
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    docker.enable = true;
+    virtualbox.host.enable = true;
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.phga = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "vboxusers" ];
   };
 
   security = {

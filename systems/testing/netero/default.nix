@@ -1,28 +1,17 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, dotf, ... }:
 
 {
-  # Enable flakes & auto gc after 15 days
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-    };
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 15d";
-    };
-  };
 
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  # Define Hostname
+  networking.hostName = "netero";
+
+  environment.systemPackages = with pkgs; [
+    ripgrep
+  ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
