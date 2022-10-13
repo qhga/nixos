@@ -35,8 +35,8 @@ init() {
     # Show some possible disks
     [ -z "$DEV" ] && lsblk -nrpo "name,size,model" &&
         read -p "Provide installation medium (e.g. sda, nvme0n1): " DEV
-    [[ "$DEV" =~ sd[a-z] ]] && SUF="1-3" && MODE="SATA"
-    [[ "$DEV" =~ nvme[0-9]n[0-9] ]] && SUF="p1-3" && MODE="NVME"
+    [[ "$DEV" =~ sd[a-z] ]] && SUF="1-2" && MODE="SATA"
+    [[ "$DEV" =~ nvme[0-9]n[0-9] ]] && SUF="p1-2" && MODE="NVME"
     # Swap size
     [ -z "$SWAP_SIZE" ] && read -p "Specify the size for the SWAP file SIZE{M|G} (16G, 1M): " SWAP_SIZE
     SWAP_UNIT=${SWAP_SIZE: -1}
@@ -60,6 +60,7 @@ init() {
 }
 
 crypt_prepare_disk() {
+    echo "Preparing disk for encryption. This could take a while..."
     set +e
     cryptsetup open --type plain -d /dev/urandom $1 wipe_me
     dd if=/dev/zero of=/dev/mapper/wipe_me bs=1M status=progress
@@ -103,13 +104,13 @@ EOF
 [ $MODE == "NVME" ] && suffix="p" || suffix=""
 
 if [ "$ENC" == true ]; then
-    echo "MAKING CHANGES ON /dev/${DEV}${suffix}1-3"
+    echo "MAKING CHANGES ON /dev/${DEV}${suffix}1-2"
     mkfs.fat -I -F 32 -n NIXBOOT "/dev/${DEV}${suffix}1" # -I bc of virtual mappings
-    crypt_create_fs "/dev/${DEV}${suffix}3"
+    crypt_create_fs "/dev/${DEV}${suffix}2"
 else
-    echo "MAKING CHANGES ON /dev/${DEV}${suffix}1-3"
+    echo "MAKING CHANGES ON /dev/${DEV}${suffix}1-2"
     mkfs.fat -F 32 -n NIXBOOT "/dev/${DEV}${suffix}1"
-    mkfs.ext4 -L NIXROOT "/dev/${DEV}${suffix}3"
+    mkfs.ext4 -L NIXROOT "/dev/${DEV}${suffix}2"
 fi
 
 # ROOT_UUID=$(blkid | grep -Po '/dev/'"${DEV}${suffix}"'3.* UUID="\K[0-9a-f-]+')
