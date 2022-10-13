@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Author: Philip Gaber <phga@posteo.de>
 
 ############################################################################
@@ -7,7 +7,7 @@
 
 while getopts "n:d:e:s:t:" opt;
 do case $opt in
-       n) HOSTNAME=${OPTARG} ;;
+       n) HNAME=${OPTARG} ;;
        d) DEV=${OPTARG} ;;
        e) ENC=${OPTARG} ;;
        s) SWAP_SIZE=${OPTARG} ;;
@@ -24,13 +24,14 @@ init() {
     echo "+---------------------------+"
     echo ""
     # System type
-    [ -z "$SYSTEM_TYPE" ] && read -p "Which type of system is this? \n1: Client\n2: Server\n3: Testing (VM)\nType the corresponding number: " SYSTEM_TYPE
+
+    [ -z "$SYSTEM_TYPE" ] && echo -e "Which type of system is this? \n1: Client\n2: Server\n3: Testing (VM)\n" && read -p "Type the corresponding number: " SYSTEM_TYPE
     SYSTEM_FOLDER="testing" # Default
     [ "$SYSTEM_TYPE" == "1" ] && SYSTEM_FOLDER="clients"
     [ "$SYSTEM_TYPE" == "2" ] && SYSTEM_FOLDER="servers"
     [ "$SYSTEM_TYPE" == "3" ] && SYSTEM_FOLDER="testing"
     # Hostname
-    [ -z "$HOSTNAME" ] && read -p "Hostname: " HOSTNAME
+    [ -z "$HNAME" ] && read -p "Hostname: " HNAME
     # Show some possible disks
     [ -z "$DEV" ] && lsblk -nrpo "name,size,model" &&
         read -p "Provide installation medium (e.g. sda, nvme0n1): " DEV
@@ -49,12 +50,12 @@ init() {
     echo "|   NixOS Bootstrap   |"
     echo "+---------------------+"
     echo    "SYSTEM      = $SYSTEM_TYPE"
-    echo    "HOSTNAME    = $HOSTNAME"
+    echo    "HOSTNAME    = $HNAME"
     echo    "DEVICEPARTS = $DEV$SUF"
     echo    "SWAP_SIZE   = $SWAP_SIZE"
     echo    "ENCRYPTION  = $ENC"
     read -p "Do you want to continue with these values (y/n)? " cont
-    [ ! "$cont" == "y" ] && unset SYSTEM_TYPE HOSTNAME DEV ENC SWAP_SIZE && init
+    [ ! "$cont" == "y" ] && unset SYSTEM_TYPE HNAME DEV ENC SWAP_SIZE && init
     echo "Let's GOOOO"
 }
 
@@ -121,7 +122,7 @@ nixos-generate-config --root /mnt
 
 HWC_PATH="/mnt/etc/nixos/hardware-configuration.nix"
 GIT_PATH="/root/nixos"
-GIT_HWC_PATH="$GIT_PATH/systems/$SYSTEM_FOLDER/$HOSTNAME/hardware-configuration.nix"
+GIT_HWC_PATH="$GIT_PATH/systems/$SYSTEM_FOLDER/$HNAME/hardware-configuration.nix"
 
 sed -i "s/swapDevices.*$/swapDevices = [{device = \"/.swapfile\"; size = $SWAP_SIZE;}];" $HWC_PATH
 
@@ -129,9 +130,9 @@ nix-shell -p git --command "git clone https://g.phga.de/phga/nixos.git $GIT_PATH
 # Copy the hardware-configuration.nix into the repo if it not exists
 [ ! -f $GIT_HWC_PATH ] &&
     cp $HWC_PATH $GIT_HWC_PATH &&
-    nix-shell -p git --command "cd $GIT_PATH && git add $GIT_HWC_PATH && git commit -m 'Added new system $HOSTNAME'"
+    nix-shell -p git --command "cd $GIT_PATH && git add $GIT_HWC_PATH && git commit -m 'Added new system $HNAME'"
 
-nixos-install --flake "$GIT_PATH#$HOSTNAME"
+nixos-install --flake "$GIT_PATH#$HNAME"
 
 # Set password for each user found in config
 # The ROOT password is set by the nix-install command (Last step)
