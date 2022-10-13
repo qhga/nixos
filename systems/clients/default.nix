@@ -36,11 +36,35 @@
     curl inetutils
     # Filesystem
     ntfs3g exfat
+    # Theme
+    adwaita-qt
+    gnome.adwaita-icon-theme
   ];
+
+  environment.etc = {
+    "xdg/gtk-2.0/gtkrc".text = ''
+        gtk-theme-name = "Adwaita-dark"
+        gtk-icon-theme-name = "Adwaita"
+      '';
+
+    "xdg/gtk-3.0/settings.ini".text = ''
+        [Settings]
+        gtk-theme-name = Adwaita-dark
+        gtk-application-prefer-dark-theme = true
+        gtk-icon-theme-name = Adwaita
+      '';
+  };
+
+  qt5 = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
+    dconf.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;

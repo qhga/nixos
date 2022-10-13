@@ -21,8 +21,6 @@
     };
   };
 
-  qt.style.name = "cleanlooks";
-
   # NixPkgs that should be installed to the user profile
   home.packages = with pkgs; [
     # Dependencies for scripts
