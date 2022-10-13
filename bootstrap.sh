@@ -39,9 +39,9 @@ init() {
     [[ "$DEV" =~ nvme[0-9]n[0-9] ]] && SUF="p1-3" && MODE="NVME"
     # Swap size
     [ -z "$SWAP_SIZE" ] && read -p "Specify the size for the SWAP file SIZE{M|G} (16G, 1M): " SWAP_SIZE
-    SWAP_SIZE=${SWAP_SIZE:: -1}
     SWAP_UNIT=${SWAP_SIZE: -1}
-    [ $SWAP_UNIT == "G" ] && SWAP_SIZE=$(($SWAP_SIZE * 1000))
+    SWAP_SIZE=${SWAP_SIZE:: -1}
+    [ "$SWAP_UNIT" == "G" ] && SWAP_SIZE=$(($SWAP_SIZE * 1000))
     # Encrytion
     [ -z "$ENC" ] && read -p "Do you want the root partition to be encrypted (y/n)? " ENC
     [ "$ENC" == "y" ] && ENC=true || ENC=false
@@ -49,10 +49,10 @@ init() {
     echo "+---------------------+"
     echo "|   NixOS Bootstrap   |"
     echo "+---------------------+"
-    echo    "SYSTEM      = $SYSTEM_TYPE"
+    echo    "SYSTEM      = $SYSTEM_TYPE -> $SYSTEM_FOLDER"
     echo    "HOSTNAME    = $HNAME"
     echo    "DEVICEPARTS = $DEV$SUF"
-    echo    "SWAP_SIZE   = $SWAP_SIZE"
+    echo    "SWAP_SIZE   = $SWAP_SIZE Megabyte"
     echo    "ENCRYPTION  = $ENC"
     read -p "Do you want to continue with these values (y/n)? " cont
     [ ! "$cont" == "y" ] && unset SYSTEM_TYPE HNAME DEV ENC SWAP_SIZE && init
