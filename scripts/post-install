@@ -9,3 +9,7 @@ qutebrowser http://127.0.0.1:8384/
 
 # Generate Yubikey first challenge filse in ~/.yubico/challenge-selial
 nix-shell -p yubico-pam --command 'ykpamcfg -2'
+
+# Add gpg key
+gpg --import ~/sync/app_data/pubkeys/phga.pub
+gpg --edit-key phga # trust 5

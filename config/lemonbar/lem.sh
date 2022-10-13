@@ -51,7 +51,7 @@ fontspace="Ttyp0:pixelsize=2"
 _network() {
     local interface icon ssid level
     case $HOSTNAME in
-        "480"|"iArch")
+        "killua"|"iArch")
             interface="wlp3s0"
             ssid=$(iwconfig $interface | rg -o -e 'ESSID:"(.+)"' -r '$1')
             level=$(iwconfig $interface | rg -o -e 'level=-(\d+).*' -r '$1')
@@ -126,7 +126,7 @@ _battery() {
             fi
             ;;
     esac
-    echo "%{A:$scripts/drain.sh:}%{T2}$icon%{T-} $percent%%%{F-}%{A}"
+    echo "%{A:$scripts/drain.sh:}%{T2}$icon%{T-} $percent%%{F-}%{A}"
 }
 
 # Core temperature.
