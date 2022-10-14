@@ -6,7 +6,7 @@
 (defvar phga/emacsconf "~/.emacs.d/cnf")
 (defvar phga/dotfiles "~/.dotfiles")
 (defvar phga/fresh "~/fresh")
-(defvar phga/semesterfiles (concat phga/sync "/docs/study/MASTER/s2"))
+(defvar phga/semesterfiles (concat phga/sync "/docs/study/MASTER/s3"))
 (defvar phga/orgfiles (concat phga/sync "/org"))
 (defvar phga/books "~/shares/nxt/no_sync/books")
 

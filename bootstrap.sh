@@ -126,7 +126,7 @@ GIT_PATH="/root/nixos"
 GIT_HWC_PATH="$GIT_PATH/systems/$SYSTEM_FOLDER/$HNAME/hardware-configuration.nix"
 
 # Create an entry for the swapfile in hardware-configuration.nix
-sed -i "s/swapDevices.*$/swapDevices = \[\{device = \"\/swapfile\"; size = 1000;\}\];/" $HWC_PATH
+sed -i "s/swapDevices.*$/swapDevices = \[\{device = \"\/swapfile\"; size = $SWAP_SIZE;\}\];/" $HWC_PATH
 
 nix-shell -p git --command "git config --global user.email phga@posteo.de"
 nix-shell -p git --command "git config --global user.name phga"
