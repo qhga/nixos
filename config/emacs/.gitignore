@@ -22,3 +22,6 @@
 !minimal.el
 !test/
 !test/**
+
+# Ignore again
+*~undo-tree~

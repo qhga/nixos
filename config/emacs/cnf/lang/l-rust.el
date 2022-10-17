@@ -2,7 +2,8 @@
 ;; p -S rustup
 ;; rustup update
 ;; rustup component add rls rust-analysis rust-src
-(straight-use-package 'rust-mode)
+(straight-use-package 'rustic)
+;; (straight-use-package 'rust-mode)
 (add-hook 'rust-mode-hook 'lsp)
 
 (general-def

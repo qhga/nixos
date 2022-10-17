@@ -29,7 +29,7 @@
     pass # Password manager
     ripgrep # Grep alternative
     pinentry-qt
-    btop # Process explorer
+    # btop # Process explorer
     maim # Screenhots
     p7zip # All in one compression program
     fzf

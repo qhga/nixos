@@ -32,6 +32,8 @@
     # llvm libllvm
     # Microcontroller
     # platformio avrdude
+    # Rust
+    rustc cargo rustfmt rust-analyzer clippy
   ];
 
   services.emacs = {
