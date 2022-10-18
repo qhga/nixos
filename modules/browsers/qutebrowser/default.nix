@@ -185,7 +185,7 @@ in
         "${leader}p" = "spawn --userscript qute-pass -U secret -u '^login: (.+)'";
         "${leader}y" = "spawn --userscript qute-pass --password-only";
         "${leader}Y" = "spawn --userscript qute-pass --username-only";
-        "${leader}m" = "spawn ${pkgs.mpv}/bin/mpv {url}";
+        "${leader}m" = "spawn sh -c '${pkgs.yt-dlp}/bin/yt-dlp {url} -o - | ${pkgs.mpv}/bin/mpv -'";
         "gP" = "tab-give --private";
         "gG" = "tab-give";
       };
