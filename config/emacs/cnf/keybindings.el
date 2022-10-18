@@ -140,7 +140,7 @@
   "t t" '(phga/run-terminal-here :which-key "Alacritty in current dir")
   "t s" 'phga/new-shell
   "t v" 'phga/new-vterm
-  "t u" 'undo-tree-visualize
+  "t u" 'vundo
   "t c" 'org-capture
   "t i" '(:ignore t :which-key "Insert")
   "t i t" 'phga/insert-current-timestamp

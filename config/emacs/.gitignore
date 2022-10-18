@@ -24,4 +24,4 @@
 !test/**
 
 # Ignore again
-*~undo-tree~
+# *~undo-tree~

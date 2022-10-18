@@ -33,7 +33,9 @@
     # Microcontroller
     # platformio avrdude
     # Rust
-    rustc cargo rustfmt rust-analyzer clippy
+    # rustc cargo rustfmt rust-analyzer clippy
+    # Otherwise rustic org codeblocks do not work
+    rustup # Check l-rust.el for further instructions
   ];
 
   services.emacs = {

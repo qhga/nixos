@@ -18,16 +18,17 @@
 ;; EVIL:
 ;; depends on: goto-chg, undo-tree
 (straight-use-package 'evil)
-(straight-use-package 'undo-tree)
+(straight-use-package 'undo-fu)
+(straight-use-package 'undo-fu-session)
+(straight-use-package 'vundo)
 ;; variables
 (setq evil-want-C-u-scroll t
       evil-want-integration t
       evil-want-keybinding nil
-      evil-undo-system 'undo-tree)
+      evil-undo-system 'undo-fu)
 (require 'evil)
 ;; start mode
 (evil-mode t)
-(global-undo-tree-mode t)
 
 ;; https://github.com/emacs-evil/evil/issues/1288
 ;; Credit goes to: https://github.com/nnicandro

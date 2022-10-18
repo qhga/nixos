@@ -1,6 +1,6 @@
-;; curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-;; p -S rustup
-;; rustup update
+;; Downloads cargo, clippy, rust-docs, rust-std, rustc, rustfmt
+;; rustup default stable
+;; Install missing dependencies
 ;; rustup component add rls rust-analysis rust-src
 (straight-use-package 'rustic)
 ;; (straight-use-package 'rust-mode)
