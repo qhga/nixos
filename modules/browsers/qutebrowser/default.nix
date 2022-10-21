@@ -6,8 +6,8 @@ in
 
   programs.qutebrowser = {
     enable = true;
+    loadAutoconfig = true;
     settings = {
-      loadAutoConfig = true;
       qt.args = [ "widevine-path=${pkgs.vivaldi-widevine}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so" ];
       url = {
         start_pages = [ "https://duckduckgo.org/" ];
