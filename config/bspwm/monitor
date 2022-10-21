@@ -14,7 +14,7 @@ case $HOSTNAME in
                 outp2="DP-1"
                 ;;
             *)
-                outp1="DP-4"
+                outp1="HDMI-0"
                 outp2="DP-2"
                 ;;
         esac
@@ -31,7 +31,7 @@ normal() {
             ;;
         "hisoka")
             # Rest was in  nvidia-config but I ditched it for this
-            xrandr --dpi 96 --output $outp1 --primary --mode 1920x1080 --rate 144.0 --output $outp2 --right-of $outp1 --mode 1920x1080 --rate 119.98
+            xrandr --dpi 96 --output $outp1 --primary --auto --output $outp2 --mode 1920x1080 --pos 2560x900 --rate 143.85
 
             bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
             bspc config -m $outp1 top_padding 20

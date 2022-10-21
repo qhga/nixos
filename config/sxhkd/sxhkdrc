@@ -42,6 +42,9 @@ super + {_,shift + }{1-9,0}
 super + {f,e,t}
  bspc node -t {\~fullscreen, \~floating, \~tiled}
 
+super + c
+ $HOME/.dotfiles/config/bspwm/center_current_window
+
 # :::::::::::::::::::::::::::::: BSPWM SPECIFIC ::::::::::::::::::::::::::::::::::
 
 # Reload configs of sxhkd or logoff

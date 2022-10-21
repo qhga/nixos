@@ -84,6 +84,20 @@
   "p r" 'counsel-projectile-rg
   )
 
+(defvar phga/post-compilation-auto-quit-enable t
+  "Set this to nil to deactivate `phga/post-compilation-auto-quit'.")
+
+(defun phga/post-compilation-auto-quit (buf str)
+  "Close the compilation buffer BUF if no error or warning was yielded in STR."
+  (when (and phga/post-compilation-auto-quit-enable
+             (null (string-match "\\(.*exited abnormally.*\\|.*[Ww]arning.*\\)" str)))
+    ;;no errors, make the compilation window go away in a few seconds
+    (run-at-time "3 sec" nil 'kill-buffer (get-buffer-create "*compilation*"))
+    (message "No Compilation Errors!")))
+
+(add-to-list 'compilation-finish-functions
+             'phga/post-compilation-auto-quit)
+
 ;; FLYCHECK: on the fly syntax checking
 (straight-use-package 'flycheck)
 (setq flycheck-highlighting-mode 'symbols) ;; full symbols not cols

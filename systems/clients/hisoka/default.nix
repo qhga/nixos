@@ -4,6 +4,7 @@
 
   imports = [
     ./hardware-configuration.nix
+    ../../../modules/misc/gns3
   ];
 
   # To use the latest kernel

@@ -21,7 +21,7 @@ scripts="$scriptdir/scripts"
 # b_white=$(xrdb -query | rg -e "\.b_white:" | cut -f 2)
 
 one_color="#ffffff"
-one_color_accent="#000000"
+one_color_accent="#fdaa3a" # "#000000"
 aa=ff # opacity ff = not transparent
 bg="#000000$aa"
 bg_alt=$one_color

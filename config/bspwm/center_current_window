@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+notify-send "Centered"
+
+bspc node -t ~floating
+xdo resize -w 2556 -h 1640
+xdo move -x 0 -y 800

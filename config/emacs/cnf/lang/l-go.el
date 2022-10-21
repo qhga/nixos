@@ -38,20 +38,4 @@
           (setq run-after-compile t)))
     (compile compile-cmd)))
 
-(defun phga/post-compilation (buf str)
-  (when (null (string-match ".*exited abnormally.*" str))
-    ;;no errors, make the compilation window go away in a few seconds
-    (run-at-time
-     "1 sec" nil 'kill-buffer
-     (get-buffer-create "*compilation*"))
-    (if (boundp 'run-after-compile)
-        (progn (message "No Compilation Errors, running executable")
-               (shell-command (concat "pkill " killthis " &> /dev/null") )
-               ;; start-process-shell-command und call-... haben nicht funktioniert ):
-               (start-process "NERD" "*ASYNC*" exe))
-      (progn (message "No Compilation Errors!")))))
-
-(add-to-list 'compilation-finish-functions
-             'phga/post-compilation)
-
 (provide 'l-go)

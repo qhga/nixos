@@ -7,6 +7,7 @@ in
   programs.qutebrowser = {
     enable = true;
     settings = {
+      loadAutoConfig = true;
       qt.args = [ "widevine-path=${pkgs.vivaldi-widevine}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so" ];
       url = {
         start_pages = [ "https://duckduckgo.org/" ];
@@ -80,80 +81,103 @@ in
         tabsindicatorc = t.white;
         indicatorc = t.white;
       in {
-        completion.fg = fgc;
-        completion.odd.bg = bgc;
-        completion.even.bg = bgc;
-        completion.category.fg = selectedc;
-        completion.category.bg = bgc;
-        completion.category.border.top = bgc;
-        completion.category.border.bottom = bgc;
-        completion.item.selected.fg = bgc;
-        completion.item.selected.bg = selectedc;
-        completion.item.selected.border.top = selectedc;
-        completion.item.selected.border.bottom = selectedc;
-        completion.match.fg = selectedc;
-        completion.scrollbar.fg = fgc;
-        completion.scrollbar.bg = bgc;
-        downloads.bar.bg = bgc;
-        downloads.start.fg = bgc;
-        downloads.start.bg = selectedc;
-        downloads.stop.fg = bgc;
-        downloads.stop.bg = statusc;
-        downloads.error.fg = errorc;
-        hints.fg = bgc;
-        hints.bg = selectedc;
-        hints.match.fg = fgc;
-        keyhint.fg = fgc;
-        keyhint.suffix.fg = fgc;
-        keyhint.bg = bgc;
-        messages.error.fg = bgc;
-        messages.error.bg = errorc;
-        messages.error.border = errorc;
-        messages.warning.fg = bgc;
-        messages.warning.bg = warningc;
-        messages.warning.border = warningc;
-        messages.info.fg = fgc;
-        messages.info.bg = bgc;
-        messages.info.border = bgc;
-        prompts.fg = fgc;
-        prompts.border = bgc;
-        prompts.bg = bgc;
-        prompts.selected.bg = selectedc;
-        statusbar.normal.fg = statusc;
-        statusbar.normal.bg = bgc;
-        statusbar.insert.fg = fgc;
-        statusbar.insert.bg = bgc_alt;
-        statusbar.passthrough.fg = bgc;
-        statusbar.passthrough.bg = tabsindicatorc;
-        statusbar.private.fg = bgc;
-        statusbar.private.bg = bgc_alt;
-        statusbar.command.fg = fgc;
-        statusbar.command.bg = bgc;
-        statusbar.command.private.fg = fgc;
-        statusbar.command.private.bg = bgc;
-        statusbar.caret.fg = bgc;
-        statusbar.caret.bg = warningc;
-        statusbar.caret.selection.fg = bgc;
-        statusbar.caret.selection.bg = indicatorc;
-        statusbar.progress.bg = indicatorc;
-        statusbar.url.fg = fgc;
-        statusbar.url.error.fg = errorc;
-        statusbar.url.hover.fg = fgc;
-        statusbar.url.success.http.fg = warningc;
-        statusbar.url.success.https.fg = statusc;
-        statusbar.url.warn.fg = warningc;
-        tabs.bar.bg = bgc;
-        tabs.indicator.start = indicatorc;
-        tabs.indicator.stop = tabsindicatorc;
-        tabs.indicator.error = errorc;
-        tabs.odd.fg = fgc;
-        tabs.odd.bg = bgc;
-        tabs.even.fg = fgc;
-        tabs.even.bg = bgc;
-        tabs.selected.odd.fg = bgc;
-        tabs.selected.odd.bg = fgc;
-        tabs.selected.even.fg = bgc;
-        tabs.selected.even.bg = fgc;
+        completion = {
+          fg = fgc;
+          odd.bg = bgc;
+          even.bg = bgc;
+          category.fg = selectedc;
+          category.bg = bgc;
+          category.border.top = bgc;
+          category.border.bottom = bgc;
+          item.selected.fg = bgc;
+          item.selected.bg = selectedc;
+          item.selected.border.top = selectedc;
+          item.selected.border.bottom = selectedc;
+          match.fg = selectedc;
+          scrollbar.fg = fgc;
+          scrollbar.bg = bgc;
+        };
+
+        downloads = {
+          bar.bg = bgc;
+          start.fg = bgc;
+          start.bg = selectedc;
+          stop.fg = bgc;
+          stop.bg = statusc;
+          error.fg = errorc;
+        };
+
+        hints = {
+          fg = bgc;
+          bg = selectedc;
+          match.fg = fgc;
+        };
+
+        keyhint = {
+          fg = fgc;
+          suffix.fg = fgc;
+          bg = bgc;
+        };
+
+        messages = {
+          error.fg = bgc;
+          error.bg = errorc;
+          error.border = errorc;
+          warning.fg = bgc;
+          warning.bg = warningc;
+          warning.border = warningc;
+          info.fg = fgc;
+          info.bg = bgc;
+          info.border = bgc;
+        };
+
+        prompts = {
+          fg = fgc;
+          border = bgc;
+          bg = bgc;
+          selected.bg = selectedc;
+        };
+
+        statusbar = {
+          normal.fg = statusc;
+          normal.bg = bgc;
+          insert.fg = fgc;
+          insert.bg = bgc_alt;
+          passthrough.fg = bgc;
+          passthrough.bg = tabsindicatorc;
+          private.fg = bgc;
+          private.bg = bgc_alt;
+          command.fg = fgc;
+          command.bg = bgc;
+          command.private.fg = fgc;
+          command.private.bg = bgc;
+          caret.fg = bgc;
+          caret.bg = warningc;
+          caret.selection.fg = bgc;
+          caret.selection.bg = indicatorc;
+          progress.bg = indicatorc;
+          url.fg = fgc;
+          url.error.fg = errorc;
+          url.hover.fg = fgc;
+          url.success.http.fg = warningc;
+          url.success.https.fg = statusc;
+          url.warn.fg = warningc;
+        };
+
+        tabs = {
+          bar.bg = bgc;
+          indicator.start = indicatorc;
+          indicator.stop = tabsindicatorc;
+          indicator.error = errorc;
+          odd.fg = fgc;
+          odd.bg = bgc;
+          even.fg = fgc;
+          even.bg = bgc;
+          selected.odd.fg = bgc;
+          selected.odd.bg = fgc;
+          selected.even.fg = bgc;
+          selected.even.bg = fgc;
+        };
       };
     };
     searchEngines = {
