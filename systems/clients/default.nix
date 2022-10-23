@@ -39,6 +39,7 @@
     # Theme
     adwaita-qt
     gnome.adwaita-icon-theme
+    feh
   ];
 
   environment.etc = {

@@ -31,7 +31,8 @@ normal() {
             ;;
         "hisoka")
             # Rest was in  nvidia-config but I ditched it for this
-            xrandr --dpi 96 --output $outp1 --primary --auto --output $outp2 --mode 1920x1080 --pos 2560x900 --rate 143.85
+            xrandr --output $outp1 --mode 2560x2880 --pos 0x0 --rate 59.97
+            xrandr --output $outp2 --mode 1920x1080 --pos 2560x900 --rate 143.85
 
             bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
             bspc config -m $outp1 top_padding 20
@@ -118,3 +119,17 @@ do case $opt in
 done
 
 $HOME/.dotfiles/config/lemonbar/start.sh &
+
+# https://unix.stackexchange.com/a/539058
+screen_size=$(xrandr | grep ' connected' | awk '{print $3}' | cut -f1 -d"+")
+
+IFS=$'\n'
+readarray -t <<< "$screen_size"
+feh_command="feh --bg-fill"
+
+for size in "${MAPFILE[@]}"
+do
+    feh_command="$feh_command ~/sync/wp/$size"
+done
+
+eval "$feh_command"
