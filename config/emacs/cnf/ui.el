@@ -37,14 +37,38 @@
 (add-to-list 'default-frame-alist '(font . "Ttyp0:size=17"))
 
 ;; Change bitmap font to vector font when scaling
-(defun phga/scale-with-different-font()
-  (if (bound-and-true-p text-scale-mode)
-      (set-frame-font "Hack" nil)
-    (set-frame-font "Ttyp0:size=17" nil)
-    )
-  )
+(defun phga/scale--with-different-font (vector-font)
+  (if vector-font (set-frame-font "Hack" nil)
+    (set-frame-font "Ttyp0:size=17" nil)))
 
-(add-hook 'text-scale-mode-hook 'phga/scale-with-different-font)
+;; (add-hook 'text-scale-mode-hook 'phga/scale--with-different-font)
+
+;; DEFAULT-TEXT-SCALE: Scale text globally
+(straight-use-package 'default-text-scale)
+
+(defun phga/default-text-scale-adjust ()
+  "Adjust the height of the default face by `default-text-scale-amount'."
+  (interactive)
+  (default-text-scale-mode)
+  (phga/scale-with-different-font t)
+  (phga/default--text-scale-adjust))
+
+(defun phga/default--text-scale-adjust ()
+  "Actual function which calls itself with the temporary keymap to scale the text"
+  (let ((ev last-command-event)
+	      (echo-keystrokes nil))
+    (pcase (event-basic-type ev)
+      ((or ?= ?k) (default-text-scale-increase))
+      ((or ?- ?j) (default-text-scale-decrease))
+      ((or ?0) (progn (phga/scale--with-different-font nil)
+                      (error "Reset to normal text scale"))))
+    (message "Use j/=, k/-, 0 for further adjustment")
+    (set-transient-map
+     (let ((map (make-sparse-keymap)))
+       (dolist (key '(?- ?j ?k ?= ?0))
+         (define-key map (vector (list key))
+           (lambda () (interactive) (phga/default--text-scale-adjust))))
+       map))))
 
 ;; THEMES
 ;; SANITYINC

@@ -122,7 +122,7 @@
 
   "q" '(:ignore t :which-key "Quality :)")
   "q t" 'phga/cycle-themes
-  "q =" 'text-scale-adjust
+  "q =" 'phga/default-text-scale-adjust
   "q c" 'count-lines-words-region
 
   "t" '(:ignore t :which-key "Tools")
