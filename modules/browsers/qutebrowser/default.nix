@@ -42,7 +42,7 @@ in
       content = {
         blocking.method = "both";
         blocking.adblock.lists = [
-          # "https://easylist.to/easylist/easylist.txt"
+          "https://easylist.to/easylist/easylist.txt"
           "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt"
           "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
           "https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances.txt"
@@ -52,6 +52,8 @@ in
           "https://github.com/uBlockOrigin/uAssets/raw/master/filters/unbreak.txt"
           "https://github.com/uBlockOrigin/uAssets/raw/master/filters/resource-abuse.txt"
           "https://github.com/uBlockOrigin/uAssets/raw/master/filters/privacy.txt"
+          "https://pgl.yoyo.org/adservers"
+          "https://www.i-dont-care-about-cookies.eu/abp/"
         ];
         blocking.hosts.lists = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
         blocking.whitelist = ["piwik.org" "*.reddit.com" "*.redditinc.com" "*.redditstatic.com"];

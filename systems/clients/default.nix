@@ -114,8 +114,34 @@
         defaultSession = "none+bspwm";
         lightdm.enable = true;
         lightdm.greeters = {
-          mini.enable = true;
-          mini.user = "phga";
+          mini = {
+            enable = true;
+            extraConfig = ''
+                [greeter]
+                user = phga
+                password-alignment = left
+                password-label-text = Yubikey | Password:
+
+                [greeter-hotkeys]
+                mod-key = meta
+                restart-key = R
+                shutdown-key = S
+                suspend-key = U
+                hibernate-key = H
+                session-key = s
+
+                [greeter-theme]
+                background-image = ""
+                text-color = "#C3C9E9"
+                error-color = "#ED474A"
+                background-color = "#020E18"
+                window-color = "#0D1F2D"
+                border-color = "#1E3141"
+                password-color = "#FDAA3A"
+                password-background-color = "#0D1F2D"
+                password-border-color = "#1E3141"
+            '';
+          };
           gtk.cursorTheme = {
             name = "Bibata-Original-Amber";
             package = pkgs.bibata-cursors;
