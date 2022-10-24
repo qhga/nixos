@@ -118,6 +118,22 @@ START and END are not used by this advice"
 (advice-add 'org-src-font-lock-fontify-block
             :before #'phga/advice-load-config-for-org-src-block-language)
 
+(defvar phga/org-export-directory)
+(defun phga/advice-create-and-set-org-export-directory (f extension
+                                                          &optional subtreep pub-dir)
+  "Create and set `phga/org-export-directory' which is used as PUB-DIR in F.
+F is `org-export-output-file-name' SUBTREEP and EXTENSION are not
+modified here."
+  (let ((pub-dir (or pub-dir (and (boundp 'phga/org-export-directory)
+                                  phga/org-export-directory))))
+    (unless (file-directory-p pub-dir)
+      (make-directory phga/org-export-directory))
+    (apply f extension subtreep pub-dir '()))) ;; '() is required by apply
+
+(advice-add 'org-export-output-file-name :around #'phga/advice-create-and-set-org-export-directory)
+
+(setq phga/org-export-directory "./auto")
+
 (evil-set-initial-state 'org-agenda-mode 'normal)
 (add-to-list 'org-export-backends 'md)
 (setq org-agenda-tags-column org-tags-column
@@ -158,6 +174,7 @@ START and END are not used by this advice"
       org-export-preserve-breaks nil
       org-export-with-email t
       org-export-with-sub-superscripts t
+      org-export-in-background t
       org-html-htmlize-output-type 'inline-css
 
       ;; REQUIRES: y -S plantuml graphviz
