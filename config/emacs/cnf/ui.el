@@ -50,7 +50,7 @@
   "Adjust the height of the default face by `default-text-scale-amount'."
   (interactive)
   (default-text-scale-mode)
-  (phga/scale-with-different-font t)
+  (phga/scale--with-different-font t)
   (phga/default--text-scale-adjust))
 
 (defun phga/default--text-scale-adjust ()

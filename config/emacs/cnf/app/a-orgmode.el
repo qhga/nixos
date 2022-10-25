@@ -163,7 +163,8 @@ modified here."
       ;; Latex
       org-latex-listings 'minted
       ;; org-latex-listings nil
-      org-latex-packages-alist '(("" "minted"))
+      org-latex-packages-alist '(("outputdir=auto" "minted"))
+      org-latex-inputenc-alist '(("utf8" . "utf8x"))
       org-latex-prefer-user-labels t
       org-latex-pdf-process
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -174,7 +175,7 @@ modified here."
       org-export-preserve-breaks nil
       org-export-with-email t
       org-export-with-sub-superscripts t
-      org-export-in-background t
+      org-export-in-background nil
       org-html-htmlize-output-type 'inline-css
 
       ;; REQUIRES: y -S plantuml graphviz

@@ -33,7 +33,7 @@
   environment.systemPackages = with pkgs; [
     vim
     # Utils
-    curl inetutils
+    curl inetutils at libnotify
     # Filesystem
     ntfs3g exfat
     # Theme
@@ -152,6 +152,10 @@
       windowManager.bspwm.enable = true;
       wacom.enable = true;
     };
+    udev.extraRules = ''
+        ACTION=="add",SUBSYSTEM=="usb",ATTRS{idVendor}=="056a",ATTRS{idProduct}=="033e",RUN+="${pkgs.bash}/bin/bash ${dotf}/config/wacom/at.sh"
+      '';
+    atd.enable = true;
     syncthing = {
       enable = true;
       inherit user;
