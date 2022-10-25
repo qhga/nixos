@@ -38,8 +38,9 @@ if [[ "$(xsetwacom --list)" =~ "Intuos" ]]; then
             # xsetwacom --set "HID 256c:006e Pen stylus" PressureCurve "0 60 90 100"
             # xsetwacom --set "HID 256c:006e Pen stylus" MapToOutput "HEAD-0"
             xsetwacom --set "Wacom Intuos PT M 2 Pen stylus" PressureCurve "0 60 90 100"
-            # xsetwacom --set "Wacom Intuos PT M 2 Pen stylus" MapToOutput "HEAD-0"
-            xsetwacom --set "Wacom Intuos PT M 2 Pen stylus" MapToOutput "2560x1430+0+20"
+            xsetwacom --set "Wacom Intuos PT M 2 Pen stylus" MapToOutput "HEAD-0"
+            xsetwacom --set "Wacom Intuos PT M 2 Pen stylus" Rotate cw
+            # xsetwacom --set "Wacom Intuos PT M 2 Pen stylus" MapToOutput "2560x1430+0+20"
             # xsetwacom --set "HID 256c:006e stylus" MapToOutput "DP-2"
             ;;
     esac
