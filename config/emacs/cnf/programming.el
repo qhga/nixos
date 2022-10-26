@@ -88,11 +88,11 @@
   "Set this to nil to deactivate `phga/post-compilation-auto-quit'.")
 
 (defun phga/post-compilation-auto-quit (buf str)
-  "Close the compilation buffer BUF if no error or warning was yielded in STR."
+  "Close the compilation window and kill buffer BUF if no error or warning was yielded in STR."
   (when (and phga/post-compilation-auto-quit-enable
              (null (string-match "\\(.*exited abnormally.*\\|.*[Ww]arning.*\\)" str)))
     ;;no errors, make the compilation window go away in a few seconds
-    (run-at-time "3 sec" nil 'kill-buffer (get-buffer-create "*compilation*"))
+    (run-at-time "3 sec" nil 'quit-window t (get-buffer-window buf))
     (message "No Compilation Errors!")))
 
 (add-to-list 'compilation-finish-functions
