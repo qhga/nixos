@@ -238,15 +238,19 @@ modified here."
 
 (font-lock-add-keywords
  'org-mode
- '(("^ *- " . 'fixed-pitch) ; these two fix bullet lists indentation
-   ("^ *\\([-]\\) " ; change '-' into a unicode bullet
+ '(("^ *\\(-\\) " ; change '-' into a unicode bullet
     (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 (font-lock-add-keywords
  'org-mode
- '(("^ *+ " . 'fixed-pitch) ; these two fix bullet lists indentation
-   ("^ *\\([+]\\) " ; change '+' into a unicode bullet
+ '(("^ *\\(\\+\\) " ; change '+' into a unicode bullet
     (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "◦"))))))
+
+;; Get rid of the ,* in code blocks (visually)
+(font-lock-add-keywords
+ 'org-mode
+ '(("^ *\\(,\\*\\).*" ; change ',*' into *
+    (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "*"))))))
 
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 ;; Scale of the latex fragments
