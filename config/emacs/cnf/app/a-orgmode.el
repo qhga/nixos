@@ -302,12 +302,12 @@ modified here."
 
 ;; ELECTRIC PAIRS: Special pairs for org buffers
 ;; https://emacs.stackexchange.com/questions/2538/how-to-define-additional-mode-specific-pairs-for-electric-pair-mode
-(defvar org-electric-pairs '((?\' . ?\')) "Electric pairs for org-mode.")
-(defun org-add-electric-pairs ()
-  (setq-local electric-pair-pairs (append electric-pair-pairs org-electric-pairs))
-  (setq-local electric-pair-text-pairs electric-pair-pairs))
+;; (defvar org-electric-pairs '((?\' . ?\')) "Electric pairs for org-mode.")
+;; (defun org-add-electric-pairs ()
+;;   (setq-local electric-pair-pairs (append electric-pair-pairs org-electric-pairs))
+;;   (setq-local electric-pair-text-pairs electric-pair-pairs))
 
-(add-hook 'org-mode-hook 'org-add-electric-pairs)
+;; (add-hook 'org-mode-hook 'org-add-electric-pairs)
 
 ;; ORG-CLOCK
 (setq org-clock-history-length 23
@@ -339,15 +339,13 @@ modified here."
   :states 'normal
   :keymaps 'org-mode-map
   ;; "TAB" 'org-cycle
-  "=" 'phga/format-buffer
-  )
+  "=" 'phga/format-buffer)
 
 (phgas-leader
   :states 'normal
   :definer 'minor-mode
   :keymaps 'org-src-mode
-  "'" 'org-edit-src-exit
-  )
+  "'" 'org-edit-src-exit)
 
 (phgas-leader
   :states '(normal visual)
@@ -372,7 +370,12 @@ modified here."
   "SPC r r" 'org-babel-remove-result
   "SPC r a" (lambda () (interactive) (org-babel-remove-result-one-or-many t))
   "SPC o" 'org-open-at-point
-  "SPC e" 'org-export-dispatch
-  )
+  "SPC e" 'org-export-dispatch)
+
+(general-def
+  :states '(normal visual insert)
+  :keymaps 'org-mode-map
+  "C-k" 'org-previous-visible-heading
+  "C-j" 'org-next-visible-heading)
 
 (provide 'a-orgmode)

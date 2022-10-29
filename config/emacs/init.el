@@ -15,7 +15,9 @@
 
 ;; load own config files
 (setq custom-file (concat user-emacs-directory "customs.el"))
-(when (file-exists-p custom-file) (load custom-file))
+(unless (file-exists-p custom-file)
+    (make-empty-file "customs.el"))
+(load-file custom-file)
 
 (push (concat user-emacs-directory "cnf") load-path)
 
