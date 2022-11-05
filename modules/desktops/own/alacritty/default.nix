@@ -13,18 +13,18 @@ in {
       };
       font = {
         normal = {
-          family = t.font;
+          family = t.alt_font;
           style = "Regular";
         };
         bold = {
-          family = t.font;
+          family = t.alt_font;
           style = "Bold";
         };
         italic = {
-          family = t.font;
+          family = t.alt_font;
           style = "Italic";
         };
-        size = 17.0;
+        size = 11.0;
       };
       colors = {
         primary = {
