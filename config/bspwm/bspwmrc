@@ -19,7 +19,7 @@ bspc config gapless_monocle      false
 bspc rule -a "Emacs" state=tiled follow=on # desktop=I
 bspc rule -a "GNU Octave" state=floating
 # Scratchpad (For st change to "scratchpad:*:*")
-bspc rule -a "*:scratchpad" sticky=on state=floating hidden=off rectangle=1908x440+4+4
+bspc rule -a "*:scratchpad" sticky=on state=floating hidden=off rectangle=2552x840+4+4
 
 bspc config external_rules_command "$scriptdir/external_rules"
 # Set the default X-shaped cursor to normal left click cursor

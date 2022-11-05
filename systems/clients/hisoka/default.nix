@@ -8,7 +8,7 @@
   ];
 
   # To use the latest kernel
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # To pin the kernel to a specific version
   # The kernel packages are here: https://cdn.kernel.org/pub/linux/kernel
@@ -17,16 +17,16 @@
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/fetchurl/mirrors.nix#L132
   # This could take some time since it seems like we compile the kernel ourself
   # Approximately 40 minutes on my current workstation
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_19.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-        url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-        sha256 = "616308795a952a6a39b4c74807c33916850eb7166d8ed7c9a87a1ba55d7487ce";
-      };
-      version = "5.19.8";
-      modDirVersion = "5.19.8";
-    };
-  });
+  # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_19.override {
+  #   argsOverride = rec {
+  #     src = pkgs.fetchurl {
+  #       url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
+  #       sha256 = "616308795a952a6a39b4c74807c33916850eb7166d8ed7c9a87a1ba55d7487ce";
+  #     };
+  #     version = "5.19.8";
+  #     modDirVersion = "5.19.8";
+  #   };
+  # });
 
   # Define Hostname
   networking.hostName = "hisoka";
@@ -74,6 +74,8 @@
     blender_cuda cudatoolkit
     freecad
     pianoteq.packages.x86_64-linux.default
+    protontricks
+    protonup
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system

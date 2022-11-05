@@ -15,7 +15,7 @@ case $HOSTNAME in
                 ;;
             *)
                 outp1="HDMI-0"
-                outp2="DP-2"
+                outp2="DP-4"
                 ;;
         esac
 esac
