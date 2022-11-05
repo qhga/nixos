@@ -45,6 +45,7 @@
 
 ;; DEFAULT-TEXT-SCALE: Scale text globally
 (straight-use-package 'default-text-scale)
+(setq default-text-scale-amount 50)
 
 (defun phga/default-text-scale-adjust ()
   "Adjust the height of the default face by `default-text-scale-amount'."

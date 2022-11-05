@@ -221,7 +221,10 @@
 (push '("\\.[ch]\\'" . (lambda () (require 'l-cc) (c-mode))) auto-mode-alist)
 (push '("\\.tex\\'" . (lambda () (require 'l-tex) (LaTeX-mode))) auto-mode-alist)
 (push '("\\.el\\'" . (lambda () (require 'l-elisp) (emacs-lisp-mode))) auto-mode-alist)
+
 (push '("\\.py\\'" . (lambda () (require 'l-python) (python-mode))) auto-mode-alist)
+(push '("python[0-9.]*" . (lambda () (require 'l-python) (python-mode))) interpreter-mode-alist)
+
 (push '("\\.java\\'" . (lambda () (require 'l-java) (java-mode))) auto-mode-alist)
 (push '("\\.\\(tsx?\\|jsx?\\)\\'" . (lambda () (require 'l-typescript) (web-tide-mode))) auto-mode-alist)
 (push '("\\.\\(xml\\|html\\|php\\|css\\)\\'" . (lambda () (require 'l-web) (web-mode))) auto-mode-alist)
