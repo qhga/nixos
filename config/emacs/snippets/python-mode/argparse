@@ -2,6 +2,7 @@
 # name: argument_parser
 # key: args
 # --
+from argparse import ArgumentParser
 
 parser = ArgumentParser()
 parser.add_argument("fun", choices=("a", "b"), help="The function to run")

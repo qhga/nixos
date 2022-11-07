@@ -58,6 +58,7 @@
     inkscape # Vector graphics
     krita # Digital art
     darktable # Photo editor
+    drawio
     # Social
     signal-desktop
     teams
