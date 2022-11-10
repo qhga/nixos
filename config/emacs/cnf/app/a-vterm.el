@@ -23,6 +23,11 @@
 (add-to-list 'vterm-tramp-shells '("ssh" "/bin/bash"))
 (add-to-list 'vterm-tramp-shells '("sudo" "/bin/bash"))
 
+(defun phga/vterm--update-cursor (fn &rest args)
+  (vterm-goto-char (point)))
+
+;; Make append work as expected
+(advice-add 'vterm-send-key :before 'phga/vterm--update-cursor)
 
 (general-def
   :states '(normal insert visual)

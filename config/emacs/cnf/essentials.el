@@ -21,6 +21,7 @@
 (straight-use-package 'undo-fu)
 (straight-use-package 'undo-fu-session)
 (straight-use-package 'vundo)
+
 ;; variables
 (setq evil-want-C-u-scroll t
       evil-want-integration t

@@ -5,7 +5,7 @@
               comint-terminfo-terminal "dumb" ;; compilation output escape sequences
               compilation-read-command t
               compilation-scroll-output t
-              compilation-window-height 10)
+              compilation-window-height 45)
 
 
 (add-hook 'prog-mode-hook (lambda () (require 'whitespace)
