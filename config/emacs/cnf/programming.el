@@ -27,7 +27,7 @@
 (straight-use-package 'company)
 (setq company-idle-delay 0.0
       company-tooltip-limit 5
-      company-minimum-prefix-length 3
+      company-minimum-prefix-length 1
       company-echo-delay 0
       company-auto-complete nil)
 (add-hook 'prog-mode-hook 'company-mode)
@@ -129,13 +129,40 @@
 (straight-use-package 'lsp-ui)
 (with-eval-after-load 'lsp (require 'lsp-ui-flycheck))
 ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-(setq lsp-ui-doc-enable nil
-      lsp-enable-symbol-highlighting t
+(setq lsp-enable-symbol-highlighting t
       lsp-lens-enable nil ;; ref count
+      lsp-ui-doc-enable t
       lsp-ui-doc-include-signature t
+      lsp-ui-doc-max-height 30
+      lsp-ui-doc-max-width 200
       lsp-ui-peek-enable nil
       lsp-ui-flycheck-enable t
       lsp-ui-sideline-enable nil)
+
+;; Keybindings
+(general-def
+  :states '(normal)
+  :keymaps 'lsp-ui-doc-frame-mode-map
+  "TAB" 'lsp-ui-doc-unfocus-frame)
+
+(general-def
+  :states '(normal)
+  :keymaps 'lsp-ui-doc-mode-map
+  "TAB" 'lsp-ui-doc-focus-frame)
+
+(phgas-leader
+  :states 'normal
+  :keymaps 'lsp-mode-map
+  "SPC l i" 'lsp-organize-imports
+  "SPC l c" 'lsp-describe-session
+  "SPC l r" 'lsp-restart-workspace
+  "SPC g d" 'lsp-find-definition
+  "SPC g D" 'lsp-find-declaration
+  "SPC g t" 'lsp-goto-type-definition
+  "SPC r" 'lsp-rename
+  "SPC d" 'lsp-ui-doc-toggle
+  "SPC i" 'imenu
+  "SPC p i" 'ivy-imenu-anywhere)
 
 ;; DAP: Debug Adapter Protocol is a wire protocol for communication
 ;;      between client and Debug Server
@@ -233,36 +260,6 @@
 (require 'l-sql)
 
 ;; Keybindings
-(phgas-leader
-  :states 'normal
-  :keymaps '(go-mode-map c++-mode-map c-mode-map java-mode-map rust-mode-map)
-  "SPC g d" 'lsp-find-definition
-  "SPC g D" 'lsp-find-declaration
-  "SPC g t" 'lsp-goto-type-definition
-  "SPC r" 'lsp-rename
-  "SPC d" 'lsp-ui-doc-glance
-  "SPC i" 'imenu
-  "SPC p i" 'ivy-imenu-anywhere
-  )
-
-(phgas-leader
-  :states 'normal
-  :keymaps '(js2-mode-map python-mode-map)
-  "SPC g d" 'lsp-find-definition
-  "SPC g D" 'lsp-find-declaration
-  "SPC g t" 'lsp-goto-type-definition
-  "SPC r" 'lsp-rename
-  "SPC d" 'lsp-ui-doc-glance
-  "SPC i" 'imenu
-  "SPC p i" 'ivy-imenu-anywhere
-  )
-
-(phgas-leader
-  :states 'normal
-  :keymaps 'lsp-mode-map
-  "SPC l i" 'lsp-organize-imports
-  "SPC l c" 'lsp-describe-session
-  "SPC l r" 'lsp-restart-workspace)
 
 ;; IDENTATION & other stuff
 (general-def

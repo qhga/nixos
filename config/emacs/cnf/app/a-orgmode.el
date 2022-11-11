@@ -183,6 +183,7 @@ modified here."
 
       ;; Visuals
       org-pretty-entities t
+      org-pretty-entities-include-sub-superscripts t
       org-edit-src-content-indentation 0
       org-src-fontify-natively t
       org-src-tab-acts-natively t
