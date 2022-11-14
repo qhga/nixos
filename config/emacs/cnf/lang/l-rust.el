@@ -1,14 +1,18 @@
 ;; Downloads cargo, clippy, rust-docs, rust-std, rustc, rustfmt
 ;; rustup default stable
 ;; Install missing dependencies
-;; rustup component add rls rust-analysis rust-src
+;; rustup component add rust-analyzer rust-analysis rust-src
+;; rust-analyzer replaced rls
 (straight-use-package 'rustic)
 ;; (straight-use-package 'rust-mode)
+(setq lsp-rust-server 'rust-analyzer
+      rustic-lsp-server 'rust-analyzer)
+
 (add-hook 'rust-mode-hook 'lsp)
 
 (general-def
   :states 'normal
   :keymaps 'rust-mode-map
-  "=" 'rust-format-buffer)
+  "=" 'rustic-format-buffer)
 
 (provide 'l-rust)

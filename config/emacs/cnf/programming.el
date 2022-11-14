@@ -153,7 +153,8 @@
 (phgas-leader
   :states 'normal
   :keymaps 'lsp-mode-map
-  "SPC l i" 'lsp-organize-imports
+  "SPC i" 'lsp-organize-imports
+  "SPC a" 'lsp-execute-code-action
   "SPC l c" 'lsp-describe-session
   "SPC l r" 'lsp-restart-workspace
   "SPC g d" 'lsp-find-definition
@@ -163,6 +164,11 @@
   "SPC d" 'lsp-ui-doc-toggle
   "SPC i" 'imenu
   "SPC p i" 'ivy-imenu-anywhere)
+
+(general-def
+  :states 'normal
+  :keymaps 'lsp-mode-map
+  "=" 'lsp-format-buffer)
 
 ;; DAP: Debug Adapter Protocol is a wire protocol for communication
 ;;      between client and Debug Server

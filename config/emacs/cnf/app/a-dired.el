@@ -1,7 +1,7 @@
 ;; DIRED: Filebrowser
 (straight-use-package 'dired-narrow)
-(require 'dired-async)
-(dired-async-mode 0)
+;; (require 'dired-async)
+;; (dired-async-mode 0)
 
 (setq dired-listing-switches "-lFahv --group-directories-first"
       dired-dwim-target t

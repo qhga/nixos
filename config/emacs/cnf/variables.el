@@ -40,6 +40,6 @@
 (add-hook 'kill-emacs-hook 'save-some-buffers)
 
 ;; Width used to draw the column indicator + used in fill-paragraph
-(setq-default fill-column 90)
+(setq-default fill-column 100)
 
 (provide 'variables)

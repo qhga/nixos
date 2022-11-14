@@ -24,7 +24,11 @@ in {
       # bashrcExtra = ''
       # '';
       # Login Shell
-      # profileExtra = '''';
+      profileExtra = ''
+        export CARGO_HOME=~/.cargo
+        export RUSTUP_HOME=~/.rustup
+        export PATH=$CARGO_HOME/bin:$RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/bin/:$PATH
+      '';
       shellAliases = {
         bye="shutdown now"                                                        ;
         ls="ls --color=auto --group-directories-first";
