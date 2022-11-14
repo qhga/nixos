@@ -42,14 +42,14 @@ elif [ "$1" == "gc" ]; then
     nix-store --gc
 else
     echo '
-Usage: pnt [OPTION, ...]
+Usage: pnt OPTION
   switch                       Switch to the new generation
   build                        Build the new generation (but do not switch)
-  update {all|$input_name}     Update all or a specific input of the flake
+  update {all|INPUT_NAME}      Update all or a specific input of the flake
   list                         List all available generations
-  ref $binary [-v]             Show the refs of the binary and binaries that ref it
-  dir $binary                  Show the nix-store directory of the binary
-  rm $binary                   Remove the directory of the binary (del lines from config first)
+  ref BINARY [-v]              Show the refs of the binary and binaries that ref it
+  dir BINARY                   Show the nix-store directory of the binary
+  rm BINARY                    Remove the directory of the binary (del lines from config first & switch)
   gc                           Run the garbage collection for the nix-store
 '
 fi
