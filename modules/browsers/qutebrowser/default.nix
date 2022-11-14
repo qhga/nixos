@@ -205,6 +205,7 @@ in
       np      = "https://search.nixos.org/packages?channel=unstable&query={}";
       nw      = "https://nixos.wiki/index.php?search={}&go=Go";
       hm      = "https://github.com/nix-community/home-manager/search?q={}";
+      rd      = "https://doc.rust-lang.org/std/index.html?search={}";
     };
     keyBindings = let leader = "<Space>"; in {
       normal = {

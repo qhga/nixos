@@ -5,6 +5,11 @@ if [ "$1" == "switch" ]; then
     echo "SWITCHING to new generation"
     # sudo nixos-rebuild switch -I nixos-config=./system/configuration.nix
     time sudo nixos-rebuild switch --flake .#
+elif [ "$1" == "switch" ]; then
+    echo "HAVE YOU STAGED NEW FILES/FOLDERS?"
+    echo "BUILDING new generation"
+    # sudo nixos-rebuild build -I nixos-config=./system/configuration.nix
+    time sudo nixos-rebuild build --flake .#
 elif [ "$1" == "update" ]; then
     [ -z "$2" ] && echo "Missing 2nd argument: pnt update {all|input_name}" && exit
     if [ "$2" == "all" ]; then
@@ -26,17 +31,26 @@ elif [ "$1" == "ref" ]; then
     fi
 elif [ "$1" == "dir" ]; then
     [ -z "$2" ] && echo "Missing 2nd argument: pnt dir {binary}" && exit
-    echo $(ls -l `which $2` | rg -e '(/nix/store/[\w\.-]+)/' -o)
+    realpath `which $2`
 elif [ "$1" == "rm" ]; then
     [ -z "$2" ] && echo "Missing 2nd argument: pnt rm {binary}" && exit
-    path=$(ls -l `which $2` | rg -e '(/nix/store/[\w\.-]+)/' -o)
+    path=$(realpath `which $2`)
     echo "REMOVING: $path"
     echo "You have to uninstall the package first (remove from configuration.nix)"
     nix-store --delete $path
+elif [ "$1" == "gc" ]; then
+    nix-store --gc
 else
-    echo "HAVE YOU STAGED NEW FILES/FOLDERS?"
-    echo "BUILDING new generation"
-    # sudo nixos-rebuild build -I nixos-config=./system/configuration.nix
-    time sudo nixos-rebuild build --flake .#
+    echo '
+Usage: pnt [OPTION, ...]
+  switch                       Switch to the new generation
+  build                        Build the new generation (but do not switch)
+  update {all|$input_name}     Update all or a specific input of the flake
+  list                         List all available generations
+  ref $binary [-v]             Show the refs of the binary and binaries that ref it
+  dir $binary                  Show the nix-store directory of the binary
+  rm $binary                   Remove the directory of the binary (del lines from config first)
+  gc                           Run the garbage collection for the nix-store
+'
 fi
 popd > /dev/null

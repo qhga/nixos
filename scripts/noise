@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Modified version of http://www.geekamole.com/2013/generate-an-extremely-long-brownpinkwhite-noise-mp3-in-linux/
+noise='pink'
+# ^your choice: 'white', 'pink', 'brown', 'tpdf'
+# where tpdf stands for Triangular Probability Density Function (cf. dither).
+# N.B. - white and pink noise have higher frequencies than Brown.
+
+# FYI Channels: 2 @ 32-bit, Samplerate: 48000Hz.
+#w64 format eliminates the 2GB sox barrier with conventional wav files
+dname="$HOME/noise"
+fname="$dname/${noise}noise.w64"
+mkdir -p $dname
+rm -fr $fname
+
+#Makes for a ~7hr, 1GB MP3 with these lame settings (320 kbps CBR)
+real_len='414:00'
+volume='-6.0dB'
+
+nix-shell -p sox --command "sox -c 2 --null $fname synth $real_len ${noise}noise vol $volume &"

@@ -31,7 +31,7 @@ case "$title" in
     *"Friends List"*)
         echo "desktop=1";;
     "Rocket League "*)
-        echo "desktop=X state=fullscreen";;
+        echo "desktop=X";;
     *Vampire*)
         echo "desktop=X state=fullscreen";;
     *Signal*)
