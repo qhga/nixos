@@ -1,7 +1,7 @@
 {
   shanty = {
     font           = "Ttyp0";
-    alt_font       = "Hack";
+    alt_font       = "Jetbrains Mono";
     red            = "#ed474a";
     orange         = "#ff7f11";
     green          = "#a5cc69";

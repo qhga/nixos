@@ -27,7 +27,7 @@
     allowUnfree = true;
   };
 
-  fonts.fonts = with pkgs; [ hack-font unifont unifont_upper freefont_ttf font-awesome ];
+  fonts.fonts = with pkgs; [ jetbrains-mono unifont unifont_upper freefont_ttf font-awesome ];
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [

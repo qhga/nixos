@@ -4,6 +4,7 @@
 
   imports = [
     ../../modules/shells/bash
+    ../../modules/shells/nushell
     ../../modules/editors/emacs
     ../../modules/desktops/own/dunst
     ../../modules/desktops/own/alacritty

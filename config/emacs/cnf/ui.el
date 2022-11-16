@@ -20,8 +20,6 @@
 
 (set-language-environment "UTF-8")
 
-(winner-mode)
-
 ;; LOLOLOL I needed to set weight/style to BLACK to get it to normal...
 ;; when it was set to normal it was bold (only in emacs)
 ;; FONT
@@ -38,7 +36,7 @@
 
 ;; Change bitmap font to vector font when scaling
 (defun phga/scale--with-different-font (vector-font)
-  (if vector-font (set-frame-font "Hack" nil)
+  (if vector-font (set-frame-font "Jetbrains Mono" nil)
     (set-frame-font "Ttyp0:size=17" nil)))
 
 ;; (add-hook 'text-scale-mode-hook 'phga/scale--with-different-font)
@@ -71,6 +69,28 @@
            (lambda () (interactive) (phga/default--text-scale-adjust))))
        map))))
 
+;; LIGATURES
+(straight-use-package 'ligature)
+;; Enable the "www" ligature in every possible major mode
+;; (ligature-set-ligatures 't '("www"))
+;; Enable all Cascadia Code ligatures in programming modes
+(ligature-set-ligatures
+ 'prog-mode
+ '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+   ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+   "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+   "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+   "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+   "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+   "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+   "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+   ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+   "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+   "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+   "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+   "\\\\" "://"))
+
+(global-ligature-mode t)
 ;; THEMES
 ;; SANITYINC
 ;; (straight-use-package 'color-theme-sanityinc-tomorrow)

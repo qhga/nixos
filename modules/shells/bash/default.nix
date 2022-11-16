@@ -27,7 +27,7 @@ in {
       profileExtra = ''
         export CARGO_HOME=~/.cargo
         export RUSTUP_HOME=~/.rustup
-        export PATH=$CARGO_HOME/bin:$RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/bin/:$PATH
+        export PATH=$PATH:$RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/bin/:$CARGO_HOME/bin
       '';
       shellAliases = {
         bye="shutdown now"                                                        ;
