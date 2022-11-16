@@ -30,7 +30,7 @@
 
     ripgrep # Grep alternative
     fd # Find alternative
-    tokey # cloc alternative
+    tokei # cloc alternative
     delta # diff alternative
 
     pinentry-qt
