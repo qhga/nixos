@@ -4,7 +4,6 @@
 
   imports = [
     ../../modules/shells/bash
-    ../../modules/shells/nushell
     ../../modules/editors/emacs
     ../../modules/desktops/own/dunst
     ../../modules/desktops/own/alacritty
@@ -28,7 +27,12 @@
     xtitle pciutils xdo acpi tree xclip usbutils
     # Essentials
     pass # Password manager
+
     ripgrep # Grep alternative
+    fd # Find alternative
+    tokey # cloc alternative
+    delta # diff alternative
+
     pinentry-qt
     btop # Process explorer
     maim # Screenhots
