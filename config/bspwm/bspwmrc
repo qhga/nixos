@@ -19,7 +19,11 @@ bspc config gapless_monocle      false
 bspc rule -a "Emacs" state=tiled follow=on # desktop=I
 bspc rule -a "GNU Octave" state=floating
 # Scratchpad (For st change to "scratchpad:*:*")
-bspc rule -a "*:scratchpad" sticky=on state=floating hidden=off rectangle=2552x840+4+4
+dimensions="`xrandr | rg -o -e 'connected.* (\d+x\d+)' -r '$1'`"
+readarray -d x -t wh <<< "$dimensions"
+w=$((${wh[0]} - 8))
+[ ${wh[1]} -gt 1080 ] && h=840 || h=520
+bspc rule -a "*:scratchpad" sticky=on state=floating hidden=off rectangle=$w"x"$h+4+4
 
 bspc config external_rules_command "$scriptdir/external_rules"
 # Set the default X-shaped cursor to normal left click cursor
