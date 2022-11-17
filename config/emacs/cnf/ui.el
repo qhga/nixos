@@ -28,45 +28,56 @@
 ;; (set-fontset-font t 'unicode "Symbols Nerd Font-14:style=Regular" nil)
 ;; (set-face-attribute 'default nil :font "Iosevka 14")
 ;; (add-to-list 'default-frame-alist '(font . "Iosevka 14"))
+;; (set-fontset-font "fontset-default"
+;;                   'unicode-bmp
+;;                   (font-spec :family "Ttyp0" :size 17))
+;; (set-face-attribute 'fixed-pitch nil :family "Ttyp0:size=17")
+;; (add-to-list 'default-frame-alist '(font . "Ttyp0:size=17"))
+(defvar phga/font "Jetbrains Mono")
+(defvar phga/font-size "19")
+(defvar phga/font-family (concat phga/font ":size=" phga/font-size))
+(set-frame-font phga/font-family t t)
 (set-fontset-font "fontset-default"
                   'unicode-bmp
-                  (font-spec :family "Ttyp0" :size 17))
-(set-face-attribute 'fixed-pitch nil :family "Ttyp0:size=17")
-(add-to-list 'default-frame-alist '(font . "Ttyp0:size=17"))
+                  (font-spec :family phga/font :size (string-to-number phga/font-size)))
+(set-face-attribute 'fixed-pitch nil :family phga/font-family)
+(add-to-list 'default-frame-alist `(font . ,phga/font-family))
 
-;; Change bitmap font to vector font when scaling
-(defun phga/scale--with-different-font (vector-font)
-  (if vector-font (set-frame-font "Jetbrains Mono" nil)
-    (set-frame-font "Ttyp0:size=17" nil)))
-
-;; (add-hook 'text-scale-mode-hook 'phga/scale--with-different-font)
-
-;; DEFAULT-TEXT-SCALE: Scale text globally
-(straight-use-package 'default-text-scale)
-(setq default-text-scale-amount 50)
-
-(defun phga/default-text-scale-adjust ()
-  "Adjust the height of the default face by `default-text-scale-amount'."
+;; TEXT-SCALE: Scale text globally
+(defvar phga/text-scale-amount 1)
+(defvar phga/text-scale--current-size (string-to-number phga/font-size))
+(defun phga/text-scale-adjust ()
+  "Adjust the size of the frame-font by `phga/text-scale-amount'."
   (interactive)
-  (default-text-scale-mode)
-  (phga/scale--with-different-font t)
-  (phga/default--text-scale-adjust))
+  (phga/text-scale--adjust))
 
-(defun phga/default--text-scale-adjust ()
-  "Actual function which calls itself with the temporary keymap to scale the text"
+(defun phga/text-scale--scale (inc)
+  "Scale the frame-font by `phga/text-scale-amount'.
+If INC is not nil increase the font size else decrease it"
+  (if inc (setq phga/text-scale--current-size
+                (+ phga/text-scale--current-size phga/text-scale-amount))
+    (setq phga/text-scale--current-size
+          (- phga/text-scale--current-size phga/text-scale-amount)))
+  (set-frame-font (concat phga/font ":size="
+                          (number-to-string phga/text-scale--current-size)) t t))
+
+(defun phga/text-scale--adjust ()
+  "Actual function which will call itself with the temporary keymap to scale the text."
   (let ((ev last-command-event)
 	      (echo-keystrokes nil))
     (pcase (event-basic-type ev)
-      ((or ?= ?k) (default-text-scale-increase))
-      ((or ?- ?j) (default-text-scale-decrease))
-      ((or ?0) (progn (phga/scale--with-different-font nil)
+      ((or ?= ?k) (phga/text-scale--scale t))
+      ((or ?- ?j) (phga/text-scale--scale nil))
+      ((or ?0) (progn (set-frame-font phga/font-family t t)
+                      (setq phga/text-scale--current-size
+                            (string-to-number phga/font-size))
                       (error "Reset to normal text scale"))))
     (message "Use j/=, k/-, 0 for further adjustment")
     (set-transient-map
      (let ((map (make-sparse-keymap)))
        (dolist (key '(?- ?j ?k ?= ?0))
          (define-key map (vector (list key))
-           (lambda () (interactive) (phga/default--text-scale-adjust))))
+           (lambda () (interactive) (phga/text-scale--adjust))))
        map))))
 
 ;; LIGATURES
