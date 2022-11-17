@@ -24,6 +24,7 @@
 ;; when it was set to normal it was bold (only in emacs)
 ;; FONT
 ;; 0123456789 /-><&^)!?@#${} Hello what up XxOo
+
 ;; (set-frame-font "Ttyp0:size=17" t t)
 ;; (set-fontset-font t 'unicode "Symbols Nerd Font-14:style=Regular" nil)
 ;; (set-face-attribute 'default nil :font "Iosevka 14")
@@ -33,15 +34,21 @@
 ;;                   (font-spec :family "Ttyp0" :size 17))
 ;; (set-face-attribute 'fixed-pitch nil :family "Ttyp0:size=17")
 ;; (add-to-list 'default-frame-alist '(font . "Ttyp0:size=17"))
+;; (set-fontset-font t 'unicode (concat "Unifont:size=" phga/font-size) nil)
+
+;; FONT SETUP
 (defvar phga/font "Jetbrains Mono")
 (defvar phga/font-size "19")
 (defvar phga/font-family (concat phga/font ":size=" phga/font-size))
+
+;; These are required to have the correct font size with the first frame (emacs server)
 (set-frame-font phga/font-family t t)
-(set-fontset-font "fontset-default"
-                  'unicode-bmp
-                  (font-spec :family phga/font :size (string-to-number phga/font-size)))
-(set-face-attribute 'fixed-pitch nil :family phga/font-family)
 (add-to-list 'default-frame-alist `(font . ,phga/font-family))
+
+;; These are *not* required!
+;; (set-face-attribute 'default nil :font phga/font-family)
+;; (add-to-list 'initial-frame-alist `(font . ,phga/font-family))
+;; (set-fontset-font "fontset-default" 'default (font-spec :family phga/font :size 17))
 
 ;; TEXT-SCALE: Scale text globally
 (defvar phga/text-scale-amount 1)
@@ -103,58 +110,6 @@ If INC is not nil increase the font size else decrease it"
 
 (global-ligature-mode t)
 ;; THEMES
-;; SANITYINC
-;; (straight-use-package 'color-theme-sanityinc-tomorrow)
-;; ;; required on current theme setup to highlight marked folders
-;; (set-face-attribute 'dired-marked nil :foreground "#b294bb")
-;; (setq phga/dark-theme 'sanityinc-tomorrow-night)
-;; (setq phga/light-theme 'sanityinc-tomorrow-day)
-
-;; MODUS
-;; (straight-use-package 'modus-themes)
-;; (setq phga/light-theme 'modus-operandi)
-;; (setq phga/dark-theme 'modus-vivendi)
-
-;; (setq modus-themes-org-blocks 'gray-background
-;;       modus-themes-headings ; this is an alist: read the manual or its doc string
-;;       '((1 . (overline background))
-;;         (2 . (rainbow overline))
-;;         (t . (semibold))))
-
-
-;; TAO
-;; (straight-use-package 'tao-theme)
-;; (setq phga/dark-theme 'tao-yin)
-;; (setq phga/light-theme 'tao-yang)
-;; (setq tao-theme-use-sepia nil
-;;       tao-theme-scale-fn 'tao-theme-golden-scale
-;;       tao-theme-use-height nil)
-
-;; APROPOSPRIATE
-;; (straight-use-package 'apropospriate-theme)
-;; (setq phga/dark-theme 'apropospriate-dark)
-;; (setq phga/light-theme 'apropospriate-light)
-
-;; ZENBURN
-;; (straight-use-package 'zenburn-theme)
-;; (setq phga/dark-theme 'zenburn)
-
-;; DRACULA
-;; (straight-use-package 'dracula-theme)
-;; (setq phga/dark-theme 'dracula)
-
-;; MATERIAL
-;; (straight-use-package 'material-theme)
-;; (setq phga/dark-theme 'material)
-
-;; IMMATERIAL
-;; (straight-use-package 'immaterial-theme)
-;; (setq phga/dark-theme 'immaterial-dark)
-
-;; SUBATOMIC
-;; (straight-use-package 'subatomic-theme)
-;; (setq phga/dark-theme 'subatomic)
-
 ;; SHANTY
 ;; (add-to-list 'custom-theme-load-path
 ;;              "/home/phga/.dotfiles/emacs/straight/repos/shanty-themes/")
@@ -163,21 +118,8 @@ If INC is not nil increase the font size else decrease it"
 (setq phga/dark-theme 'shanty-themes-dark)
 (setq phga/light-theme 'shanty-themes-light)
 
-
-;; FIXES
-;; Shell mode line highlighted
-(set-face-attribute 'comint-highlight-prompt nil :inherit nil)
-(custom-set-faces '(comint-highlight-prompt ((t nil))))
-
-
 (setq phga/current-theme phga/dark-theme)
 (load-theme phga/current-theme t)
-
-;; Some themes do not load correctly in frames
-(add-hook 'after-make-frame-functions
-          (defun phga/frame-theme-fix (f)
-            (select-frame f)
-            (load-theme phga/current-theme t)))
 
 (defun phga/cycle-themes ()
   (interactive)
@@ -193,6 +135,18 @@ If INC is not nil increase the font size else decrease it"
       (load-theme phga/dark-theme t)
       (message "Loaded dark theme")
       (setq phga/current-theme phga/dark-theme))))
+
+;; FIXES
+;; Shell mode line highlighted
+(set-face-attribute 'comint-highlight-prompt nil :inherit nil)
+(custom-set-faces '(comint-highlight-prompt ((t nil))))
+
+;; ;; Some themes do not load correctly in frames
+;; (defun phga/frame-theme-fix (f)
+;;             (select-frame f)
+;;             (load-theme phga/current-theme t))
+
+;; (add-hook 'after-make-frame-functions phga/frame-theme-fix)
 
 ;; MODE-LINE
 ;; https://emacs.stackexchange.com/questions/5529/how-to-right-align-some-items-in-the-modeline
