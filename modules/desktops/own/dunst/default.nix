@@ -16,7 +16,7 @@ in {
           horizontal_padding = 12;
           frame_width = 2;
           # separator_color = "#ffffff";
-          font = "Ttyp0 15";
+          font = t.font + " 15";
           markup = "full";
           format = "<b>%s</b>\n%b";
           history_length = 10;
@@ -28,19 +28,19 @@ in {
           mouse_right_click = "close_all";
         };
         urgency_low = {
-          background = t.background_alt;
+          background = t.backgroundM1;
           foreground = t.foreground;
           frame_color = t.foreground;
           timeout = 5;
         };
         urgency_normal = {
-          background = t.background_alt;
+          background = t.backgroundM1;
           foreground = t.foreground;
           frame_color = t.foreground;
           timeout = 10;
         };
         urgency_critical = {
-          background = t.background_alt;
+          background = t.backgroundM1;
           foreground = t.error;
           frame_color = t.error;
           timeout = 15;

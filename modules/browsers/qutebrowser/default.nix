@@ -12,7 +12,7 @@ in
       url = {
         start_pages = [ "https://duckduckgo.org/" ];
       };
-      fonts = let font = "15px Ttyp0"; in {
+      fonts = let font = "15px " + t.font; in {
         tabs.selected = font;
         tabs.unselected = font;
         statusbar = font;
@@ -74,7 +74,7 @@ in
       };
       colors = let
         bgc = t.background;
-        bgc_alt = t.background_alt;
+        bgc_alt = t.backgroundM1;
         fgc = t.foreground;
         errorc = t.error;
         warningc = t.warning;

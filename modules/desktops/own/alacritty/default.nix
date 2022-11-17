@@ -13,15 +13,15 @@ in {
       };
       font = {
         normal = {
-          family = t.alt_font;
+          family = t.font;
           style = "Regular";
         };
         bold = {
-          family = t.alt_font;
+          family = t.font;
           style = "Bold";
         };
         italic = {
-          family = t.alt_font;
+          family = t.font;
           style = "Italic";
         };
         size = 11.0;
