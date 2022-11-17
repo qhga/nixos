@@ -6,6 +6,7 @@
     ../../modules/shells/bash
     ../../modules/editors/emacs
     ../../modules/desktops/own/dunst
+    ../../modules/desktops/own/rofi
     ../../modules/desktops/own/alacritty
     ../../modules/browsers/qutebrowser
   ];
@@ -41,7 +42,6 @@
     # Desktop environment
     papirus-icon-theme
     lemonbar-xft trayer
-    rofi
     xfce.thunar
     gnome.file-roller
     # Browser
@@ -91,7 +91,6 @@
   };
 
   # This is evil
-  xdg.configFile."rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/rofi";
   xdg.configFile."bspwm".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bspwm";
   xdg.configFile."sxhkd".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/sxhkd";
   xdg.dataFile."applications/pw.desktop".source =
