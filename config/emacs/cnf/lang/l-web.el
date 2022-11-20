@@ -1,7 +1,8 @@
 ;; WEB
 (straight-use-package 'web-mode)
 (setq web-mode-engines-alist
-      '(("go" . "\\.html\\'")))
+      '(("go" . "\\.html\\'"))
+      web-mode-enable-auto-quoting nil)
 ;; (straight-use-package 'php-mode)
 ;; (push '("\\.php\\'" . php-mode) auto-mode-alist)
 

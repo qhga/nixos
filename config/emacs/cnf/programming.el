@@ -84,7 +84,8 @@
   "p r" 'counsel-projectile-rg
   )
 
-(defvar phga/post-compilation-auto-quit-enable t
+;; Also influences ripgrep buffers!!
+(defvar phga/post-compilation-auto-quit-enable nil
   "Set this to nil to deactivate `phga/post-compilation-auto-quit'.")
 
 (defun phga/post-compilation-auto-quit (buf str)

@@ -3,14 +3,27 @@
 # key: args
 # --
 
-while getopts "d:h" opt;
+help_msg="
+USAGE: noise [OPTION]...
+
+Create a ~7h file of white, pink, brown or tpdf noise.
+
+OPTIONS:
+
+  -t {pink|white|brown|tpdf}    Create this type of noise
+  -o {path}                     Output path [Default: ~/noise/]
+"
+
+while getopts "t:o:h" opt;
 do case $opt in
        h) echo "$help_msg" && exit ;;
-       d) deps=${OPTARG} ;; # required dependencies
+       t) type=${OPTARG} ;;
+       o) dname=${OPTARG} ;;
        \?) echo "$help_msg" && exit ;;
    esac
 done
 
 shift $((OPTIND-1))
 
-[ -z $1 ] && echo "$help_msg" && exit
+[ -z $type ] && echo "$help_msg" && exit # Required
+dname=${dname:='white'} # Default

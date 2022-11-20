@@ -49,11 +49,15 @@
 (setf dired-launch-extensions-map
       '(;; xml files with bpmn in it
         ("bpmn" ("camunda-modeler"))
-        ("xopp" ("xournalpp"))))
+        ("xopp" ("xournalpp"))
+        ("drawio.html" ("drawio"))
+        ("drawio" ("drawio"))))
 
-(general-def
-  :states 'normal
-  :keymaps 'dired-mode-map
-  "W" 'dired-launch-command)
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (general-def
+              :states 'normal
+              :keymaps 'dired-mode-map
+              "W" 'dired-launch-command)))
 
 (provide 'a-dired)

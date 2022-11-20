@@ -1,19 +1,48 @@
 #!/usr/bin/env bash
-# Modified version of http://www.geekamole.com/2013/generate-an-extremely-long-brownpinkwhite-noise-mp3-in-linux/
-noise='pink'
-# ^your choice: 'white', 'pink', 'brown', 'tpdf'
-# where tpdf stands for Triangular Probability Density Function (cf. dither).
-# N.B. - white and pink noise have higher frequencies than Brown.
+help_msg="
+USAGE: noise -t {pink|white|brown|tpdf} [OPTION]...
 
-# FYI Channels: 2 @ 32-bit, Samplerate: 48000Hz.
-#w64 format eliminates the 2GB sox barrier with conventional wav files
-dname="$HOME/noise"
-fname="$dname/${noise}noise.w64"
-mkdir -p $dname
-rm -fr $fname
+Create a ~7h file of white, pink, brown or tpdf noise.
+
+OPTIONS:
+
+  -t {pink|white|brown|tpdf}    Create this type of noise [REQUIRED]
+  -o {path}                     Output path [Default: ~/noise/]
+"
+
+while getopts "t:o:h" opt;
+do case $opt in
+       h) echo "$help_msg" && exit ;;
+       t) noise=${OPTARG} ;;
+       o) dname=${OPTARG} ;;
+       \?) echo "$help_msg" && exit ;;
+   esac
+done
+
+shift $((OPTIND-1))
+
+[ -z "$noise" ] && echo "$help_msg" && exit
+# Modified version of http://www.geekamole.com/2013/generate-an-extremely-long-brownpinkwhite-noise-mp3-in-linux/
+dname=${dname:="$HOME/noise"}
+fname="$dname/${noise}-noise.w64"
+[ ! -d "$dname" ] && mkdir -p $dname
+[ -f "$fname" ] && rm -fr $fname
 
 #Makes for a ~7hr, 1GB MP3 with these lame settings (320 kbps CBR)
 real_len='414:00'
 volume='-6.0dB'
 
+echo "Creating $fname -> This could take a while!"
 nix-shell -p sox --command "sox -c 2 --null $fname synth $real_len ${noise}noise vol $volume &"
+
+sleep 1s
+
+size="0"
+new_size="-1"
+while [ "$size" != "$new_size" ]; do
+    size=$new_size
+    new_size=`du -h "$fname" | xargs echo | cut -f1 -d ' '`
+    echo "Written $new_size/8.9G"
+    sleep 1s
+done
+echo "Successfully created $fname"

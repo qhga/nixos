@@ -13,8 +13,8 @@
     # nix-direnv.enableFlakes = true; # TODO: Check this out (external flakes for shell-conf)
   };
 
+  # Dependencies
   home.packages = with pkgs; [
-    # Dependencies
     ripgrep
     # Latex
     pandoc auctex texlive.combined.scheme-full # includes biber
@@ -38,6 +38,9 @@
     rustup # Check l-rust.el for further instructions
     # SQL
     mariadb-client
+    # Node.js/NPM
+    nodejs_latest
+    nodePackages_latest.prettier
   ];
 
   services.emacs = {
