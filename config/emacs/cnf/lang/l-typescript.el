@@ -71,7 +71,7 @@
 ;; PRETTIER: Formats js code
 ;; Requires: prettier
 (straight-use-package 'prettier-js)
-;; (add-hook 'web-tide-mode-hook 'prettier-js-mode)
+(add-hook 'web-tide-mode-hook 'prettier-js-mode)
 
 ;; If we want to use the prettier in node modules (pkg: add-node-modules-path)
 ;; --no-semi, --use-tabs, --no-bracket-spacing: Not required bc default
