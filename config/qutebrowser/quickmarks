@@ -128,3 +128,4 @@ glou https://j.eeez.de/glou
 cali http://10.10.10.3:9003/#/
 miro https://miro.com/app/
 http https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+local http://127.0.0.1:6969/

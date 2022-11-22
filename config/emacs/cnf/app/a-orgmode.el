@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; ORG-DRILL
-(straight-use-package 'org-drill)
+;; (straight-use-package 'org-drill)
 
 ;; HTMLIZE: html export for orgmode
 (straight-use-package 'htmlize)
@@ -14,7 +14,7 @@
 ;; https://old.reddit.com/r/emacs/comments/p9yjgq/turn_off_fontlock_under_cursor/ha6zor6/
 ;; ORG-APPEAR: shows emphasis symbols when required
 (straight-use-package 'org-appear)
-(setq org-appear-autolinks t
+(setq org-appear-autolinks nil ;;'just-brackets
       org-appear-autosubmarkers t
       org-appear-autoentities t
       org-appear-autokeywords t

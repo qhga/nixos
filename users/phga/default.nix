@@ -8,6 +8,7 @@
     ../../modules/desktops/own/dunst
     ../../modules/desktops/own/rofi
     ../../modules/desktops/own/alacritty
+    ../../modules/desktops/own/thunderbird
     ../../modules/browsers/qutebrowser
   ];
 
@@ -73,6 +74,8 @@
     nmap whois
     # 3D Modelling & Printing
     prusa-slicer
+    # Misc
+    postman
   ];
 
   services = {

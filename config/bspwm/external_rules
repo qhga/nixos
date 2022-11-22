@@ -29,15 +29,17 @@ case "$title" in
     "Install - "*|"Updating "*|"Ready - "*|*" - Steam"|"Properties - "*)
         echo "state=floating";;
     *"Friends List"*)
-        echo "desktop=1";;
+        echo "desktop=1 follow=off";;
     "Rocket League "*)
         echo "desktop=X";;
     *Vampire*)
         echo "desktop=X state=fullscreen";;
     *Signal*)
-        echo "desktop=IX";;
+        echo "desktop=IX follow=off";;
+    *Thunderbird*)
+        echo "desktop=IX follow=off";;
     *Spotify*)
-        echo "desktop=IX";;
+        echo "desktop=IX follow=off";;
     *SFML*)
         echo "state=floating";;
     *Pianoteq*)

@@ -54,6 +54,10 @@
 ;; EVIL-NERD-COMMENTER: Easy un/comment
 (straight-use-package 'evil-nerd-commenter)
 
+;; EVIL-VILUALSTAR: Search selected thing with *
+(straight-use-package 'evil-visualstar)
+(global-evil-visualstar-mode)
+
 ;; EVIL-SURROUND:
 (straight-use-package 'evil-surround)
 ;; start mode

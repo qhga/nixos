@@ -40,6 +40,7 @@ in
       # };
       downloads.remove_finished = 5000;
       content = {
+        javascript.can_access_clipboard = true;
         blocking.method = "both";
         blocking.adblock.lists = [
           "https://easylist.to/easylist/easylist.txt"
