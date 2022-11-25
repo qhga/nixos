@@ -129,3 +129,5 @@ cali http://10.10.10.3:9003/#/
 miro https://miro.com/app/
 http https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 local http://127.0.0.1:6969/
+solid http://localhost:3000/
+tailwind https://tailwind-elements.com/docs/standard/components/buttons/

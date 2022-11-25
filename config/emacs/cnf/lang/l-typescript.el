@@ -61,7 +61,7 @@
 (general-def
   :states '(normal visual)
   :keymaps 'web-tide-mode-map
-  "=" 'evil-tide-format)
+  "=" 'prettier-js)
 
 ;; This has to be set again here despite already being configured
 ;; because tide requires typescript-mode, which inserts itself

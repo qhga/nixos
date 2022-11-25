@@ -4,8 +4,8 @@
 (require 'a-dired)
 ;; TRAMP
 (require 'a-tramp)
-;; GNUS
-(require 'a-gnus)
+;; GNUS -> Thunderbird
+;; (require 'a-gnus)
 ;; SHELL
 (require 'a-shell)
 ;; VTERM

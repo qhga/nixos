@@ -19,4 +19,7 @@
   "SPC e" '((lambda() (interactive) (evil-append 1) (emmet-expand-line nil))
             :which-key "expand emmet"))
 
+;; TAILWINDCSS
+(straight-use-package 'lsp-tailwindcss)
+
 (provide 'l-web)
