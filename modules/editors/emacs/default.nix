@@ -31,7 +31,7 @@
     gcc
     # llvm libllvm
     # Microcontroller
-    # platformio avrdude
+    platformio avrdude
     # Rust
     # rustc cargo rustfmt rust-analyzer clippy
     # Otherwise rustic org codeblocks do not work

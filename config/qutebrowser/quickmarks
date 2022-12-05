@@ -116,8 +116,8 @@ osint https://osintframework.com/
 epic https://store.epicgames.com/en-US/
 stuff https://lustre.ai/creator/randomfrankp
 optimus http://localhost:8081/
-element https://chat.icyou.icu/
-ggit https://git.glou-it.de/
+element https://chat.team.leitwert.net/#/room/!OXYOQnpZvqSBukpUKl:matrix.team.leitwert.net
+ggit https://git.glou.leitwert.net/
 gloue https://element.glou-it.de/
 np https://search.nixos.org/packages
 nb https://nixos.org/manual/nix/stable/language/builtins.html
@@ -131,3 +131,4 @@ http https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 local http://127.0.0.1:6969/
 solid http://localhost:3000/
 tailwind https://tailwind-elements.com/docs/standard/components/buttons/
+synad http://127.0.0.1:9001/#/login

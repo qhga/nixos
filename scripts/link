@@ -4,3 +4,4 @@
 ln -sf $HOME/sync/pw $HOME/.password-store
 ln -sf $HOME/sync/app_data/emacs/.authinfo.gpg $HOME/
 ln -sf $HOME/sync/ssh $HOME/.ssh
+ln -sf /fast/git $HOME/git

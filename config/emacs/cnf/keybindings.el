@@ -26,8 +26,7 @@
   :states 'motion
   :keymaps '(compilation-mode-map)
   "a" 'ace-window
-  )
-
+  "k k" 'kill-buffer-and-window)
 
 ;; EMACS-WIDE BINDINGS
 (phgas-leader

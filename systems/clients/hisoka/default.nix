@@ -1,10 +1,10 @@
-{ config, lib, pkgs, user, dotf, pianoteq, ... }:
+{ config, lib, pkgs, user, dotf, pianoteq, blender-bin, ... }:
 
 {
 
   imports = [
     ./hardware-configuration.nix
-    ../../../modules/misc/gns3
+    # ../../../modules/misc/gns3
   ];
 
   # To use the latest kernel
@@ -52,9 +52,11 @@
     # There is also the binary version overlay "blender-bin"
     # but that did not ship with libstdc++ and I do not understand how
     # to make that work with overlays or anything else (yet: 2022-10-08T20:33)
-    (self: super: {
-      blender_cuda = super.blender.override { cudaSupport = true; };
-    })
+    # Needs to recompile -> Use this if you need special external dependencies for plugins
+    # (self: super: {
+    #   blender_cuda = super.blender.override { cudaSupport = true; };
+    # })
+    blender-bin.overlays.default
   ];
 
   services = {
@@ -71,12 +73,14 @@
 
   environment.systemPackages = with pkgs; [
     legendary-gl
-    blender_cuda cudatoolkit
+    # blender_cuda cudatoolkit
+    blender_3_3
     freecad
     pianoteq.packages.x86_64-linux.default
     protontricks
     protonup
   ];
+
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
