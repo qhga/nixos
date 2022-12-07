@@ -32,7 +32,8 @@ normal() {
         "hisoka")
             # Rest was in  nvidia-config but I ditched it for this
             xrandr --output $outp1 --mode 2560x2880 --dpi 96 --pos 0x0 --rate 59.97 --primary
-            xrandr --output $outp2 --mode 1920x1080 --dpi 96 --pos 2560x900 --rate 143.85
+            xrandr --output $outp2 --mode 2560x2880 --dpi 96 --pos 2560x900 --rate 59.97
+            # xrandr --output $outp2 --mode 1920x1080 --dpi 96 --pos 2560x900 --rate 143.85
 
             bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
             bspc config -m $outp1 top_padding 20

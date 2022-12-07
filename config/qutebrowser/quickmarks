@@ -132,3 +132,4 @@ local http://127.0.0.1:6969/
 solid http://localhost:3000/
 tailwind https://tailwind-elements.com/docs/standard/components/buttons/
 synad http://127.0.0.1:9001/#/login
+advent https://adventofcode.com/

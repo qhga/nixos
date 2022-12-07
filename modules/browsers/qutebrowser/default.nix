@@ -6,6 +6,7 @@ in
 
   programs.qutebrowser = {
     enable = true;
+    package = pkgs.qutebrowser-qt6;
     loadAutoconfig = true;
     settings = {
       qt.args = [ "widevine-path=${pkgs.vivaldi-widevine}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so" ];
@@ -40,7 +41,8 @@ in
       # };
       downloads.remove_finished = 5000;
       content = {
-        javascript.can_access_clipboard = true;
+        # javascript.can_access_clipboard = true;
+        javascript.clipboard = "access";
         blocking.method = "both";
         blocking.adblock.lists = [
           "https://easylist.to/easylist/easylist.txt"

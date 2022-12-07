@@ -68,6 +68,22 @@
 ;; PROJECTILE
 (straight-use-package 'projectile)
 (straight-use-package 'counsel-projectile)
+;; https://github.com/gfredericks/dotfiles/
+;; https://github.com/bbatsov/projectile/pull/566
+;; https://github.com/bbatsov/projectile/issues/1387
+;; https://github.com/bbatsov/projectile/issues/1404
+;; Requires: NOFLET / FLET
+;; https://emacsredux.com/blog/2013/09/05/a-proper-replacement-for-flet/
+(straight-use-package 'noflet)
+(require 'noflet)
+(defun do-not-use-file-truename-in-projectile-project-root
+    (old-fn &rest args)
+  (noflet ((file-truename (d) d))
+    (apply old-fn args)))
+(advice-add 'projectile-project-root :around 'do-not-use-file-truename-in-projectile-project-root)
+
+;; (add-to-list 'projectile-project-root-files-bottom-up "Cargo.toml")
+
 (counsel-projectile-mode)
 (straight-use-package 'imenu-anywhere)
 
