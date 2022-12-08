@@ -8,7 +8,13 @@
   ];
 
   # To use the latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    kernelParams =
+      [ "nvidia-drm.modeset=1" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+  };
+
 
   # To pin the kernel to a specific version
   # The kernel packages are here: https://cdn.kernel.org/pub/linux/kernel
@@ -62,6 +68,19 @@
   services = {
     xserver = {
       videoDrivers = [ "nvidia" ];
+      config = ''
+        Section "Device"
+            Identifier "nvidia"
+            Driver "nvidia"
+            BusID "PCI:1:0:0"
+            Option "AllowEmptyInitialConfiguration"
+        EndSection
+      '';
+      screenSection = ''
+        Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+        Option         "AllowIndirectGLXProtocol" "off"
+        Option         "TripleBuffer" "on"
+      '';
     };
   };
 

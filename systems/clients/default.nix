@@ -96,7 +96,10 @@
 
   # Enable the X11 windowing system.
   services = {
-    picom.enable = true; # Default settings are sensible
+    picom = {
+      enable = true; # Default settings are sensible
+      # vSync = true;
+    };
     blueman.enable = true;
     redshift = {
       enable = true;
