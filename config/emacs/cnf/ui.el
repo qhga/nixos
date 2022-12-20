@@ -9,7 +9,7 @@
       scroll-step 2 ;; keyboard scroll two lines at a time
       frame-title-format "Allmighty Editor w/o Kitchen Sink")
 
-(blink-cursor-mode t)
+(blink-cursor-mode nil)
 (show-paren-mode t)
 
 (global-linum-mode -1)
@@ -172,5 +172,15 @@ If INC is not nil increase the font size else decrease it"
 
 ;; OLIVETTI: Distraction free writing in some buffers
 (straight-use-package 'olivetti)
+
+;; SHACKLE: Lets buffers do what you want
+;; :inhibit-window-quit t -> Keep window on "q" quit
+;; :align 'above 'left 'right 'below -> Alignment of the new window
+;; :frame t -> put into new frame
+;; :custom 'fun -> execute custom function with BUFFER-OR-NAME, ALIST, PLIST returns window or nil
+;; :other t -> reuse other window if available or create new one
+(straight-use-package 'shackle)
+(setq shackle-rules '((compilation-mode :popup t :align 'below :size 0.3)))
+(shackle-mode t)
 
 (provide 'ui)

@@ -1,6 +1,8 @@
 (defvar phga/sync "~/sync")
 (defvar phga/lumi "~/lumi")
-(defvar phga/git "~/git")
+(if (string= "hisoka" (system-name))
+    (defvar phga/git "/fast/git")
+(defvar phga/git "~/git"))
 (defvar phga/pw "~/.password-store")
 (defvar phga/work (concat phga/sync "/work"))
 (defvar phga/emacsconf "~/.emacs.d/cnf")
@@ -13,7 +15,7 @@
 ;; Ged rid of default bindings I don't enjoy :<
 (general-def :states '(normal insert emacs visual) :keymaps 'override
   ;; This motherf***** + another ESC used to close my windows. NOO MOOORE!
-  "M-ESC" '(lambda () (interactive) (message "You pressed it again Mr. Fatfinger...")))
+  "M-ESC" (lambda () (interactive) (message "You pressed it again Mr. Fatfinger...")))
 
 
 (general-def
@@ -38,8 +40,7 @@
   "SPC SPC" 'counsel-M-x
 
   "a" 'ace-window
-  "d" 'dired
-  "D" 'dired-other-window
+  "d" (lambda () (interactive) (message "Nah we ain't using this anymore (;"))
   "f" 'counsel-find-file
   "F" 'phga/find-file-sudo
   "g" 'magit-status
