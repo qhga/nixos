@@ -5,7 +5,8 @@
               comint-terminfo-terminal "dumb" ;; compilation output escape sequences
               compilation-read-command t
               compilation-scroll-output t
-              compilation-window-height 45)
+              compilation-window-height nil ;; 45
+              )
 
 
 (add-hook 'prog-mode-hook (lambda () (require 'whitespace)
@@ -22,6 +23,11 @@
 ;; RAINBOW-DELIMITERS: colorful parens
 (straight-use-package 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+;; FIC: Highlight TODO/FIXME/etc. in code comments
+(straight-use-package 'fic-mode)
+(setq fic-highlighted-words '("FIXME" "TODO" "BUG" "NOTE"))
+(add-hook 'prog-mode-hook 'fic-mode)
 
 ;; COMPANY: autocompletion
 (straight-use-package 'company)
@@ -74,6 +80,7 @@
 ;; https://github.com/bbatsov/projectile/issues/1404
 ;; Requires: NOFLET / FLET
 ;; https://emacsredux.com/blog/2013/09/05/a-proper-replacement-for-flet/
+;; Fix for symlinks in projectile paths
 (straight-use-package 'noflet)
 (require 'noflet)
 (defun do-not-use-file-truename-in-projectile-project-root
@@ -82,7 +89,30 @@
     (apply old-fn args)))
 (advice-add 'projectile-project-root :around 'do-not-use-file-truename-in-projectile-project-root)
 
-;; (add-to-list 'projectile-project-root-files-bottom-up "Cargo.toml")
+;; Adjust the search from bottom-up to top-down
+;; This helps if you have a project inside a project.
+;; Example:
+;; .
+;; └── 2022                 <- bottom-up project root
+;;     ├── .git
+;;     ├── day01            <- top-down project root 1
+;;     │   ├── Cargo.lock
+;;     │   ├── Cargo.toml
+;;     │   ├── src
+;;     │   │   └── main.rs
+;;     └── day02            <- top-down project root 2
+;;         ├── Cargo.lock
+;;         ├── Cargo.toml
+;;         └── src
+;;             └── main.rs
+;; Maybe this sucks for mixed projects (backend/frontend)
+;; One could use `SPC p d` for these cases
+(setq projectile-project-root-functions
+      '(projectile-root-local
+        projectile-root-top-down
+        projectile-root-bottom-up
+        projectile-root-top-down-recurring
+        ))
 
 (counsel-projectile-mode)
 (straight-use-package 'imenu-anywhere)

@@ -27,7 +27,7 @@ in
         completion.entry = font;
         completion.category = font;
       };
-      zoom.default = "100%";
+      zoom.default = "125%";
       tabs = {
         favicons.scale = 0.8;
         # padding = {
@@ -214,7 +214,7 @@ in
       normal = {
         "${leader}p" = "spawn --userscript qute-pass -U secret -u '^login: (.+)'";
         "${leader}y" = "spawn --userscript qute-pass --password-only";
-        "${leader}Y" = "spawn --userscript qute-pass --username-only";
+        "${leader}Y" = "spawn --userscript qute-pass -U secret --username-only -u '^login: (.+)'";
         "${leader}m" = "spawn sh -c '${pkgs.yt-dlp}/bin/yt-dlp {url} -o - | ${pkgs.mpv}/bin/mpv -'";
         "gP" = "tab-give --private";
         "gG" = "tab-give";

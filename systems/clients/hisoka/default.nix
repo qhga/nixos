@@ -93,7 +93,7 @@
   environment.systemPackages = with pkgs; [
     legendary-gl
     # blender_cuda cudatoolkit
-    blender_3_3
+    blender_3_4
     freecad
     pianoteq.packages.x86_64-linux.default
     protontricks

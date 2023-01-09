@@ -9,6 +9,7 @@
       rustic-lsp-server 'rust-analyzer)
 
 (add-hook 'rust-mode-hook 'lsp)
+(add-hook 'rust-mode-hook (lambda () (setq-local projectile-project-test-cmd "cargo test -- --show-output")))
 
 (general-def
   :states 'normal
