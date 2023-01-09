@@ -225,7 +225,10 @@
 ;; DIRENV: works by invoking direnv to obtain the environment for the current file, then
 ;; updating the emacs variables process-environment and exec-path
 (straight-use-package 'direnv)
-(advice-add 'lsp :before #'direnv-update-environment)
+(defun phga/direnv-update() (interactive)
+       (message "Updated environment because lsp was invoked")
+       (direnv-update-environment))
+(advice-add 'lsp :before #'phga/direnv-update)
 
 ;; OTHER SMALL LANGUAGES: with nearly no setup
 ;; JS

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: walkdir
+# key: wd>
+# --
+
+let parsed_files = WalkDir::new("BASE_DIR")
+    .into_iter()
+    .filter_map(|p| p.ok())
+    .filter(|p| !p.path().is_dir())
+    .map(|d| String::from(d.path().to_string_lossy()))
+    .collect::<Vec<String>>();

@@ -15,7 +15,8 @@ case $HOSTNAME in
                 ;;
             *)
                 outp1="HDMI-0"
-                outp2="DP-4"
+                outp2="DP-2"
+                outp3="DP-0"
                 ;;
         esac
 esac
@@ -26,18 +27,26 @@ normal() {
             xrandr --output $outp1 --primary --auto --dpi 96 --rotate normal \
                    --output DP-2 --off --output $outp2 --off --output DP-3 --off \
                    --output DP-1-1 --off --output DP-1-3 --off
-            bspc monitor $outp1 -d I II III IV V VI VII VIII IX X
+            bspc monitor $outp1 -d 1 2 3 4 5 6 7 8 9 10
             bspc config -m $outp1 top_padding 20
             ;;
         "hisoka")
             # Rest was in  nvidia-config but I ditched it for this
             xrandr --output $outp1 --mode 2560x2880 --dpi 96 --pos 0x0 --rate 59.97 --primary
             xrandr --output $outp2 --mode 2560x2880 --dpi 96 --pos 2560x0 --rate 59.97
-            # xrandr --output $outp2 --mode 1920x1080 --dpi 96 --pos 2560x900 --rate 143.85
+            xrandr --output $outp3 --off
 
-            bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
-            bspc config -m $outp1 top_padding 20
-            bspc config -m $outp2 top_padding 0
+            bspc monitor $outp1 --rename MON1
+            bspc monitor $outp2 --rename MON2
+            bspc monitor $outp3 --rename OFF
+
+            bspc monitor MON1 -d 1 2 3 4 5 6 7 8 9
+            bspc monitor MON2 -d 10
+            # bspc monitor $outp1 -d 1 2 3 4 5 6 7 8 9 &&
+            #     bspc monitor $outp2 -d 10 &&
+            #     bspc monitor $outp1 -r
+            bspc config -m MON1 top_padding 20
+            bspc config -m MON2 top_padding 0
 
             # Disable monitor power saving
             xset -dpms # Disables Energy Star features
@@ -46,12 +55,24 @@ normal() {
     esac
 }
 
+gaming() {
+    xrandr --output $outp3 --mode 1920x1080 --dpi 96 --pos 0x0 --rate 143.85 --primary
+    xrandr --output $outp2 --mode 2560x2880 --dpi 96 --pos 1920x0 --rate 59.97
+    xrandr --output $outp1 --off
+
+    bspc monitor $outp3 --rename MON1
+    bspc monitor $outp1 --rename OFF
+
+    bspc monitor MON1 -d 1 2 3 4 5 6 7 8 9
+    bspc monitor MON2 -d 10
+}
+
 dock() {
     dp1="DP-1-1"
     dp2="DP-1-3"
     xrandr --output $dp1 --primary --auto --output $dp2 --auto --right-of $dp1 --output $outp1 --off
-    bspc monitor $dp1 -d I II III IV V VI VII VIII IX
-    bspc monitor $dp2 -d X
+    bspc monitor $dp1 -d 1 2 3 4 5 6 7 8 9
+    bspc monitor $dp2 -d 10
     bspc config -m $dp1 top_padding 30
     bspc config -m $dp2 top_padding 0
 }
@@ -66,31 +87,31 @@ wacom() {
 
 lwacom() {
     xrandr --output $outp2 --primary --auto --rotate inverted --output DP-1 --auto --below $outp2 --output $outp1 --off
-    bspc monitor $outp2 -d I II III IV V VI VII VIII IX && bspc monitor DP-1 -d X
+    bspc monitor $outp2 -d 1 2 3 4 5 6 7 8 9 && bspc monitor DP-1 -d 10
     $HOME/.dotfiles/wacom/set_buttons.sh "DP-1"
 }
 
 lwacomOnTour() {
     xrandr --output $outp2 --auto --output $outp1 --primary --auto --left-of $outp2
-    bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
+    bspc monitor $outp1 -d 1 2 3 4 5 6 7 8 9 && bspc monitor $outp2 -d 10
     $HOME/.dotfiles/wacom/set_buttons.sh "$outp2"
 }
 
 lwacomOnTourRotated() {
     xrandr --output $outp2 --auto --rotate right --output $outp1 --primary --auto --left-of $outp2
-    bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
+    bspc monitor $outp1 -d 1 2 3 4 5 6 7 8 9 && bspc monitor $outp2 -d 10
     $HOME/.dotfiles/wacom/set_buttons.sh "$outp2"
 }
 
 calibrate() {
     xrandr --output $outp1 --off --output DP-3 --auto --primary
-    bspc monitor DP-3 -d I II III IV V VI VII VIII IX X
+    bspc monitor DP-3 -d 1 2 3 4 5 6 7 8 9 10
     $HOME/.dotfiles/wacom/set_buttons.sh
 }
 
 extend() {
     xrandr --output $outp1 --primary --mode 1920x1080 --output $outp2 --auto --right-of $outp1
-    bspc monitor $outp1 -d I II III IV V VI VII VIII IX && bspc monitor $outp2 -d X
+    bspc monitor $outp1 -d 1 2 3 4 5 6 7 8 9 && bspc monitor $outp2 -d 10
     bspc config -m $outp2 top_padding 0
 }
 
@@ -100,11 +121,12 @@ praesi() {
     # xrandr --output $outp1 --auto --primary --output $outp2 --mode 1920x1080 --auto --same-as $outp1
     # xrandr --output $outp1 --auto --output $outp2 --primary --auto --same-as $outp1
     bspc monitor $outp2 -r
-    bspc monitor $outp1 -d I II III IV V VI VII VIII IX X
+    bspc monitor $outp1 -d 1 2 3 4 5 6 7 8 9 10
 }
 
-while getopts "lwnsbedphcaoO" opt;
+while getopts "lwnsbedphcaogO" opt;
 do case $opt in
+       g) gaming ;;
        w) wacom ;;
        l) lwacom ;;
        o) lwacomOnTour ;;

@@ -177,6 +177,10 @@ _rescue_term() {
     echo "%{A:$scripts/terminal.sh:}%{T2}%{T-}%{A}"
 }
 
+_to_the_bottom() {
+    echo "%{A:$scripts/to_the_bottom.sh:}%{T2}▾ %{T-}%{A}"
+}
+
 # Include all modules in a single infinite loop that iterates every
 # second (adjust interval accordingly, as it can be taxing on system
 # resources).
@@ -303,7 +307,7 @@ _panel() {
             # left="%{B$bg} $wm%{B-}$RSPC"
             left="%{B$bg} $wm $(_window_title) %{B-}$RSPC"
             # middle="$MLSP%{B$bg} $(_window_title) %{B-}$MRSP"
-            right="$LSPC%{B$bg}$(_rescue_term) $bat $net $therm $date$tr%{B-}"
+            right="$LSPC%{B$bg}$(_to_the_bottom) $(_rescue_term) $bat $net $therm $date$tr%{B-}"
 
 			      echo "%{l} $left%{c}$middle%{r}$right  "
 		    }

@@ -1,0 +1,38 @@
+# -*- mode: snippet -*-
+# name: argument-parser
+# key: arg>
+# --
+// Requires: clap = { version = "4", features = ["cargo"] }
+let matches = command!()
+    .subcommand(
+        Command::new("run")
+            .subcommand(Command::new("parse"))
+            .subcommand(Command::new("classify")),
+    )
+    .subcommand(
+        Command::new("test")
+                    //name: -s --"long-flag" <SOMETHING> "Description"
+            .arg(arg!(redis_cmd: --"redis-cmd" <REDIS_CMD> "Custom redis-graph cmd").required(false)),
+    )
+    .get_matches();
+
+
+match matches.subcommand() {
+    Some(("run", sub_matches)) => {
+        match sub_matches.subcommand() {
+            Some(("parse", sm)) => {
+                println!("Starting parsing the files");
+            }
+            Some(("classify", sm)) => {
+                println!("Starting classification...");
+            }
+            _ => unreachable!(),
+        }
+    }
+    Some(("test", sub_matches)) => {
+        if let Some(cmd) = sub_matches.get_one::<String>("redis_cmd") {
+            println!("Running: {}", cmd);
+        }
+    }
+    _ => unreachable!(),
+}

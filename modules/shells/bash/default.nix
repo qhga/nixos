@@ -40,7 +40,7 @@ in {
         rm="rm -I --preserve-root";
         monitor="${dotf}/config/bspwm/monitor";
         switch_yubi="gpg-connect-agent 'scd serialno' 'learn --force' /bye";
-        lp="lp -h 10.10.10.3:631 -d HLL2350DW";
+        lp="${dotf}/scripts/print";
         copy="rsync -avhW --no-compress --progress --ignore-errors";
         java_new_project="${dotf}/scripts/java/create_project";
         docker_stop_all="docker stop $(docker ps -q)";
@@ -49,8 +49,4 @@ in {
       };
     };
   };
-
-  # home.file.".bashrc".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bash/bashrc";
-  # home.file.".bash_aliases".source = config.lib.file.mkOutOfStoreSymlink "${dotf}/config/bash/bash_aliases";
-
 }

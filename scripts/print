@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+nix-shell -p cups --run "lp -h 10.10.10.3:631 -d HLL2350DW $1"
