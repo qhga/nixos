@@ -40,7 +40,12 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services = {
-    xserver.libinput.enable = true;
+    xserver = {
+      libinput =  {
+        enable = true;
+        touchpad.tapping = false;
+      };
+    };
     tlp = {
       enable = true;
       # settings = {};
@@ -53,11 +58,13 @@
     networkmanager_dmenu
     networkmanagerapplet
     caffeine-ng
+    # realvnc-vnc-viewer
   ];
 
   hardware = {
     acpilight.enable = true; # user has to be in video group
     cpu.intel.updateMicrocode = true;
+    bluetooth.enable = true;
   };
 
   users.users.phga = {
